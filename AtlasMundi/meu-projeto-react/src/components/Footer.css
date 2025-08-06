@@ -1,0 +1,45 @@
+.footer {
+    background-color: white;
+    box-shadow: 0 -2px 6px #5E78A0;
+    width: 100%;
+    padding: 3px 0;
+    margin-top: auto;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .logo {
+    margin-left: -18.6vw;
+  }
+  
+  .footer .logo img {
+    background-color: rgb(247, 247, 247);
+    border-radius: 5px;
+    border: 1.45px solid #5E78A0;
+    height: 52px;
+  }
+  
+  .footer-text {
+    margin-right: -17vw;
+    font-size: 0.9rem;
+    color: #5E78A0;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: row;
+      justify-content: center;
+      text-align: center;
+      gap: 15vh;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+  
