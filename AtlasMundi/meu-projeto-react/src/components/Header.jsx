@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Header.css';
+import logo from '../assets/logo.png'
 
 function Header() {
   const [language, setLanguage] = useState('pt');
@@ -31,10 +32,7 @@ function Header() {
     <header className="header">
       <div className="header-container">
         <div className="logo-header">
-          <img
-            src="https://github.com/user-attachments/assets/1c90d2d4-fd7b-4072-bd51-f8ee0aaabcf2"
-            alt="Logo"
-          />
+          <img src={logo} alt="Logo"/>
         </div>
 
         <nav className="nav">

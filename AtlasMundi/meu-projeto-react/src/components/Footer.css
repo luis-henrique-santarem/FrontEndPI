@@ -1,5 +1,5 @@
 .footer {
-    background-color: white;
+    background-color: #0d2b61;
     box-shadow: 0 -2px 6px #5E78A0;
     width: 100%;
     padding: 3px 0;
@@ -20,16 +20,14 @@
   }
   
   .footer .logo img {
-    background-color: rgb(247, 247, 247);
     border-radius: 5px;
-    border: 1.45px solid #5E78A0;
     height: 52px;
   }
   
   .footer-text {
     margin-right: -17vw;
     font-size: 0.9rem;
-    color: #5E78A0;
+    color: white;
   }
   
   @media (max-width: 768px) {
