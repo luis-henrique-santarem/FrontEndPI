@@ -9,7 +9,7 @@ function Footer() {
         <div className="logo">
           <img src= {logo}  alt="Logo" />
         </div>
-        <p className="footer-text">© 2025 AtlasMundi.</p>
+        <p className="footer-text">© 2025 AtlasMundi</p>
       </div>
     </footer>
   );
