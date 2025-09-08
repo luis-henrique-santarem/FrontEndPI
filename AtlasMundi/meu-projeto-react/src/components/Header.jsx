@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import './Header.css';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
+
 
 function Header() {
   const [language, setLanguage] = useState('pt');
 
   const translations = {
     pt: {
-      home: 'Home',
-      sobre: 'Sobre',
-      servicos: 'Serviços',
-      contato: 'Contato',
+      login: 'Logar',
+      register: 'Cadastrar',
+      search: 'Pesquisar...',
       switch: 'EN',
     },
     en: {
-      home: 'Home',
-      sobre: 'About',
-      servicos: 'Services',
-      contato: 'Contact',
+      login: 'Login',
+      register: 'Register',
+      search: 'Search...',
       switch: 'PT',
     },
   };
@@ -32,17 +31,14 @@ function Header() {
     <header className="header">
       <div className="header-container">
         <div className="logo-header">
-          <img src={logo} alt="Logo"/>
+          <img src={logo} alt="Logo" />
         </div>
 
         <nav className="nav">
-          <a href="#home">{t.home}</a>
-          <a href="#sobre">{t.sobre}</a>
-          <a href="#servicos">{t.servicos}</a>
-          <a href="#contato">{t.contato}</a>
-          <button className="lang-btn" onClick={toggleLanguage}>
-            {t.switch}
-          </button>
+          <input type="text" className="search-input" placeholder={t.search}/>
+          <button className="btn-auth">{t.login}</button>
+          <button className="btn-auth">{t.register}</button>
+          <button className="lang-btn" onClick={toggleLanguage}>{t.switch}</button>
         </nav>
       </div>
     </header>

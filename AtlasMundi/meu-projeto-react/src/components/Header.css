@@ -1,75 +1,149 @@
+.header {
+  background-color: #0d2b61;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 8px 0;
+}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-      font-family: "IBM Plex Sans", sans-serif;
-  }
-  
-  .header {
-    background-color: #0d2b61;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    padding-top: 4px;
-  }
-  
-  .header-container {
-    max-width: 1200px;
-    padding: 0.3rem ;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    
-  }
-  
-  .logo-header img {
+.header-container {
+  max-width: 1900px;
+  margin: 0 auto;
+  padding: 0.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-header img {
+  max-height: 43px;
+  max-width: 120px;
+  width: auto;
+  height: auto;
   border-radius: 5px;
-  height: 52px;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 2rem;
-    margin-right: -37vw;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    font-weight: 500;
-    color: white;
-    transition: color 0.3s ease;
-  }
-  
-  .nav a:hover {
-    color: #e0850d;
-  }
-  
-  @media (max-width: 768px) {
-    .nav {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-right: 0;
-    }
-  }
+  object-fit: contain;
+  display: block;
+}
 
-  .lang-btn {
-    background-color: #1452c5;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 12px;
-    font-size: 0.7rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .lang-btn:hover {
-    background-color: #e0850d;
-    border: #3c5578;
-  }
-  
-  
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.search-input {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;  
+  outline: none;
+  font-size: 0.9rem;
+  min-width: 180px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #1452c5;
+}
+
+.btn-auth {
+  background-color: #1452c5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-auth:hover {
+  background-color: #e0850d;
+}
+
+.lang-btn {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.lang-btn:hover {
+  background-color: #e0850d;
+  color: #fff;
+}
+
+/* ====================== */
+/* MODAL */
+/* ====================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 350px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.auth-form input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.role-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+.role-tabs button {
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
+}
+
+.role-tabs button.active {
+  background: #1452c5;
+  color: #fff;
+}

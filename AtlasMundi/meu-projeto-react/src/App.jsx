@@ -56,6 +56,7 @@ const App = () => {
         <Route path="/historia" element={<Historia />} />
         <Route path="/politica" element={<Politica />} />
         <Route path="/cultura" element={<Cultura />} />
+        
         </Routes>
       
 
