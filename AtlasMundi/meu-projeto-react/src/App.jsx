@@ -1,18 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Information from "./components/information";
+import Information from "./components/Information";
 import Historia from "./components/Historia";
 import Politica from "./components/Politica";
 import Cultura from "./components/Cultura";
 import './App.css';
+
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { useState, useEffect } from 'react';
 
 const App = () => {
   const [geoData, setGeoData] = useState(null);
-  
-  
+  const [showInfo, setShowInfo] = useState(false);
+  const [nomePais, setNomePais] = useState('');
+
   useEffect(() => {
     fetch('/custom.geo.json')
       .then((res) => res.json())
@@ -35,24 +37,36 @@ const App = () => {
   };
 
   function onEachCountry(feature, layer) {
+    const countryName = feature.properties.admin_pt || feature.properties.name_pt;
+    const isoCode = feature.properties.iso_a2;
+    const idBotao = `btn-${isoCode}`;
+
     layer.on({
       mouseover: (e) => e.target.setStyle(highlightStyle),
       mouseout: (e) => e.target.setStyle(defaultStyle),
+      popupopen: () => {
+        setTimeout(() => {
+          const botao = document.getElementById(idBotao);
+          if (botao) {
+            botao.addEventListener('click', () => {
+              setNomePais(countryName);
+              setShowInfo(true);
+            }, { once: true });
+          }
+        }, 0);
+      },
     });
-
-    const countryName = feature.properties.admin_pt || feature.properties.name_pt;
-    const isoCode = feature.properties.iso_a2;
 
     if (isoCode) {
       const flagUrl = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
 
       layer.bindPopup(`
-      <div class="popup-content">
-        <strong>${countryName}</strong><br/>
-        <img src="${flagUrl}" alt="Bandeira de ${countryName}" class="popup-flag" />
-        <button class="popup-button">Clique aqui</button>
-      </div>
-    `);
+        <div style="text-align: center;">
+          <strong>${countryName}</strong><br/>
+          <img src="${flagUrl}" alt="Bandeira de ${countryName}" width="40"/><br/>
+          <button id="${idBotao}">Click</button>
+        </div>
+      `);
     } else {
       layer.bindPopup(`<strong>${countryName}</strong>`);
     }
@@ -61,35 +75,43 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Routes>      
+      <Routes>
         <Route 
           path="/" 
           element={
-            <MapContainer 
-              center={[25, 0]} 
-              zoom={3} 
-              minZoom={2} 
-              maxBounds={[[-100, -180], [100, 180]]} 
-              worldCopyJump={false} 
-              maxBoundsViscosity={10.0} 
-              scrollWheelZoom={true} 
-              zoomControl={false}
-              style={{ height: "93.5vh", width: "100%" }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                noWrap={true}
-              />
-              {geoData && (
-                <GeoJSON 
-                  data={geoData} 
-                  style={defaultStyle} 
-                  onEachFeature={onEachCountry} 
+            <div style={{ position: 'relative' }}>
+              <MapContainer 
+                center={[25, 0]} 
+                zoom={3} 
+                minZoom={2} 
+                maxBounds={[[-100, -180], [100, 180]]} 
+                worldCopyJump={false} 
+                maxBoundsViscosity={10.0} 
+                scrollWheelZoom={true} 
+                zoomControl={false}
+                style={{ height: "93.5vh", width: "100%" }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  noWrap={true}
+                />
+                {geoData && (
+                  <GeoJSON 
+                    data={geoData} 
+                    style={defaultStyle} 
+                    onEachFeature={onEachCountry} 
+                  />
+                )}
+              </MapContainer>
+
+              {showInfo && (
+                <Information 
+                  nome={nomePais} 
+                  onClose={() => setShowInfo(false)} 
                 />
               )}
-              {/* <Information/> */}
-            </MapContainer>
+            </div>
           }
         />
         <Route path="/historia" element={<Historia />} />

@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Information.css'
 
-function Information() {
+function Information({nome}) {
   return (
     <div className='info'>
-        <h2 className='titlecountry'>Nome do país</h2>
+        <h2 className='titlecountry'>{nome}</h2>
         <img className='imgcountry' src="https://bandeira.net/wp-content/uploads/2018/08/bandeira-do-brasil-0.png" alt="Bandeira do país" />
         <p className='quickinformation'>Informações rápidas</p>
 
