@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Header.css';
 import logo from '../assets/logo.png';
+import icon from '../assets/search.png';
 import { Modal, Box, Typography, TextField, Button, Tabs, Tab } from '@mui/material';
 
 function Header() {
@@ -68,6 +69,7 @@ function Header() {
         </div>
 
         <nav className="nav">
+          <img src={icon} className="icony"></img>
           <input type="text" className="search-input" placeholder={t.search}/>
           <button className="btn-auth" onClick={() => setOpenLogin(true)}>{t.login}</button>
           <button className="btn-auth" onClick={() => setOpenRegister(true)}>{t.register}</button>

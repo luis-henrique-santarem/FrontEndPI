@@ -17,3 +17,34 @@ body {
   z-index: 1;
   background-color: #AAD3DF;
 }
+
+.popup-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; 
+  padding: 4px;
+}
+
+.popup-flag {
+  width: 50px;
+  height: auto;
+ 
+}
+
+.popup-button {
+  padding: 6px 14px;
+  background-color: #3388ff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
+
+.popup-button:hover {
+  background-color: #2266cc;
+}

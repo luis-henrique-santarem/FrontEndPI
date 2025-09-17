@@ -147,3 +147,12 @@
   background: #1452c5;
   color: #fff;
 }
+
+.icony{
+  width: 33px;
+  height: 33px;
+  position: relative;
+  left: 200px;
+  border-radius: 100px;
+  /* background-color: rgb(226, 226, 226); */
+}

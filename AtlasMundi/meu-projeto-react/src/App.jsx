@@ -11,7 +11,8 @@ import { useState, useEffect } from 'react';
 
 const App = () => {
   const [geoData, setGeoData] = useState(null);
-
+  
+  
   useEffect(() => {
     fetch('/custom.geo.json')
       .then((res) => res.json())
@@ -46,12 +47,12 @@ const App = () => {
       const flagUrl = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
 
       layer.bindPopup(`
-        <div style="text-align: center;">
-          <strong>${countryName}</strong><br/>
-          <img src="${flagUrl}" alt="Bandeira de ${countryName}" width="40"/>
-          <button> click  </button>
-        </div>
-      `);
+      <div class="popup-content">
+        <strong>${countryName}</strong><br/>
+        <img src="${flagUrl}" alt="Bandeira de ${countryName}" class="popup-flag" />
+        <button class="popup-button">Clique aqui</button>
+      </div>
+    `);
     } else {
       layer.bindPopup(`<strong>${countryName}</strong>`);
     }
@@ -87,7 +88,7 @@ const App = () => {
                   onEachFeature={onEachCountry} 
                 />
               )}
-              <Information />
+              {/* <Information/> */}
             </MapContainer>
           }
         />
