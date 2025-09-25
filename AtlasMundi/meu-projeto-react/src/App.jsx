@@ -8,12 +8,14 @@ import Cultura from "./components/Cultura";
 import './App.css';
 
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const App = () => {
   const [geoData, setGeoData] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const [nomePais, setNomePais] = useState('');
+  const [flagUrl, setFlagUrl] = useState(''); 
+  const mapRef = useRef();
 
   useEffect(() => {
     fetch('/custom.geo.json')
@@ -50,6 +52,11 @@ const App = () => {
           if (botao) {
             botao.addEventListener('click', () => {
               setNomePais(countryName);
+              if (isoCode) {
+                setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`); 
+              } else {
+                setFlagUrl('');
+              }
               setShowInfo(true);
             }, { once: true });
           }
@@ -58,12 +65,11 @@ const App = () => {
     });
 
     if (isoCode) {
-      const flagUrl = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
-
+      const flag = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
       layer.bindPopup(`
         <div style="text-align: center;">
           <strong>${countryName}</strong><br/>
-          <img src="${flagUrl}" alt="Bandeira de ${countryName}" width="40"/><br/>
+          <img src="${flag}" alt="Bandeira de ${countryName}" width="40"/><br/>
           <button id="${idBotao}">Click</button>
         </div>
       `);
@@ -72,9 +78,38 @@ const App = () => {
     }
   }
 
+  const handleSearch = (query) => {
+    if (!geoData || !query) return;
+
+    const found = geoData.features.find((f) => {
+      const countryName = f.properties.admin_pt || f.properties.name_pt || "";
+      return countryName.toLowerCase() === query.toLowerCase();
+    });
+
+    if (found) {
+      const countryName = found.properties.admin_pt || found.properties.name_pt;
+      const isoCode = found.properties.iso_a2;
+
+      setNomePais(countryName);
+      if (isoCode) {
+        setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`);
+      } else {
+        setFlagUrl('');
+      }
+      setShowInfo(true);
+
+      if (mapRef.current) {
+        const layer = L.geoJSON(found);
+        mapRef.current.fitBounds(layer.getBounds());
+      }
+    } else {
+      alert("País não encontrado!");
+    }
+  };
+
   return (
     <Router>
-      <Header />
+      <Header onSearch={handleSearch} />
       <Routes>
         <Route 
           path="/" 
@@ -85,11 +120,10 @@ const App = () => {
                 zoom={3} 
                 minZoom={2} 
                 maxBounds={[[-100, -180], [100, 180]]} 
-                worldCopyJump={false} 
-                maxBoundsViscosity={10.0} 
                 scrollWheelZoom={true} 
                 zoomControl={false}
                 style={{ height: "93.5vh", width: "100%" }}
+                whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -108,6 +142,7 @@ const App = () => {
               {showInfo && (
                 <Information 
                   nome={nomePais} 
+                  flagUrl={flagUrl}  
                   onClose={() => setShowInfo(false)} 
                 />
               )}

@@ -78,9 +78,7 @@
   color: #fff;
 }
 
-/* ====================== */
-/* MODAL */
-/* ====================== */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -148,11 +146,15 @@
   color: #fff;
 }
 
-.icony{
-  width: 33px;
-  height: 33px;
-  position: relative;
-  left: 200px;
-  border-radius: 100px;
-  /* background-color: rgb(226, 226, 226); */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;   /* espaço entre os elementos */
 }
+
+.icony {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+

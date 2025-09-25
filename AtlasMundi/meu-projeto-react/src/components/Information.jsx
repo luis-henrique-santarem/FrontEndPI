@@ -1,19 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './Information.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Information.css';
 
-function Information({nome}) {
+function Information({ nome, flagUrl, onClose }) {
   return (
     <div className='info'>
+        <button onClick={onClose} className="close-btn">X</button>
         <h2 className='titlecountry'>{nome}</h2>
-        <img className='imgcountry' src="https://bandeira.net/wp-content/uploads/2018/08/bandeira-do-brasil-0.png" alt="Bandeira do país" />
+        {flagUrl && ( <img className='imgcountry' src={flagUrl} alt={`Bandeira de ${nome}`} /> )}
         <p className='quickinformation'>Informações rápidas</p>
-
         <Link to="/historia" className='btninfo'>História</Link>
         <Link to="/politica" className='btninfo'>Política</Link>
         <Link to="/cultura" className='btninfo'>Cultura</Link>
     </div>
-  )
+  );
 }
 
-export default Information
+export default Information;
