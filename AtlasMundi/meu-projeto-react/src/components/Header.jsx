@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Header.css';
 import logo from '../assets/logo.png';
 import icon from '../assets/search.png';
+import menuIcon from '../assets/menu.png'; // <- adicione um ícone menu (hambúrguer)
+import closeIcon from '../assets/close.png'; // <- ícone para fechar o menu
 import {
   Modal,
   Box,
@@ -19,6 +21,7 @@ function Header({ onSearch }) {
   const [openRegister, setOpenRegister] = useState(false);
   const [registerTab, setRegisterTab] = useState(0);
   const [options, setOptions] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false); // <- controla o menu mobile
 
   const translations = {
     pt: {
@@ -55,9 +58,7 @@ function Header({ onSearch }) {
 
   const t = translations[language];
 
-  const toggleLanguage = () => {
-    setLanguage(prevLang => (prevLang === 'pt' ? 'en' : 'pt'));
-  };
+  const toggleLanguage = () => setLanguage(prev => (prev === 'pt' ? 'en' : 'pt'));
 
   const modalStyle = {
     position: 'absolute',
@@ -73,9 +74,9 @@ function Header({ onSearch }) {
 
   useEffect(() => {
     fetch('/custom.geo.json')
-      .then((res) => res.json())
-      .then((data) => {
-        const list = data.features.map((f) => {
+      .then(res => res.json())
+      .then(data => {
+        const list = data.features.map(f => {
           const name = f.properties.admin_pt || f.properties.name_pt || f.properties.name;
           const iso = f.properties.iso_a2;
           return {
@@ -86,7 +87,7 @@ function Header({ onSearch }) {
         });
         setOptions(list);
       })
-      .catch((err) => console.error("Erro ao carregar países:", err));
+      .catch(err => console.error('Erro ao carregar países:', err));
   }, []);
 
   return (
@@ -96,7 +97,17 @@ function Header({ onSearch }) {
           <img src={logo} alt="Logo" />
         </div>
 
-        <nav className="nav">
+        {/* Botão Hamburguer */}
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Abrir menu"
+        >
+          <img src={menuOpen ? closeIcon : menuIcon} alt="menu" />
+        </button>
+
+        {/* Menu principal */}
+        <nav className={`nav ${menuOpen ? 'active' : ''}`}>
           <img src={icon} className="icony" alt="Search Icon" />
 
           <Autocomplete
@@ -107,9 +118,6 @@ function Header({ onSearch }) {
               borderRadius: "20px",
               "& .MuiOutlinedInput-root": {
                 padding: "2px 8px",
-              },
-              "& .MuiInputLabel-root": {
-                fontSize: "0.9rem",
               },
             }}
             getOptionLabel={(option) => option.label}
@@ -137,29 +145,28 @@ function Header({ onSearch }) {
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "20px",
                     fontSize: "0.9rem",
-                    paddingLeft: "10px",
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "6px 8px",
                   },
                 }}
               />
             )}
             onChange={(e, value) => {
-              if (value && onSearch) {
-                onSearch(value.label);
-              }
+              if (value && onSearch) onSearch(value.label);
             }}
           />
 
-          <button className="btn-auth" onClick={() => setOpenLogin(true)}>{t.login}</button>
-          <button className="btn-auth" onClick={() => setOpenRegister(true)}>{t.register}</button>
+          <button className="btn-auth" onClick={() => setOpenLogin(true)}>
+            {t.login}
+          </button>
+          <button className="btn-auth" onClick={() => setOpenRegister(true)}>
+            {t.register}
+          </button>
           <button className="lang-btn" onClick={toggleLanguage}>
             {t.switch}
           </button>
         </nav>
       </div>
 
+      {/* Modal Login */}
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>{t.login}</Typography>
@@ -172,15 +179,12 @@ function Header({ onSearch }) {
         </Box>
       </Modal>
 
+      {/* Modal Cadastro */}
       <Modal open={openRegister} onClose={() => setOpenRegister(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>{t.register}</Typography>
 
-          <Tabs
-            value={registerTab}
-            onChange={(e, newValue) => setRegisterTab(newValue)}
-            centered
-          >
+          <Tabs value={registerTab} onChange={(e, val) => setRegisterTab(val)} centered>
             <Tab label={t.student} />
             <Tab label={t.teacher} />
           </Tabs>

@@ -1,36 +1,55 @@
-*{
+/* Reset global */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  background-color: #0d2b61;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* garante que o footer fique visível sem corte */
   overflow: hidden;
 }
-.leaflet-container {
-  position: relative;
+
+.map-wrapper {
+  flex: 1;
+  display: flex;
   width: 100%;
-  height:92.5vh;
-  width: 55%;
-  padding-right: 100%;
-  z-index: 1;
-  background-color: #AAD3DF;
+  height: calc(100vh - 110px); /* desconta altura média do header + footer */
+  background-color: #aad3df;
 }
 
+/* Leaflet ajusta automaticamente o espaço disponível */
+.leaflet-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background-color: #aad3df;
+  border: none;
+  z-index: 1;
+}
+
+/* ========== POPUPS ========== */
 .popup-content {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px; 
+  gap: 8px;
   padding: 4px;
 }
 
 .popup-flag {
   width: 50px;
   height: auto;
- 
 }
 
 .popup-button {
@@ -42,9 +61,82 @@ body {
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .popup-button:hover {
   background-color: #2266cc;
+}
+
+.footer {
+  background-color: #0d2b61;
+  color: white;
+  text-align: center;
+  padding: 0.8rem 0;
+  font-size: 0.9rem;
+  width: 100%;
+  flex-shrink: 0; 
+  z-index: 10;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.footer .logo img {
+  width: 70px;
+  height: auto;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.footer .logo img:hover {
+  transform: scale(1.05);
+}
+
+.footer-text {
+  font-size: 0.95rem;
+  color: #f5f5f5;
+  font-weight: 500;
+}
+
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .footer-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Celulares grandes */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer .logo img {
+    width: 55px;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  .footer {
+    font-size: 0.8rem;
+    padding: 0.7rem 0;
+  }
+
+  .footer .logo img {
+    width: 50px;
+  }
 }

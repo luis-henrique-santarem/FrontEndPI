@@ -1,7 +1,23 @@
 import { Link } from "react-router-dom";
-import './Cultura.css'
+import { useState } from "react";
+import "./Cultura.css";
+import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
 export default function Cultura() {
+  const [openComment, setOpenComment] = useState(false);
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    borderRadius: 2,
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <div className="cultura-container">
       <div className="cultura-content">
@@ -16,11 +32,47 @@ export default function Cultura() {
         </div>
       </div>
       <div className="cultura-buttons">
-        <Link to="/" className="btn">Início</Link>
-        <Link to="/politica" className="btn">Política</Link>
-        <Link to="/historia" className="btn">História</Link>
-        <Link to="/comentario" className="btn btn-special">Deixar Comentário</Link>
+        <Link to="/" className="btn">
+          Início
+        </Link>
+        <Link to="/politica" className="btn">
+          Política
+        </Link>
+        <Link to="/historia" className="btn">
+          História
+        </Link>
+        <button
+          onClick={() => setOpenComment(true)}
+          className="btn btn-special"
+        >
+          Deixar Comentário
+        </button>
       </div>
+
+      <Modal open={openComment} onClose={() => setOpenComment(false)}>
+        <Box sx={modalStyle}>
+          <Typography variant="h6" gutterBottom>
+            Deixar Comentário
+          </Typography>
+          <form className="auth-form">
+            <TextField
+              label="Comentário"
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
+              size="small"
+              margin="dense"
+            />
+            <Button variant="contained" color="primary" fullWidth>
+              Enviar
+            </Button>
+            <Button onClick={() => setOpenComment(false)} fullWidth>
+              Sair
+            </Button>
+          </form>
+        </Box>
+      </Modal>
     </div>
   );
 }

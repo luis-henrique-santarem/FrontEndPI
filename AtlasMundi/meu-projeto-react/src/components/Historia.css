@@ -1,3 +1,4 @@
+/* Base já existente */
 body {
   overflow: hidden;
 }
@@ -40,7 +41,7 @@ body {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
@@ -60,13 +61,53 @@ body {
   background: #f0f0f0;
 }
 
-
-.btn-special {
-  background: white;
-  color: #0d2b61;
-}
-
 .btn-special:hover {
   background: #e0850d;
 }
 
+/* ----------------------------- */
+/* 📱 Responsividade */
+/* ----------------------------- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .historia-text h1 {
+    font-size: 1.7rem;
+  }
+  .historia-text p {
+    font-size: 1rem;
+  }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+  .historia-content {
+    padding: 1.5rem;
+  }
+
+  .historia-text {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .historia-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 80%;
+    text-align: center;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 480px) {
+  .historia-text h1 {
+    font-size: 1.4rem;
+  }
+  .historia-text p {
+    font-size: 0.9rem;
+  }
+}
