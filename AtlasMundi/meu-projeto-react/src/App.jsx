@@ -14,7 +14,7 @@ const App = () => {
   const [geoData, setGeoData] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const [nomePais, setNomePais] = useState('');
-  const [flagUrl, setFlagUrl] = useState(''); 
+  const [flagUrl, setFlagUrl] = useState('');
   const mapRef = useRef();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const App = () => {
             botao.addEventListener('click', () => {
               setNomePais(countryName);
               if (isoCode) {
-                setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`); 
+                setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`);
               } else {
                 setFlagUrl('');
               }
@@ -111,16 +111,16 @@ const App = () => {
     <Router>
       <Header onSearch={handleSearch} />
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <div style={{ position: 'relative' }}>
-              <MapContainer 
-                center={[25, 0]} 
-                zoom={3} 
-                minZoom={2} 
-                maxBounds={[[-100, -180], [100, 180]]} 
-                scrollWheelZoom={true} 
+              <MapContainer
+                center={[25, 0]}
+                zoom={3}
+                minZoom={2}
+                maxBounds={[[-100, -180], [100, 180]]}
+                scrollWheelZoom={true}
                 zoomControl={false}
                 style={{ height: "93.5vh", width: "100%" }}
                 whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
@@ -131,19 +131,19 @@ const App = () => {
                   noWrap={true}
                 />
                 {geoData && (
-                  <GeoJSON 
-                    data={geoData} 
-                    style={defaultStyle} 
-                    onEachFeature={onEachCountry} 
+                  <GeoJSON
+                    data={geoData}
+                    style={defaultStyle}
+                    onEachFeature={onEachCountry}
                   />
                 )}
               </MapContainer>
 
               {showInfo && (
-                <Information 
-                  nome={nomePais} 
-                  flagUrl={flagUrl}  
-                  onClose={() => setShowInfo(false)} 
+                <Information
+                  nome={nomePais}
+                  flagUrl={flagUrl}
+                  onClose={() => setShowInfo(false)}
                 />
               )}
             </div>

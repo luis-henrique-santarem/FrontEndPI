@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: -1.8vh; 
+  margin-top: -0.8vh; 
 }
 
 .footer-container {
@@ -24,10 +24,11 @@
   max-width: 1200px;
 }
 
+
 .footer .logo img {
-  width: 65px;
+  width: 45px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 2px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -50,7 +51,7 @@
   margin: 0.5rem 0;
 }
 
-/* -------- Responsividade -------- */
+
 
 /* Tablets */
 @media (max-width: 1024px) {

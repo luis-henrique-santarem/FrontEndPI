@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Header.css';
 import logo from '../assets/logo.png';
 import icon from '../assets/search.png';
-import menuIcon from '../assets/menu.png'; // <- adicione um ícone menu (hambúrguer)
-import closeIcon from '../assets/close.png'; // <- ícone para fechar o menu
+import menuIcon from '../assets/menu.png';
+import closeIcon from '../assets/close.png';
 import {
   Modal,
   Box,
@@ -21,8 +21,7 @@ function Header({ onSearch }) {
   const [openRegister, setOpenRegister] = useState(false);
   const [registerTab, setRegisterTab] = useState(0);
   const [options, setOptions] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(false); // <- controla o menu mobile
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const translations = {
     pt: {
       login: 'Logar',
@@ -97,7 +96,7 @@ function Header({ onSearch }) {
           <img src={logo} alt="Logo" />
         </div>
 
-        {/* Botão Hamburguer */}
+
         <button
           className="menu-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -106,7 +105,7 @@ function Header({ onSearch }) {
           <img src={menuOpen ? closeIcon : menuIcon} alt="menu" />
         </button>
 
-        {/* Menu principal */}
+
         <nav className={`nav ${menuOpen ? 'active' : ''}`}>
           <img src={icon} className="icony" alt="Search Icon" />
 
@@ -166,7 +165,7 @@ function Header({ onSearch }) {
         </nav>
       </div>
 
-      {/* Modal Login */}
+
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>{t.login}</Typography>
@@ -179,7 +178,7 @@ function Header({ onSearch }) {
         </Box>
       </Modal>
 
-      {/* Modal Cadastro */}
+
       <Modal open={openRegister} onClose={() => setOpenRegister(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>{t.register}</Typography>
