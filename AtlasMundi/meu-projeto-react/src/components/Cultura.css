@@ -66,12 +66,6 @@
   background: #e0850d;
 }
 
-
-/* ----------------------------- */
-/* 📱 Responsividade */
-/* ----------------------------- */
-
-/* Tablets */
 @media (max-width: 1024px) {
   .historia-text h1 {
     font-size: 1.7rem;
@@ -81,7 +75,6 @@
   }
 }
 
-/* Celulares */
 @media (max-width: 768px) {
   .historia-content {
     padding: 1.5rem;
@@ -104,7 +97,6 @@
   }
 }
 
-/* Telas muito pequenas */
 @media (max-width: 480px) {
   .historia-text h1 {
     font-size: 1.4rem;

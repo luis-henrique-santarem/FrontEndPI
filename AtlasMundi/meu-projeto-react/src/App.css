@@ -5,7 +5,9 @@
   padding: 0;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
   font-family: "Poppins", sans-serif;
@@ -15,7 +17,8 @@ html, body, #root {
 body {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* garante que o footer fique visível sem corte */
+  height: 100vh;
+  /* garante que o footer fique visível sem corte */
   overflow: hidden;
 }
 
@@ -23,7 +26,8 @@ body {
   flex: 1;
   display: flex;
   width: 100%;
-  height: calc(100vh - 110px); /* desconta altura média do header + footer */
+  height: calc(100vh - 110px);
+  /* desconta altura média do header + footer */
   background-color: #aad3df;
 }
 
@@ -75,7 +79,7 @@ body {
   padding: 0.8rem 0;
   font-size: 0.9rem;
   width: 100%;
-  flex-shrink: 0; 
+  flex-shrink: 0;
   z-index: 10;
 }
 
@@ -105,15 +109,12 @@ body {
   font-weight: 500;
 }
 
-
-/* Tablets */
 @media (max-width: 1024px) {
   .footer-text {
     font-size: 0.9rem;
   }
 }
 
-/* Celulares grandes */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
@@ -129,7 +130,6 @@ body {
   }
 }
 
-/* Celulares pequenos */
 @media (max-width: 480px) {
   .footer {
     font-size: 0.8rem;
