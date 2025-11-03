@@ -66,32 +66,6 @@ body {
   background-color: #2266cc;
 }
 
-.footer {
-  background-color: #0d2b61;
-  color: white;
-  text-align: center;
-  padding: 0.8rem 0;
-  font-size: 0.9rem;
-  width: 100%;
-  flex-shrink: 0;
-  z-index: 10;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  width: 100%;
-}
-
-.footer-text {
-  font-size: 0.95rem;
-  color: #f5f5f5;
-  font-weight: 500;
-}
-
 @media (max-width: 1024px) {
   .footer-text {
     font-size: 0.9rem;

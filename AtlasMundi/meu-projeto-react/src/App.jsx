@@ -40,8 +40,27 @@ const App = () => {
 
   function onEachCountry(feature, layer) {
     const countryName = feature.properties.admin_pt || feature.properties.name_pt;
-    const isoCode = feature.properties.iso_a2;
+    let isoCode = feature.properties.iso_a2;
     const idBotao = `btn-${isoCode}`;
+
+    const overrides = {
+      "França": "FR",
+      "France": "FR",
+      "Reino Unido": "GB",
+      "United Kingdom": "GB",
+      "Rússia": "RU",
+      "Russia": "RU",
+      "Grécia": "GR",
+      "Greece": "GR",
+      "Coreia do Sul": "KR",
+      "South Korea": "KR",
+      "Coreia do Norte": "KP",
+      "North Korea": "KP",
+    };
+
+    if (overrides[countryName]) {
+      isoCode = overrides[countryName];
+    }
 
     layer.on({
       mouseover: (e) => e.target.setStyle(highlightStyle),
@@ -88,7 +107,26 @@ const App = () => {
 
     if (found) {
       const countryName = found.properties.admin_pt || found.properties.name_pt;
-      const isoCode = found.properties.iso_a2;
+      let isoCode = found.properties.iso_a2;
+
+      const overrides = {
+        "França": "FR",
+        "France": "FR",
+        "Reino Unido": "GB",
+        "United Kingdom": "GB",
+        "Rússia": "RU",
+        "Russia": "RU",
+        "Grécia": "GR",
+        "Greece": "GR",
+        "Coreia do Sul": "KR",
+        "South Korea": "KR",
+        "Coreia do Norte": "KP",
+        "North Korea": "KP",
+      };
+
+      if (overrides[countryName]) {
+        isoCode = overrides[countryName];
+      }
 
       setNomePais(countryName);
       if (isoCode) {
@@ -99,6 +137,7 @@ const App = () => {
       setShowInfo(true);
 
       if (mapRef.current) {
+        // eslint-disable-next-line no-undef
         const layer = L.geoJSON(found);
         mapRef.current.fitBounds(layer.getBounds());
       }
