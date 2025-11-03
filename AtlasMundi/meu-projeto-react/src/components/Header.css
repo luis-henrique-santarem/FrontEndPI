@@ -4,7 +4,7 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  padding: 8px 0;
+  padding: 6px 0;
 }
 
 .header-container {
@@ -14,19 +14,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .logo-header img {
   max-height: 43px;
   max-width: 120px;
   border-radius: 5px;
-  object-fit: contain;
-  display: block;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icony {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 .menu-toggle {
-  display: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -43,85 +51,8 @@
   transform: scale(1.1);
 }
 
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  transition: all 0.3s ease;
-}
-
-.nav.active {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: rgba(13, 43, 97, 0.95);
-  position: absolute;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.icony {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.btn-auth,
-.lang-btn {
-  border-radius: 20px;
-  font-size: 0.85rem;
-  padding: 6px 16px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.btn-auth {
-  background-color: #1452c5;
-  color: white;
-  border: none;
-}
-
-.btn-auth:hover {
-  background-color: #e0850d;
-}
-
-.lang-btn {
-  background-color: transparent;
-  color: white;
-  border: 1px solid #fff;
-}
-
-.lang-btn:hover {
-  background-color: #e0850d;
-  color: #fff;
-}
-
-
-@media (max-width: 900px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav {
-    display: none;
-    width: 100%;
-  }
-
-  .nav.active {
-    display: flex;
-  }
-}
-
 @media (max-width: 480px) {
-
-  .btn-auth,
-  .lang-btn {
-    width: 80%;
-    text-align: center;
+  .search-container {
+    width: 65%;
   }
 }
