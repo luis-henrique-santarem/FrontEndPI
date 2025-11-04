@@ -1,0 +1,162 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #020617 0%, #000 100%);
+  z-index: 9999;
+  cursor: pointer;
+  overflow: hidden;
+  animation: fadeIn 1s ease forwards;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.splash--closing {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+.splash__bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: scale(1.05);
+  filter: brightness(0.9);
+  transition: transform 8s ease;
+  z-index: 1;
+}
+
+.splash__earth {
+  position: absolute;
+  z-index: 2;
+  width: 420px;
+  height: 420px;
+  object-fit: contain;
+  border-radius: 50%;
+  animation: spin 60s linear infinite;
+  filter: drop-shadow(0 0 25px rgba(0, 180, 255, 0.3));
+  transition: transform 1s ease;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.splash__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 40% 60%,
+    rgba(0, 200, 255, 0.2),
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  z-index: 3;
+}
+
+.splash__content {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: contentFadeIn 1.6s ease forwards 0.8s;
+}
+
+@keyframes contentFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.splash__frame {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 20px 50px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08),
+    0 0 20px rgba(0, 180, 255, 0.15);
+  transition: transform 0.5s ease;
+}
+
+.splash__frame:hover {
+  transform: scale(1.03);
+}
+
+.splash__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: clamp(60px, 8vw, 140px);
+  letter-spacing: 10px;
+  margin: 0;
+  background: linear-gradient(90deg, #d8f7ff, #a8eaff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 15px rgba(0, 200, 255, 0.3));
+}
+
+.splash__subtitle {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(14px, 2vw, 24px);
+  letter-spacing: 6px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.splash__cta {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin-top: 8px;
+  letter-spacing: 2px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .splash__earth {
+    width: 250px;
+    height: 250px;
+  }
+  .splash__frame {
+    padding: 14px 28px;
+  }
+}

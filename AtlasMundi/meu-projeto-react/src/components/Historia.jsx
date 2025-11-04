@@ -32,44 +32,18 @@ export default function Historia() {
         </div>
       </div>
       <div className="historia-buttons">
-        <Link to="/" className="btn">
-          Início
-        </Link>
-        <Link to="/politica" className="btn">
-          Política
-        </Link>
-        <Link to="/cultura" className="btn">
-          Cultura
-        </Link>
-        <button
-          onClick={() => setOpenComment(true)}
-          className="btn btn-special"
-        >
-          Deixar Comentário
-        </button>
+        <Link to="/" className="btn"> Início </Link>
+        <Link to="/politica" className="btn"> Política</Link>
+        <Link to="/cultura" className="btn"> Cultura </Link>
+        <button onClick={() => setOpenComment(true)} className="btn btn-special"> Deixar Comentário </button>
       </div>
-
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom>
-            Deixar Comentário
-          </Typography>
+          <Typography variant="h6" gutterBottom> Deixar Comentário </Typography>
           <form className="auth-form">
-            <TextField
-              label="Comentário"
-              multiline
-              rows={4}
-              variant="outlined"
-              fullWidth
-              size="small"
-              margin="dense"
-            />
-            <Button variant="contained" color="primary" fullWidth>
-              Enviar
-            </Button>
-            <Button onClick={() => setOpenComment(false)} fullWidth>
-              Sair
-            </Button>
+            <TextField label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense" />
+            <Button variant="contained" color="primary" fullWidth> Enviar </Button>
+            <Button onClick={() => setOpenComment(false)} fullWidth> Sair </Button>
           </form>
         </Box>
       </Modal>

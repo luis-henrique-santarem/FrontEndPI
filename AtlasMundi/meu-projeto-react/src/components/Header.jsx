@@ -33,11 +33,9 @@ function Header({ onSearch }) {
     <header className="header">
       <div className="header-container">
         <div className="logo-header"><img src={logo} alt="Logo" /></div>
-
         <div className="search-container">
           <img src={icon} className="icony" alt="Search Icon" />
-          <Autocomplete
-            options={options}
+          <Autocomplete options={options}
             sx={{ width: 260, backgroundColor: "white", borderRadius: "20px", "& .MuiOutlinedInput-root": { padding: "2px 8px" } }}
             getOptionLabel={option => option.label}
             renderOption={(props, option) => (
@@ -50,12 +48,8 @@ function Header({ onSearch }) {
             onChange={(e, value) => value && onSearch && onSearch(value.label)}
           />
         </div>
-
-        <button className="menu-toggle" onClick={() => setMenuOpen(true)} aria-label="Abrir menu">
-          <img src={menuIcon} alt="menu" />
-        </button>
+        <button className="menu-toggle" onClick={() => setMenuOpen(true)} aria-label="Abrir menu"><img src={menuIcon} alt="menu" /></button>
       </div>
-
       {menuOpen && (
         <MenuInfo onClose={() => setMenuOpen(false)} onLoginClick={() => { setMenuOpen(false); setOpenLogin(true); }} onRegisterClick={() => { setMenuOpen(false); setOpenRegister(true); }}/>
       )}

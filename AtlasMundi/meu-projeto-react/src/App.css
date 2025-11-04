@@ -97,3 +97,7 @@ body {
     width: 50px;
   }
 }
+
+.fade-wrapper {
+  transition: opacity 1s ease;
+}
