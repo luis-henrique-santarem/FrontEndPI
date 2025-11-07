@@ -8,17 +8,20 @@ import Cultura from "./components/Cultura";
 import Splash from "./components/Splash"; 
 import "./App.css";
 
+// Importa componentes do Leaflet
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { useState, useEffect, useRef } from "react";
 
 const App = () => {
-  const [geoData, setGeoData] = useState(null);
-  const [showInfo, setShowInfo] = useState(false);
-  const [nomePais, setNomePais] = useState("");
-  const [flagUrl, setFlagUrl] = useState("");
-  const [showSplash, setShowSplash] = useState(true); 
-  const mapRef = useRef();
+  // Estados principais do App
+  const [geoData, setGeoData] = useState(null); // Dados do GeoJSON
+  const [showInfo, setShowInfo] = useState(false); // Controla exibição da sidebar de informação
+  const [nomePais, setNomePais] = useState(""); // Nome do país selecionado
+  const [flagUrl, setFlagUrl] = useState(""); // URL da bandeira do país
+  const [showSplash, setShowSplash] = useState(true); // Controla splash inicial
+  const mapRef = useRef(); // Referência ao mapa Leaflet
 
+  // Carrega GeoJSON ao iniciar
   useEffect(() => {
     fetch("/custom.geo.json")
       .then((res) => res.json())
@@ -26,6 +29,7 @@ const App = () => {
       .catch((error) => console.error("Erro ao carregar o GeoJSON:", error));
   }, []);
 
+  // Estilo padrão dos países
   const defaultStyle = {
     fillColor: "#3388ff",
     weight: 1,
@@ -33,6 +37,7 @@ const App = () => {
     fillOpacity: 0.5,
   };
 
+  // Estilo ao passar o mouse
   const highlightStyle = {
     fillColor: "#3388ff",
     weight: 2,
@@ -40,11 +45,13 @@ const App = () => {
     fillOpacity: 0.7,
   };
 
+  // Função chamada para cada país do GeoJSON
   function onEachCountry(feature, layer) {
     const countryName = feature.properties.admin_pt || feature.properties.name_pt;
     let isoCode = feature.properties.iso_a2;
     const idBotao = `btn-${isoCode}`;
 
+    // Correções de nomes especiais
     const overrides = {
       França: "FR",
       France: "FR",
@@ -64,6 +71,7 @@ const App = () => {
       isoCode = overrides[countryName];
     }
 
+    // Eventos do país
     layer.on({
       mouseover: (e) => e.target.setStyle(highlightStyle),
       mouseout: (e) => e.target.setStyle(defaultStyle),
@@ -91,6 +99,7 @@ const App = () => {
       },
     });
 
+    // Bind do popup com bandeira e botão
     if (isoCode) {
       const flag = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
       layer.bindPopup(`
@@ -105,9 +114,11 @@ const App = () => {
     }
   }
 
+  // Função para pesquisar país pelo Autocomplete do Header
   const handleSearch = (query) => {
     if (!geoData || !query) return;
 
+    // Procura país no GeoJSON
     const found = geoData.features.find((f) => {
       const countryName = f.properties.admin_pt || f.properties.name_pt || "";
       return countryName.toLowerCase() === query.toLowerCase();
@@ -144,6 +155,7 @@ const App = () => {
       }
       setShowInfo(true);
 
+      // Centraliza o mapa no país
       if (mapRef.current) {
         // eslint-disable-next-line no-undef
         const layer = L.geoJSON(found);
@@ -156,35 +168,48 @@ const App = () => {
 
   return (
     <Router>
+      {/* Header com barra de pesquisa */}
       <Header onSearch={handleSearch} />
       <Routes>
+        {/* Página principal com mapa */}
         <Route path="/" element={
             <div style={{ position: "relative" }}>
+              {/* Splash inicial */}
               {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
-              <MapContainer center={[25, 0]} zoom={3} minZoom={2} maxBounds={[ [-100, -180], [100, 180], ]}
+              {/* Mapa Leaflet */}
+              <MapContainer 
+                center={[25, 0]} 
+                zoom={3} 
+                minZoom={2} 
+                maxBounds={[ [-100, -180], [100, 180] ]}
                 scrollWheelZoom={true}
                 zoomControl={false}
                 style={{ height: "93.5vh", width: "100%" }}
                 whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
               >
-                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                <TileLayer 
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   noWrap={true}
                 />
+                {/* GeoJSON com todos os países */}
                 {geoData && (
                   <GeoJSON data={geoData} style={defaultStyle} onEachFeature={onEachCountry} />
                 )}
               </MapContainer>
+              {/* Sidebar de informações */}
               {showInfo && (
-                <Information nome={nomePais}flagUrl={flagUrl} onClose={() => setShowInfo(false)} />
+                <Information nome={nomePais} flagUrl={flagUrl} onClose={() => setShowInfo(false)} />
               )}
             </div>
           }
         />
+        {/* Outras rotas */}
         <Route path="/historia" element={<Historia />} />
         <Route path="/politica" element={<Politica />} />
         <Route path="/cultura" element={<Cultura />} />
       </Routes>
+      {/* Footer fixo */}
       <Footer />
     </Router>
   );

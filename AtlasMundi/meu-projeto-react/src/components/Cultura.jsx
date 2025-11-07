@@ -3,23 +3,28 @@ import { useState } from "react";
 import "./Cultura.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
+// Declara o componente funcional principal "Cultura"
 export default function Cultura() {
+  // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
+  // Define o estilo do modal (caixa centralizada)
   const modalStyle = {
     position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    borderRadius: 2,
-    boxShadow: 24,
-    p: 4,
+    top: "50%",               
+    left: "50%",              
+    transform: "translate(-50%, -50%)", 
+    width: 400,               
+    bgcolor: "background.paper", 
+    borderRadius: 2,          
+    boxShadow: 24,           
+    p: 4,                   
   };
 
+  // Renderização do JSX
   return (
     <div className="cultura-container">
+      {/* Conteúdo principal da página */}
       <div className="cultura-content">
         <div className="cultura-text">
           <h1>País Cultura</h1>
@@ -31,19 +36,35 @@ export default function Cultura() {
           </p>
         </div>
       </div>
-      <div className="cultura-buttons">
-        <Link to="/" className="btn"> Início </Link>
-        <Link to="/politica" className="btn"> Política</Link>
-        <Link to="/historia" className="btn">História</Link>
-        <button onClick={() => setOpenComment(true)} className="btn btn-special"> Deixar Comentário </button>
-      </div>
 
-      <Modal open={openComment} onClose={() => setOpenComment(false)}>
+      {/* Seção de botões de navegação */}
+      <div className="cultura-buttons">
+        {/* Link para a página inicial */}
+        <Link to="/" className="btn">Início</Link>
+        {/* Link para a página de política */}
+        <Link to="/politica" className="btn">Política</Link>
+        {/* Link para a página de história */}
+        <Link to="/historia" className="btn">História</Link>
+        {/* Botão que abre o modal de comentários */}
+        <button
+          onClick={() => setOpenComment(true)} // Altera o estado para abrir o modal
+          className="btn btn-special" >Deixar Comentário </button>
+      </div>
+      {/* Modal do Material UI que aparece ao clicar em "Deixar Comentário" */}
+      <Modal
+        open={openComment} // Controla se o modal está aberto
+        onClose={() => setOpenComment(false)} // Fecha o modal ao clicar fora dele
+      >
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom> Deixar Comentário</Typography>
+          {/* Título do modal */}
+          <Typography variant="h6" gutterBottom> Deixar Comentário </Typography>
+          {/* Formulário para inserir o comentário */}
           <form className="auth-form">
+            {/* Campo de texto multiline para o comentário */}
             <TextField label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            {/* Botão para enviar o comentário (ainda sem funcionalidade) */}
             <Button variant="contained" color="primary" fullWidth> Enviar</Button>
+            {/* Botão para fechar o modal */}
             <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
           </form>
         </Box>
