@@ -5,6 +5,7 @@ import icon from "../assets/search.png";
 import menuIcon from "../assets/menu.png";
 import { Modal, Box, Typography, TextField, Button, Tabs, Tab, Autocomplete } from "@mui/material";
 import MenuInfo from "./MenuInfo";
+import login from './../js/login'
 
 // Recebe a prop `onSearch` para lidar com pesquisas
 function Header({ onSearch }) {
