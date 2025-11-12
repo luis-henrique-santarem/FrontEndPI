@@ -5,7 +5,7 @@ import icon from "../assets/search.png";
 import menuIcon from "../assets/menu.png";
 import { Modal, Box, Typography, TextField, Button, Tabs, Tab, Autocomplete } from "@mui/material";
 import MenuInfo from "./MenuInfo";
-import login from './../js/login'
+import {login,register} from './../js/auth'
 
 // Recebe a prop `onSearch` para lidar com pesquisas
 function Header({ onSearch }) {
@@ -15,7 +15,8 @@ function Header({ onSearch }) {
   const [registerTab, setRegisterTab] = useState(0); // Tab selecionada no cadastro (Aluno / Professor)
   const [options, setOptions] = useState([]); // Opções do autocomplete (lista de países)
   const [menuOpen, setMenuOpen] = useState(false); // Controle do menu lateral
-
+  const [emailLogin, setEmailLogin] = useState(null)
+  const [senhaLogin, setSenhaLogin] = useState(null)
   // Estilo do modal centralizado
   const modalStyle = { 
     position: "absolute",
@@ -105,9 +106,9 @@ function Header({ onSearch }) {
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>Logar</Typography>
           <form className="auth-form">
-            <TextField label="Email" variant="outlined" fullWidth size="small" margin="dense" />
-            <TextField label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-            <Button variant="contained" color="primary" fullWidth>Enviar</Button>
+            <TextField onChange={(e) => setEmailLogin(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
+            <TextField onChange={(e) => setSenhaLogin(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
+            <Button onClick={() => {login(emailLogin,senhaLogin)}} variant="contained" color="primary" fullWidth>Enviar</Button>
             <Button onClick={() => setOpenLogin(false)} fullWidth>Fechar</Button>
           </form>
         </Box>
