@@ -33,7 +33,8 @@ export async function login(email, password) {
 
 
 
-export async function register(data) {
+export async function register(data,senhas) {
+  if(senhas[0]!=senhas[1]){return null}
   try {
     const resposta = await fetch("http://localhost:3000/auth/register", {
       method: "POST",
