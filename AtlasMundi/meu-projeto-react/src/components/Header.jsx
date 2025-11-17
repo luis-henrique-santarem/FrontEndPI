@@ -15,8 +15,13 @@ function Header({ onSearch }) {
   const [registerTab, setRegisterTab] = useState(0); // Tab selecionada no cadastro (Aluno / Professor)
   const [options, setOptions] = useState([]); // Opções do autocomplete (lista de países)
   const [menuOpen, setMenuOpen] = useState(false); // Controle do menu lateral
-  const [emailLogin, setEmailLogin] = useState(null)
-  const [senhaLogin, setSenhaLogin] = useState(null)
+
+  const [nome, setNome] = useState(null)
+  const [email, setEmail] = useState(null)
+  const [senha, setSenha] = useState(null)
+  const [CSenha, setCSenha] = useState(null)
+  const [cpf, setCPF] = useState(null)
+
   // Estilo do modal centralizado
   const modalStyle = { 
     position: "absolute",
@@ -106,9 +111,9 @@ function Header({ onSearch }) {
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>Logar</Typography>
           <form className="auth-form">
-            <TextField onChange={(e) => setEmailLogin(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
-            <TextField onChange={(e) => setSenhaLogin(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-            <Button onClick={() => {login(emailLogin,senhaLogin)}} variant="contained" color="primary" fullWidth>Enviar</Button>
+            <TextField onChange={(e) => setEmail(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
+            <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
+            <Button onClick={() => {login(email,senha)}} variant="contained" color="primary" fullWidth>Enviar</Button>
             <Button onClick={() => setOpenLogin(false)} fullWidth>Fechar</Button>
           </form>
         </Box>
@@ -126,11 +131,11 @@ function Header({ onSearch }) {
           {/* Formulário de cadastro Aluno */}
           {registerTab === 0 && (
             <form className="auth-form">
-              <TextField label="Nome" variant="outlined" fullWidth size="small" margin="dense" />
-              <TextField label="Email" variant="outlined" fullWidth size="small" margin="dense" />
-              <TextField label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-              <TextField label="Confirmar Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-              <Button variant="contained" color="primary" fullWidth>Enviar</Button>
+              <TextField onChange={(e) => setNome(e.target.value)} label="Nome" variant="outlined" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setEmail(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setCSenha(e.target.value)}label="Confirmar Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
+              <Button onClick={() => {register({"name":nome,"email":email,"password":senha})}} variant="contained" color="primary" fullWidth>Enviar</Button>
               <Button onClick={() => setOpenRegister(false)} fullWidth>Fechar</Button>
             </form>
           )}
