@@ -148,7 +148,7 @@ function Header({ onSearch }) {
               <TextField onChange={(e) => setCPF(e.target.value)} label="CPF" variant="outlined" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setCSenha(e.target.value)} label="Confirmar Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-              <Button onClick={() => {register({"name":nome, "email":email, "password":senha, "cpf":cpf, "teacher":true}, [senha, CSenha])}} variant="contained" color="primary" fullWidth>Enviar</Button>
+              <Button onClick={() => {register({"name":nome, "email":email, "password":senha, "cpf":cpf}, [senha, CSenha])}} variant="contained" color="primary" fullWidth>Enviar</Button>
               <Button onClick={() => setOpenRegister(false)} fullWidth>Fechar</Button>
             </form>
           )}
