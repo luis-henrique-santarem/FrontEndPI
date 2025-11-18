@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./Historia.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Historia"
 export default function Historia() {
   // Estado responsável por controlar se o modal está aberto ou fechado
   const [openComment, setOpenComment] = useState(false);
+
 
   // Estilo aplicado ao container do modal (definido inline)
   const modalStyle = {
@@ -62,7 +64,7 @@ export default function Historia() {
           <form className="auth-form">
             {/* Campo de texto multilinha para escrever o comentário */}
             <TextField label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
-            {/* Botão para enviar o comentário (ainda sem ação definida) */}
+            {/* Botão para enviar o comentário */}
             <Button variant="contained" color="primary" fullWidth>Enviar </Button>
             {/* Botão para fechar o modal manualmente */}
             <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
