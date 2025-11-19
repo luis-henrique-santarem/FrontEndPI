@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./Historia.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
-import { createComment } from "../js/comment";
+// import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Historia"
 export default function Historia() {

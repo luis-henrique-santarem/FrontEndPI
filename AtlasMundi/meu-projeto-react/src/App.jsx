@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -7,10 +8,8 @@ import Politica from "./components/Politica";
 import Cultura from "./components/Cultura";
 import Splash from "./components/Splash"; 
 import "./App.css";
-
 // Importa componentes do Leaflet
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import { useState, useEffect, useRef } from "react";
 
 const App = () => {
   // Estados principais do App
@@ -19,6 +18,7 @@ const App = () => {
   const [nomePais, setNomePais] = useState(""); // Nome do país selecionado
   const [flagUrl, setFlagUrl] = useState(""); // URL da bandeira do país
   const [showSplash, setShowSplash] = useState(true); // Controla splash inicial
+  const [isEnglish, setIsEnglish] = useState(false); // Estado para controle de idioma
   const mapRef = useRef(); // Referência ao mapa Leaflet
 
   // Carrega GeoJSON ao iniciar
@@ -47,7 +47,7 @@ const App = () => {
 
   // Função chamada para cada país do GeoJSON
   function onEachCountry(feature, layer) {
-    const countryName = feature.properties.admin_pt || feature.properties.name_pt;
+    const countryName = feature.properties[`admin_${isEnglish ? 'en' : 'pt'}`] || feature.properties[`name_${isEnglish ? 'en' : 'pt'}`];
     let isoCode = feature.properties.iso_a2;
     const idBotao = `btn-${isoCode}`;
 
@@ -118,14 +118,13 @@ const App = () => {
   const handleSearch = (query) => {
     if (!geoData || !query) return;
 
-    // Procura país no GeoJSON
     const found = geoData.features.find((f) => {
-      const countryName = f.properties.admin_pt || f.properties.name_pt || "";
+      const countryName = f.properties[`admin_${isEnglish ? 'en' : 'pt'}`] || f.properties[`name_${isEnglish ? 'en' : 'pt'}`] || "";
       return countryName.toLowerCase() === query.toLowerCase();
     });
 
     if (found) {
-      const countryName = found.properties.admin_pt || found.properties.name_pt;
+      const countryName = found.properties[`admin_${isEnglish ? 'en' : 'pt'}`] || found.properties[`name_${isEnglish ? 'en' : 'pt'}`];
       let isoCode = found.properties.iso_a2;
 
       const overrides = {
@@ -155,7 +154,6 @@ const App = () => {
       }
       setShowInfo(true);
 
-      // Centraliza o mapa no país
       if (mapRef.current) {
         // eslint-disable-next-line no-undef
         const layer = L.geoJSON(found);
@@ -166,50 +164,45 @@ const App = () => {
     }
   };
 
+  // Função de alternância de idioma
+  const toggleLanguage = () => setIsEnglish(!isEnglish);
+
   return (
     <Router>
-      {/* Header com barra de pesquisa */}
       <Header onSearch={handleSearch} />
+      <button onClick={toggleLanguage} className="language-toggle">
+        {isEnglish ? 'Português' : 'English'}
+      </button>
       <Routes>
-        {/* Página principal com mapa */}
         <Route path="/" element={
-            <div style={{ position: "relative" }}>
-              {/* Splash inicial */}
-              {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
-              {/* Mapa Leaflet */}
-              <MapContainer 
-                center={[25, 0]} 
-                zoom={3} 
-                minZoom={2} 
-                maxBounds={[ [-100, -180], [100, 180] ]}
-                scrollWheelZoom={true}
-                zoomControl={false}
-                style={{ height: "93.5vh", width: "100%" }}
-                whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
-              >
-                <TileLayer 
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  noWrap={true}
-                />
-                {/* GeoJSON com todos os países */}
-                {geoData && (
-                  <GeoJSON data={geoData} style={defaultStyle} onEachFeature={onEachCountry} />
-                )}
-              </MapContainer>
-              {/* Sidebar de informações */}
-              {showInfo && (
-                <Information nome={nomePais} flagUrl={flagUrl} onClose={() => setShowInfo(false)} />
+          <div style={{ position: "relative" }}>
+            {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
+            <MapContainer 
+              center={[25, 0]} 
+              zoom={3} 
+              minZoom={2} 
+              maxBounds={[ [-100, -180], [100, 180] ]} 
+              style={{ height: "93.5vh", width: "100%" }}
+              whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
+            >
+              <TileLayer 
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {geoData && (
+                <GeoJSON data={geoData} style={defaultStyle} onEachFeature={onEachCountry} />
               )}
-            </div>
-          }
-        />
-        {/* Outras rotas */}
+            </MapContainer>
+            {showInfo && (
+              <Information  nome={nomePais}  flagUrl={flagUrl}  onClose={() => setShowInfo(false)}  isEnglish={isEnglish} // Passando a variável de idioma
+ />
+            )}
+          </div>
+        } />
         <Route path="/historia" element={<Historia />} />
         <Route path="/politica" element={<Politica />} />
         <Route path="/cultura" element={<Cultura />} />
       </Routes>
-      {/* Footer fixo */}
       <Footer />
     </Router>
   );
