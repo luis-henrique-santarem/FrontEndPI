@@ -33,7 +33,7 @@
 .cultura-buttons {
   display: flex;
   justify-content: space-around;
-  padding: 1rem;
+  padding: 1.4rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   flex-wrap: wrap; 
