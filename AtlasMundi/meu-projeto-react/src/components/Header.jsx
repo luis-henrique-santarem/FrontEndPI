@@ -113,7 +113,7 @@ function Header({ onSearch }) {
           <form className="auth-form">
             <TextField onChange={(e) => setEmail(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
             <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-            <Button onClick={() => {login(email,senha)}} variant="contained" color="primary" fullWidth>Enviar</Button>
+            <Button onClick={() => {login(email,senha), setOpenLogin(false)}} variant="contained" color="primary" fullWidth>Enviar</Button>
             <Button onClick={() => setOpenLogin(false)} fullWidth>Fechar</Button>
           </form>
         </Box>
@@ -135,7 +135,7 @@ function Header({ onSearch }) {
               <TextField onChange={(e) => setEmail(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setCSenha(e.target.value)} label="Confirmar Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-              <Button onClick={() => {register({"name":nome,"email":email,"password":senha}, [senha, CSenha])}} variant="contained" color="primary" fullWidth>Enviar</Button>
+              <Button onClick={() => {register({"name":nome,"email":email,"password":senha}, [senha, CSenha]), setOpenRegister(false)}} variant="contained" color="primary" fullWidth>Enviar</Button>
               <Button onClick={() => setOpenRegister(false)} fullWidth>Fechar</Button>
             </form>
           )}
@@ -148,7 +148,7 @@ function Header({ onSearch }) {
               <TextField onChange={(e) => setCPF(e.target.value)} label="CPF" variant="outlined" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setCSenha(e.target.value)} label="Confirmar Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-              <Button onClick={() => {register({"name":nome, "email":email, "password":senha, "cpf":cpf}, [senha, CSenha])}} variant="contained" color="primary" fullWidth>Enviar</Button>
+              <Button onClick={() => {register({"name":nome, "email":email, "password":senha, "cpf":cpf}, [senha, CSenha]), setOpenRegister(false)}} variant="contained" color="primary" fullWidth>Enviar</Button>
               <Button onClick={() => setOpenRegister(false)} fullWidth>Fechar</Button>
             </form>
           )}
