@@ -219,9 +219,9 @@ const App = () => {
             </div>
           }
         />
-        <Route path="/historia" element={<Historia />} />
-        <Route path="/politica" element={<Politica />} />
-        <Route path="/cultura" element={<Cultura />} />
+        <Route path="/historia" element={<Historia pais={nomePais} />} />
+        <Route path="/politica" element={<Politica pais={nomePais} />} />
+        <Route path="/cultura" element={<Cultura pais={nomePais} />} />
       </Routes>
       <Footer />
     </Router>

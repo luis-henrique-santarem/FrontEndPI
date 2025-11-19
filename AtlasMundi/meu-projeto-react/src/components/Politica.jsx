@@ -4,7 +4,7 @@ import "./Politica.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
 // Declaração do componente funcional principal "Politica"
-export default function Politica() {
+export default function Politica(pais) {
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 

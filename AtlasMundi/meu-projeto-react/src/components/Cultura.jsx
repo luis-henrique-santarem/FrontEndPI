@@ -4,7 +4,7 @@ import "./Cultura.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
 // Declara o componente funcional principal "Cultura"
-export default function Cultura() {
+export default function Cultura(pais) {
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
