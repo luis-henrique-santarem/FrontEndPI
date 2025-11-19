@@ -25,6 +25,7 @@ export async function login(email, password) {
     localStorage.setItem("token", data.token);
     console.log("Token salvo:", data.token);
 
+
     return data;
   } catch (e) {
     console.log("Falha geral:", e);

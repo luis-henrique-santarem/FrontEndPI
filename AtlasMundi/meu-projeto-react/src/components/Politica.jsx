@@ -8,6 +8,8 @@ export default function Politica() {
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
+  const [comment, setComment] = useState("");
+
   // Estilos aplicados diretamente ao container do modal (caixa centralizada)
   const modalStyle = {
     position: "absolute",
@@ -60,7 +62,7 @@ export default function Politica() {
           {/* Formulário para o usuário digitar o comentário */}
           <form className="auth-form">
             {/* Campo de texto multiline (várias linhas) */}
-            <TextField label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão de envio (ainda sem funcionalidade implementada) */}
             <Button variant="contained" color="primary" fullWidth> Enviar</Button>
             {/* Botão para fechar o modal manualmente */}

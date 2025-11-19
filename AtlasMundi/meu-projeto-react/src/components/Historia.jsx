@@ -9,6 +9,8 @@ export default function Historia() {
   // Estado responsável por controlar se o modal está aberto ou fechado
   const [openComment, setOpenComment] = useState(false);
 
+  const [comment, setComment] = useState("");
+
 
   // Estilo aplicado ao container do modal (definido inline)
   const modalStyle = {
@@ -63,9 +65,9 @@ export default function Historia() {
           {/* Formulário de comentário */}
           <form className="auth-form">
             {/* Campo de texto multilinha para escrever o comentário */}
-            <TextField label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão para enviar o comentário */}
-            <Button variant="contained" color="primary" fullWidth>Enviar </Button>
+            <Button onClick={() => {}} variant="contained" color="primary" fullWidth>Enviar </Button>
             {/* Botão para fechar o modal manualmente */}
             <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
           </form>

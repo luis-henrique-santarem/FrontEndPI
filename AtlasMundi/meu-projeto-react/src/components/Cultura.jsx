@@ -8,6 +8,8 @@ export default function Cultura() {
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
+  const [comment, setComment] = useState("");
+
   // Define o estilo do modal (caixa centralizada)
   const modalStyle = {
     position: "absolute",
@@ -61,7 +63,7 @@ export default function Cultura() {
           {/* Formulário para inserir o comentário */}
           <form className="auth-form">
             {/* Campo de texto multiline para o comentário */}
-            <TextField label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão para enviar o comentário (ainda sem funcionalidade) */}
             <Button variant="contained" color="primary" fullWidth> Enviar</Button>
             {/* Botão para fechar o modal */}
