@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,7 +6,7 @@ import Information from "./components/Information";
 import Historia from "./components/Historia";
 import Politica from "./components/Politica";
 import Cultura from "./components/Cultura";
-import Splash from "./components/Splash"; 
+import Splash from "./components/Splash";
 import "./App.css";
 // Importa componentes do Leaflet
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
@@ -47,7 +47,9 @@ const App = () => {
 
   // Função chamada para cada país do GeoJSON
   function onEachCountry(feature, layer) {
-    const countryName = feature.properties[`admin_${isEnglish ? 'en' : 'pt'}`] || feature.properties[`name_${isEnglish ? 'en' : 'pt'}`];
+    const countryName =
+      feature.properties[`admin_${isEnglish ? "en" : "pt"}`] ||
+      feature.properties[`name_${isEnglish ? "en" : "pt"}`];
     let isoCode = feature.properties.iso_a2;
     const idBotao = `btn-${isoCode}`;
 
@@ -119,12 +121,17 @@ const App = () => {
     if (!geoData || !query) return;
 
     const found = geoData.features.find((f) => {
-      const countryName = f.properties[`admin_${isEnglish ? 'en' : 'pt'}`] || f.properties[`name_${isEnglish ? 'en' : 'pt'}`] || "";
+      const countryName =
+        f.properties[`admin_${isEnglish ? "en" : "pt"}`] ||
+        f.properties[`name_${isEnglish ? "en" : "pt"}`] ||
+        "";
       return countryName.toLowerCase() === query.toLowerCase();
     });
 
     if (found) {
-      const countryName = found.properties[`admin_${isEnglish ? 'en' : 'pt'}`] || found.properties[`name_${isEnglish ? 'en' : 'pt'}`];
+      const countryName =
+        found.properties[`admin_${isEnglish ? "en" : "pt"}`] ||
+        found.properties[`name_${isEnglish ? "en" : "pt"}`];
       let isoCode = found.properties.iso_a2;
 
       const overrides = {
@@ -171,34 +178,47 @@ const App = () => {
     <Router>
       <Header onSearch={handleSearch} />
       <button onClick={toggleLanguage} className="language-toggle">
-        {isEnglish ? 'Português' : 'English'}
+        {isEnglish ? "Português" : "English"}
       </button>
       <Routes>
-        <Route path="/" element={
-          <div style={{ position: "relative" }}>
-            {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
-            <MapContainer 
-              center={[25, 0]} 
-              zoom={3} 
-              minZoom={2} 
-              maxBounds={[ [-100, -180], [100, 180] ]} 
-              style={{ height: "93.5vh", width: "100%" }}
-              whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
-            >
-              <TileLayer 
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {geoData && (
-                <GeoJSON data={geoData} style={defaultStyle} onEachFeature={onEachCountry} />
+        <Route
+          path="/"
+          element={
+            <div style={{ position: "relative" }}>
+              {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
+              <MapContainer
+                center={[25, 0]}
+                zoom={3}
+                minZoom={2}
+                maxBounds={[[-100, -180],[100, 180],]}
+                style={{ height: "94vh", width: "100%" }}
+                whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
+                zoomControl={false}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {geoData && (
+                  <GeoJSON
+                    data={geoData}
+                    style={defaultStyle}
+                    onEachFeature={onEachCountry}
+                  />
+                )}
+              </MapContainer>
+
+              {showInfo && (
+                <Information
+                  nome={nomePais}
+                  flagUrl={flagUrl}
+                  onClose={() => setShowInfo(false)}
+                  isEnglish={isEnglish} // Passando a variável de idioma
+                />
               )}
-            </MapContainer>
-            {showInfo && (
-              <Information  nome={nomePais}  flagUrl={flagUrl}  onClose={() => setShowInfo(false)}  isEnglish={isEnglish} // Passando a variável de idioma
- />
-            )}
-          </div>
-        } />
+            </div>
+          }
+        />
         <Route path="/historia" element={<Historia />} />
         <Route path="/politica" element={<Politica />} />
         <Route path="/cultura" element={<Cultura />} />
