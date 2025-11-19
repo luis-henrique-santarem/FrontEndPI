@@ -9,6 +9,14 @@ export default function Politica(pais) {
   const [openComment, setOpenComment] = useState(false);
 
   const [comment, setComment] = useState("");
+  const [politica, setPolitica] = useState("");
+
+
+  useEffect(() => {
+      const paisPego = pegarPais(pais, false)
+      setCultura(paisPego.politics)        
+
+  },[])
 
   // Estilos aplicados diretamente ao container do modal (caixa centralizada)
   const modalStyle = {
@@ -31,10 +39,7 @@ export default function Politica(pais) {
         <div className="politica-text">
           <h1>País Política</h1>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla
-            doloribus repellat, nobis culpa distinctio quidem vitae nisi?
-            Nesciunt molestias magni architecto natus aspernatur, cumque minus
-            debitis impedit laborum saepe blanditiis.
+            {politica}
           </p>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Historia.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { pegarPais } from "../js/country";
 // import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Historia"
@@ -10,6 +11,13 @@ export default function Historia(pais) {
   const [openComment, setOpenComment] = useState(false);
 
   const [comment, setComment] = useState("");
+  const [historia, setHistoria] = useState("")
+
+  useEffect(() => {
+      const paisPego = pegarPais(pais, false)
+      setHistoria(paisPego.history)      
+
+  },[])
 
 
   // Estilo aplicado ao container do modal (definido inline)
@@ -33,10 +41,7 @@ export default function Historia(pais) {
         <div className="historia-text">
           <h1>País História</h1>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla
-            doloribus repellat, nobis culpa distinctio quidem vitae nisi?
-            Nesciunt molestias magni architecto natus aspernatur, cumque minus
-            debitis impedit laborum saepe blanditiis.
+            {historia}
           </p>
         </div>
       </div>

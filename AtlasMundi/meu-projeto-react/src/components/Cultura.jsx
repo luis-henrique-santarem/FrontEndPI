@@ -9,6 +9,14 @@ export default function Cultura(pais) {
   const [openComment, setOpenComment] = useState(false);
 
   const [comment, setComment] = useState("");
+  const [cultura, setCultura] = useState("")
+
+    useEffect(() => {
+        const paisPego = pegarPais(pais, false)
+        setCultura(paisPego.culture)        
+
+    },[])
+
 
   // Define o estilo do modal (caixa centralizada)
   const modalStyle = {
@@ -31,10 +39,7 @@ export default function Cultura(pais) {
         <div className="cultura-text">
           <h1>País Cultura</h1>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla
-            doloribus repellat, nobis culpa distinctio quidem vitae nisi?
-            Nesciunt molestias magni architecto natus aspernatur, cumque minus
-            debitis impedit laborum saepe blanditiis.
+            {cultura}
           </p>
         </div>
       </div>
