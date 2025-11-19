@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./Cultura.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { pegarPais } from "../js/country";
 
 // Declara o componente funcional principal "Cultura"
 export default function Cultura(pais) {

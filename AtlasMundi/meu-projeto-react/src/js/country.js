@@ -1,12 +1,13 @@
 export async function pegarPais(name, inEnglish) {
+  console.log("nome: "+name.pais+"ininglish: "+inEnglish)
   try {
     const resposta = await fetch("http://localhost:3000/country/", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: name,
+        name: name.pais,
         inEnglish: inEnglish
       })
     });
@@ -17,9 +18,10 @@ export async function pegarPais(name, inEnglish) {
       return;
     }
 
+    const text = await resposta.text();
+    console.log("RECEBIDO:", text);
     const pais = await resposta.json();
     // assessar como um objeto normal ex: pais.name
-
 
     return pais;
   } catch (e) {

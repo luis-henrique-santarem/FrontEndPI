@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./Politica.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { pegarPais } from "../js/country";
 
 // Declaração do componente funcional principal "Politica"
 export default function Politica(pais) {
