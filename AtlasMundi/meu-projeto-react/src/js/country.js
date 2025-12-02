@@ -18,9 +18,9 @@ export async function pegarPais(name, inEnglish) {
       return;
     }
 
-    const text = await resposta.text();
-    console.log("RECEBIDO:", text);
+    
     const pais = await resposta.json();
+    console.log("RECEBIDO:", pais);
     // assessar como um objeto normal ex: pais.name
 
     return pais;

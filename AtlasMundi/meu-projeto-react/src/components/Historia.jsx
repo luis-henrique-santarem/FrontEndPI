@@ -14,9 +14,11 @@ export default function Historia(pais) {
   const [historia, setHistoria] = useState("")
 
   useEffect(() => {
-      const paisPego = pegarPais(pais, false)
-      setHistoria(paisPego.history)      
-
+    async function funcao() {
+      const paisPego = await pegarPais(pais, false)
+      setHistoria(paisPego.history) 
+    }
+    funcao()
   },[])
 
 

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Cultura.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
+import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Cultura"
 export default function Cultura(pais) {
@@ -12,11 +13,28 @@ export default function Cultura(pais) {
   const [comment, setComment] = useState("");
   const [cultura, setCultura] = useState("")
 
-    useEffect(() => {
-        const paisPego = pegarPais(pais, false)
-        setCultura(paisPego.culture)        
+  async function funcao() {
+    try{
+      const paisPego =  await pegarPais(pais, false)
+      setCultura(paisPego.culture)    
+      return paisPego.id      
+    }catch(e){
+      console.log("erro "+e)
+    }
 
-    },[])
+  }
+
+  async function comentar(){
+    try{
+      await createComment(funcao(), comment, false)    
+    }catch(e){
+      console.log("Erro: "+e)
+    }
+  
+  }
+  useEffect(() => {
+    funcao()    
+  },[])
 
 
   // Define o estilo do modal (caixa centralizada)
@@ -71,7 +89,7 @@ export default function Cultura(pais) {
             {/* Campo de texto multiline para o comentário */}
             <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão para enviar o comentário (ainda sem funcionalidade) */}
-            <Button variant="contained" color="primary" fullWidth> Enviar</Button>
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth> Enviar</Button>
             {/* Botão para fechar o modal */}
             <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
           </form>

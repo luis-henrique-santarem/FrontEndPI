@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Politica.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
@@ -14,9 +14,11 @@ export default function Politica(pais) {
 
 
   useEffect(() => {
-      const paisPego = pegarPais(pais, false)
-      setCultura(paisPego.politics)        
-
+    async function funcao() {
+      const paisPego = await pegarPais(pais, false)
+      setPolitica(paisPego.politics) 
+    }
+    funcao()
   },[])
 
   // Estilos aplicados diretamente ao container do modal (caixa centralizada)
