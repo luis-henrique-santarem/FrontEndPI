@@ -11,7 +11,9 @@ export default function Cultura(pais) {
   const [openComment, setOpenComment] = useState(false);
 
   const [comment, setComment] = useState("");
-  const [cultura, setCultura] = useState("")
+  const [cultura, setCultura] = useState("");
+
+  const token = localStorage.getItem("token");
 
   async function funcao() {
     try{
@@ -25,8 +27,9 @@ export default function Cultura(pais) {
   }
 
   async function comentar(){
+    const paisId = await funcao()
     try{
-      await createComment(funcao(), comment, false)    
+      createComment(paisId, comment, false, token)    
     }catch(e){
       console.log("Erro: "+e)
     }
@@ -49,14 +52,14 @@ export default function Cultura(pais) {
     boxShadow: 24,           
     p: 4,                   
   };
-
+  
   // Renderização do JSX
   return (
     <div className="cultura-container">
       {/* Conteúdo principal da página */}
       <div className="cultura-content">
         <div className="cultura-text">
-          <h1>País Cultura</h1>
+          <h1>País cultura</h1>
           <p>
             {cultura}
           </p>

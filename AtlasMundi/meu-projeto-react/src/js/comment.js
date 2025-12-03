@@ -1,27 +1,25 @@
-export async function createComment(countryId, message, isQuestion) {
+export async function createComment(countryId, message, isQuestion, token) {
   try {
     const resposta = await fetch("http://localhost:3000/comment/me", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        countryId: countryId,
-        message: message,
-        isQuestion: isQuestion
+        countryId,
+        message,
+        isQuestion,
       })
     });
 
     if (!resposta.ok) {
-      const erro = await resposta.json();
-      console.log("Erro:", erro.message);
+      const erro = await resposta.json().catch(() => ({}));
+      console.log("Erro:", erro.message || resposta.statusText);
       return;
     }
 
-    // provavelmente nao vai ser usado, nem sei o que retorna.
-    const data = await resposta.json();
-
-    return data;
+    return await resposta.json();
   } catch (e) {
     console.log("Falha geral:", e);
   }
