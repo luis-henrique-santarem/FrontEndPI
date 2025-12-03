@@ -15,6 +15,7 @@ export async function pegarPais(name, inEnglish) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
+      alert("Erro ao carregar pais.");
       return;
     }
 

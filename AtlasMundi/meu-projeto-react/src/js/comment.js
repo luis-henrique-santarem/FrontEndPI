@@ -19,6 +19,8 @@ export async function createComment(countryId, message, isQuestion, token) {
       return;
     }
 
+    alert("Comentario recebido.");
+
     return await resposta.json();
   } catch (e) {
     console.log("Falha geral:", e);

@@ -17,7 +17,7 @@ export default function Cultura(pais) {
 
   async function funcao() {
     try{
-      const paisPego =  await pegarPais(pais, false)
+      const paisPego =  await pegarPais(localStorage.getItem("paisAtual"), false)
       setCultura(paisPego.culture)    
       return paisPego.id      
     }catch(e){
