@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./Politica.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
+import { createComment } from "../js/comment";
 
 // Declaração do componente funcional principal "Politica"
 export default function Politica(pais) {
@@ -12,12 +13,28 @@ export default function Politica(pais) {
   const [comment, setComment] = useState("");
   const [politica, setPolitica] = useState("");
 
+  const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    async function funcao() {
+  async function funcao() {
+    try{
       const paisPego = await pegarPais(pais, false)
       setPolitica(paisPego.politics) 
+      return paisPego.id
+    }catch(e){
+      console.log("erro: " + e)
     }
+  }
+
+  async function comentar(){
+    const paisId = await funcao()
+    try{
+      createComment(paisId, comment, false, token)    
+    }catch(e){
+      console.log("Erro: "+e)
+    }
+  }
+
+  useEffect(() => {  
     funcao()
   },[])
 
@@ -72,7 +89,7 @@ export default function Politica(pais) {
             {/* Campo de texto multiline (várias linhas) */}
             <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão de envio (ainda sem funcionalidade implementada) */}
-            <Button variant="contained" color="primary" fullWidth> Enviar</Button>
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth> Enviar</Button>
             {/* Botão para fechar o modal manualmente */}
             <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
           </form>

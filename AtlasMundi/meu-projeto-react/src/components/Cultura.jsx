@@ -33,8 +33,8 @@ export default function Cultura(pais) {
     }catch(e){
       console.log("Erro: "+e)
     }
-  
   }
+
   useEffect(() => {
     funcao()    
   },[])

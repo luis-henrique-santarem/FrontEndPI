@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./Historia.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
-// import { createComment } from "../js/comment";
+import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Historia"
 export default function Historia(pais) {
@@ -13,11 +13,28 @@ export default function Historia(pais) {
   const [comment, setComment] = useState("");
   const [historia, setHistoria] = useState("")
 
-  useEffect(() => {
-    async function funcao() {
+  const token = localStorage.getItem("token");
+
+  async function funcao() {
+    try{
       const paisPego = await pegarPais(pais, false)
-      setHistoria(paisPego.history) 
+      setHistoria(paisPego.history)   
+      return paisPego.id
+    }catch(e){
+      console.log("Erro: "+e)
     }
+  }
+
+  async function comentar(){
+    const paisId = await funcao()
+    try{
+      createComment(paisId, comment, false, token)    
+    }catch(e){
+      console.log("Erro: "+e)
+    }
+  }
+
+  useEffect(() => {  
     funcao()
   },[])
 
@@ -74,7 +91,7 @@ export default function Historia(pais) {
             {/* Campo de texto multilinha para escrever o comentário */}
             <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão para enviar o comentário */}
-            <Button onClick={() => {}} variant="contained" color="primary" fullWidth>Enviar </Button>
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth>Enviar </Button>
             {/* Botão para fechar o modal manualmente */}
             <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
           </form>

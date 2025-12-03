@@ -1,3 +1,4 @@
+import Alert from "../components/Alert"
 export async function login(email, password) {
   try {
     const resposta = await fetch("http://localhost:3000/auth/login", {
