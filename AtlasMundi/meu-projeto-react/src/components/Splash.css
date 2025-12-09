@@ -24,22 +24,22 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  transform: scale(1.05);
-  filter: brightness(0.9);
-  transition: transform 8s ease;
+  transform: scale(1.1);
+  filter: brightness(0.80); 
   z-index: 1;
 }
 
 .splash__earth {
   position: absolute;
   z-index: 2;
-  width: 420px;
-  height: 420px;
+  width: 700px; 
+  height: 700px;
   object-fit: contain;
   border-radius: 50%;
   animation: spin 60s linear infinite;
-  filter: drop-shadow(0 0 25px rgba(0, 180, 255, 0.3));
-  transition: transform 1s ease;
+  filter: drop-shadow(0 0 180px rgba(0, 0, 0, 0.7)); 
+  z-index: 2;
+  transition: transform 0.5s ease;
 }
 
 @keyframes spin {
@@ -56,7 +56,7 @@
   inset: 0;
   background: radial-gradient(
     circle at 40% 60%,
-    rgba(0, 200, 255, 0.2),
+    rgba(0, 0, 0, 0.8), 
     transparent 70%
   );
   mix-blend-mode: screen;
@@ -64,17 +64,18 @@
 }
 
 .splash__content {
-  position: relative;
+  position: absolute;
   z-index: 4;
   text-align: center;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   opacity: 0;
   transform: translateY(30px);
   animation: contentFadeIn 1.6s ease forwards 0.8s;
+  bottom: 70px; 
 }
 
 @keyframes contentFadeIn {
@@ -84,54 +85,44 @@
   }
 }
 
-.splash__frame {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  padding: 20px 50px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
-  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.08),
-    0 0 20px rgba(0, 180, 255, 0.15);
-  transition: transform 0.5s ease;
-}
-
-.splash__frame:hover {
-  transform: scale(1.03);
-}
-
 .splash__title {
   font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  font-size: clamp(60px, 8vw, 140px);
-  letter-spacing: 10px;
+  font-weight: 900;
+  font-size: clamp(70px, 8vw, 150px);
+  letter-spacing: 12px;
   margin: 0;
   background: linear-gradient(90deg, #d8f7ff, #a8eaff);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 15px rgba(0, 200, 255, 0.3));
+  filter: drop-shadow(0 0 80px rgba(0, 0, 0, 0.9)); 
+  text-transform: uppercase; 
 }
 
 .splash__subtitle {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
-  font-size: clamp(14px, 2vw, 24px);
+  font-size: clamp(18px, 2.5vw, 30px);
   letter-spacing: 6px;
   color: rgba(255, 255, 255, 0.85);
+  opacity: 0.9; 
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8)); 
 }
 
 .splash__cta {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  margin-top: 8px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.2rem;
+  margin-top: 12px;
   letter-spacing: 2px;
   animation: pulse 2s ease-in-out infinite;
+  text-transform: uppercase;
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8)); 
 }
 
 @keyframes pulse {
   0%,
   100% {
-    opacity: 0.6;
+    opacity: 0.7;
     transform: scale(1);
   }
   50% {
@@ -153,10 +144,16 @@
 
 @media (max-width: 768px) {
   .splash__earth {
-    width: 250px;
-    height: 250px;
+    width: 400px; 
+    height: 400px;
   }
-  .splash__frame {
-    padding: 14px 28px;
+
+  .splash__content {
+    bottom: 40px; 
+    gap: 16px;
+  }
+
+  .splash__cta {
+    font-size: 1rem;
   }
 }
