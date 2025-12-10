@@ -7,6 +7,7 @@ import Historia from "./components/Historia";
 import Politica from "./components/Politica";
 import Cultura from "./components/Cultura";
 import Splash from "./components/Splash";
+import Comentarios from "./components/Comentarios";
 import "./App.css";
 // Importa componentes do Leaflet
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
@@ -222,6 +223,7 @@ const App = () => {
         <Route path="/historia" element={<Historia pais={nomePais} />} />
         <Route path="/politica" element={<Politica pais={nomePais} />} />
         <Route path="/cultura" element={<Cultura pais={nomePais} />} />
+        <Route path="/comentarios" element={<Comentarios pais={nomePais} />} />
       </Routes>
       <Footer />
     </Router>

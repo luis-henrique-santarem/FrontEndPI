@@ -6,7 +6,7 @@ import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Cultura"
-export default function Cultura(pais) {
+export default function Cultura({pais}) {
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
@@ -75,6 +75,7 @@ export default function Cultura(pais) {
         {/* Link para a página de história */}
         <Link to="/historia" className="btn">História</Link>
         {/* Botão que abre o modal de comentários */}
+        <Link to="/comentarios" className="btn">Ver Comentários</Link>
         <button
           onClick={() => setOpenComment(true)} // Altera o estado para abrir o modal
           className="btn btn-special" >Deixar Comentário </button>

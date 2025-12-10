@@ -6,7 +6,7 @@ import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Historia"
-export default function Historia(pais) {
+export default function Historia({ pais }) {
   // Estado responsável por controlar se o modal está aberto ou fechado
   const [openComment, setOpenComment] = useState(false);
 
@@ -73,6 +73,8 @@ export default function Historia(pais) {
         <Link to="/politica" className="btn">Política</Link>
         {/* Link para a página de cultura */}
         <Link to="/cultura" className="btn">Cultura</Link>
+      <Link to="/comentarios" className="btn">Ver Comentários</Link>
+
         {/* Botão que abre o modal para deixar um comentário */}
         <button
           onClick={() => setOpenComment(true)} // Atualiza o estado para abrir o modal
