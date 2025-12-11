@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Comentarios.css";
 
-export default function Comentarios() {
+export default function Comentarios({pais}) {
   const comentarios = [
     { nome: "Usuário 1", texto: "Esse post ficou muito bom! Continue assim.", data: "10/12/2025" },
     { nome: "Maria", texto: "Adorei o conteúdo, super interessante.", data: "10/12/2025" },

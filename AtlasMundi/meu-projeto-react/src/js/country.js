@@ -1,5 +1,5 @@
 export async function pegarPais(name, inEnglish) {
-  console.log("nome: "+name.pais+"ininglish: "+inEnglish)
+  console.log("nome: "+name+"ininglish: "+inEnglish)
   try {
     const resposta = await fetch("http://localhost:3000/country/", {
       method: "PUT",
@@ -7,7 +7,7 @@ export async function pegarPais(name, inEnglish) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: name.pais,
+        name: name,
         inEnglish: inEnglish
       })
     });
