@@ -1,17 +1,31 @@
 import { Link } from "react-router-dom";
+import { getComment } from "../js/comment";
+import { pegarPais } from "../js/country";
+import { useEffect, useState } from "react";
 import "./Comentarios.css";
 
 export default function Comentarios({pais}) {
-  const comentarios = [
-    { nome: "Usuário 1", texto: "Esse post ficou muito bom! Continue assim.", data: "10/12/2025" },
-    { nome: "Maria", texto: "Adorei o conteúdo, super interessante.", data: "10/12/2025" },
-    { nome: "Carlos", texto: "Explicação clara e objetiva. Parabéns!", data: "09/12/2025" },
-    { nome: "João", texto: "Muito bom mesmo, bem explicado!", data: "08/12/2025" },
-    { nome: "Ana", texto: "Esse site está ficando incrível!", data: "07/12/2025" },
-    { nome: "Luis", texto: "Esse site está ficando muito mediano!", data: "07/12/2025" },
-    { nome: "Heloisa", texto: " Pão!", data: "07/12/2025" },
-  ];
+  const [comentarios, setCommentarios] = useState([])
 
+  useEffect(() => {
+  async function carregarComentarios() {
+    const paisPego = await pegarPais(pais, false)
+    const paisId = paisPego.id
+
+    const comentariosAPI = await getComment(paisId)
+
+    setCommentarios(
+      comentariosAPI.map(c => ({
+        texto: c.message,
+        data: new Date(c.createdAt).toLocaleDateString("pt-BR")
+      }))
+    )
+  }
+
+  carregarComentarios()
+}, [pais])
+
+  
   return (
     <div className="comments-page">
         
@@ -23,7 +37,6 @@ export default function Comentarios({pais}) {
         {comentarios.map((c, index) => (
           <div className="comment-item" key={index}>
             <div className="comment-left">
-              <span className="comment-author">{c.nome}</span>
               <p className="comment-text">{c.texto}</p>
             </div>
             <span className="comment-date">{c.data}</span>

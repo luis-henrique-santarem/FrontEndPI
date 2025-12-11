@@ -28,18 +28,15 @@ export async function createComment(countryId, message, isQuestion, token) {
 }
 
 // funcao que vai retornar o objeto com todos os comentarios
-export async function getComment(countryId, message, isQuestion, token) {
+export async function getComment(countryId) {
   try {
     const resposta = await fetch("http://localhost:3000/comment/country", {
-      method: "GET",
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         countryId,
-        message,
-        isQuestion,
       })
     });
 
@@ -48,8 +45,6 @@ export async function getComment(countryId, message, isQuestion, token) {
       console.log("Erro:", erro.message || resposta.statusText);
       return;
     }
-
-    alert("Comentario recebido.");
 
     return await resposta.json();
   } catch (e) {
