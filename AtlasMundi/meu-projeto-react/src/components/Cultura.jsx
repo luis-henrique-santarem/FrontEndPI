@@ -7,6 +7,7 @@ import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Cultura"
 export default function Cultura({pais}) {
+  console.log(pais)
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
@@ -17,7 +18,7 @@ export default function Cultura({pais}) {
 
   async function funcao() {
     try{
-      const paisPego =  await pegarPais(localStorage.getItem("paisAtual"), false)
+      const paisPego = await pegarPais(pais, false)
       setCultura(paisPego.culture)    
       return paisPego.id      
     }catch(e){
