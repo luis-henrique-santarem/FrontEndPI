@@ -1,17 +1,26 @@
 export async function atualizarUsuario(name, email, password, cpf, token) {
   try {
+    // monta o objeto base
+    const body = {};
+
+    if (name !== "") body.name = name;
+    if (email !== "") body.email = email;
+    if (password !== "") body.password = password;
+    if (cpf !== "") body.cpf = cpf;
+
+    // se não tiver nada pra atualizar, nem manda request
+    if (Object.keys(body).length === 0) {
+      alert("Nenhum campo para atualizar");
+      return;
+    }
+
     const resposta = await fetch("http://localhost:3000/users/me", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
-      body: JSON.stringify({
-        name : name,
-        email: email,
-        password: password,
-        cpf: cpf
-      })
+      body: JSON.stringify(body)
     });
 
     if (!resposta.ok) {
@@ -21,13 +30,15 @@ export async function atualizarUsuario(name, email, password, cpf, token) {
       return;
     }
 
+    const data = await resposta.json();
     alert("Usuario atualizado com sucesso");
-
     return data;
+
   } catch (e) {
     console.log("Falha geral:", e);
   }
 }
+
 
 export async function deletarUsuario(token) {
   try {

@@ -27,9 +27,8 @@ const Usuario = ({ onClose }) => {
             alert("A nova senha e a confirmação não coincidem!");
             return;
         }
-
         const token = localStorage.getItem("token");
-
+        console.log("mandando atualizacao com token: "+token)
         try {
             await atualizarUsuarioAPI(
                 nome,
@@ -38,7 +37,6 @@ const Usuario = ({ onClose }) => {
                 cpf,
                 token,
             );
-
         } catch (err) {
             console.error(err);
             alert("Erro ao atualizar usuário.");
