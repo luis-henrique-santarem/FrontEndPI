@@ -26,7 +26,7 @@ function Information({ nome, flagUrl, onClose, isEnglish }) {
 
    <button className="btninfo" onClick={() => setOpenConfig(true)}> criar</button>
        {openConfig && (
-        <CriarPais onClose={() => setOpenConfig(false)} />
+        <CriarPais pais={nome} onClose={() => setOpenConfig(false)} />
       )}
       
       </div>

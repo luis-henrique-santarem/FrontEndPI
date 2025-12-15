@@ -225,7 +225,7 @@ const App = () => {
         <Route path="/cultura" element={<Cultura pais={nomePais} />} />
         <Route path="/comentarios" element={<Comentarios pais={nomePais} />} />
         <Route path="/usuario" element={<Usuario/>} />
-        <Route path="/pais" element={<CriarPais/>} />
+        <Route path="/pais" element={<CriarPais pais={nomePais} />} />
 
       </Routes>
       <Footer />
