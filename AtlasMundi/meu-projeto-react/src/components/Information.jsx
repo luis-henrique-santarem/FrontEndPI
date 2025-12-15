@@ -19,6 +19,13 @@ function Information({ nome, flagUrl, onClose, isEnglish }) {
       <Link to="/historia" className='btninfo'>{isEnglish ? 'History' : 'História'}</Link>
       <Link to="/politica" className='btninfo'>{isEnglish ? 'Politics' : 'Política'}</Link>
       <Link to="/cultura" className='btninfo'>{isEnglish ? 'Culture' : 'Cultura'}</Link>
+      <div className='container2'>
+         <button className='btninfo'>Atualizar</button>
+      <button className='btninfo'>Criar</button>
+      <button className='btninfo'>Deletar</button>
+      </div>
+      
+
     </div>
   );
 }

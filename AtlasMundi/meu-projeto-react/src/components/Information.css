@@ -104,3 +104,12 @@
     font-size: 1.3rem;
   }
 }
+
+
+.container2 {
+  margin-top: 27.75rem;
+  display: flex;
+  gap: 0.5rem;
+  align-self: flex-end;
+  justify-self: end;
+}
