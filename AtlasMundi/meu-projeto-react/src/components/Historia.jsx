@@ -68,7 +68,7 @@ export default function Historia({ pais }) {
       {/* Seção com botões de navegação */}
       <div className="historia-buttons">
         {/* Link para a página inicial */}
-        <Link to="/" className="btn">Início</Link>
+        <Link to="/" className="btn">← Voltar</Link>
         {/* Link para a página de política */}
         <Link to="/politica" className="btn">Política</Link>
         {/* Link para a página de cultura */}

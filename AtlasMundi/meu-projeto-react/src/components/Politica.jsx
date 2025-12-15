@@ -66,7 +66,7 @@ export default function Politica({pais}) {
       {/* Seção com botões de navegação */}
       <div className="politica-buttons">
         {/* Link para a página inicial */}
-        <Link to="/" className="btn">Início</Link>
+        <Link to="/" className="btn">← Voltar</Link>
         {/* Link para a página de Cultura */}
         <Link to="/cultura" className="btn">Cultura</Link>
         {/* Link para a página de História */}

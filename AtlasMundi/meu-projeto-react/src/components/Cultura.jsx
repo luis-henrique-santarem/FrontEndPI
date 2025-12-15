@@ -70,7 +70,7 @@ export default function Cultura({pais}) {
       {/* Seção de botões de navegação */}
       <div className="cultura-buttons">
         {/* Link para a página inicial */}
-        <Link to="/" className="btn">Início</Link>
+        <Link to="/" className="btn">← Voltar</Link>
         {/* Link para a página de política */}
         <Link to="/politica" className="btn">Política</Link>
         {/* Link para a página de história */}
