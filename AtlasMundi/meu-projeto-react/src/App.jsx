@@ -109,7 +109,7 @@ const App = () => {
         <div style="text-align: center;">
           <strong>${countryName}</strong><br/>
           <img src="${flag}" alt="Bandeira de ${countryName}" width="40"/><br/>
-          <button id="${idBotao}">Click</button>
+          <button  class="popup-button" id="${idBotao}">Click</button>
         </div>
       `);
     } else {
