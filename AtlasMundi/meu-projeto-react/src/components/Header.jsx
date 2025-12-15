@@ -58,6 +58,7 @@ function Header({ onSearch }) {
         <div className="logo-header">
           <img src={logo} alt="Logo" />
         </div>
+        
         <div className="search-container">
           <img src={icon} className="icony" alt="Search Icon" />
           <Autocomplete

@@ -4,6 +4,8 @@
   padding: 0;
 }
 
+
+
 html,body,#root {
   height: 100%;
   width: 100%;
@@ -100,3 +102,21 @@ body {
 .fade-wrapper {
   transition: opacity 1s ease;
 }
+
+.popup-button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #2266cc; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.popup-button:hover {
+  background-color: #e0850d;
+  transform: scale(1.05);
+}
+
