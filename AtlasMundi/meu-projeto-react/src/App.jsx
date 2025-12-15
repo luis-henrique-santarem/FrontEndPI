@@ -8,13 +8,12 @@ import Politica from "./components/Politica";
 import Cultura from "./components/Cultura";
 import Splash from "./components/Splash";
 import Comentarios from "./components/Comentarios";
+import CriarPais from "./components/CriarPais";
 import Usuario from "./components/Usuario";
-
 import "./App.css";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 
 const App = () => {
-  // Estados principais do App
   const [geoData, setGeoData] = useState(null); // Dados do GeoJSON
   const [showInfo, setShowInfo] = useState(false); // Controla exibição da sidebar de informação
   const [nomePais, setNomePais] = useState(""); // Nome do país selecionado
@@ -225,7 +224,8 @@ const App = () => {
         <Route path="/politica" element={<Politica pais={nomePais} />} />
         <Route path="/cultura" element={<Cultura pais={nomePais} />} />
         <Route path="/comentarios" element={<Comentarios pais={nomePais} />} />
-        <Route path="/usuario" element={<Usuario />} />
+        <Route path="/usuario" element={<Usuario/>} />
+        <Route path="/pais" element={<CriarPais/>} />
 
       </Routes>
       <Footer />

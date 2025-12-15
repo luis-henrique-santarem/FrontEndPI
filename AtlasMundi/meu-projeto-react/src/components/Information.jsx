@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Information.css';
+import CriarPais from "./CriarPais"
 
 
 function Information({ nome, flagUrl, onClose, isEnglish }) {
   const [visible, setVisible] = useState(false);
+  const [openConfig, setOpenConfig] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 50);
@@ -20,9 +22,13 @@ function Information({ nome, flagUrl, onClose, isEnglish }) {
       <Link to="/politica" className='btninfo'>{isEnglish ? 'Politics' : 'Política'}</Link>
       <Link to="/cultura" className='btninfo'>{isEnglish ? 'Culture' : 'Cultura'}</Link>
       <div className='container2'>
-         <button className='btninfo'>Atualizar</button>
-      <button className='btninfo'>Criar</button>
-      <button className='btninfo'>Deletar</button>
+   
+
+   <button className="btninfo" onClick={() => setOpenConfig(true)}> criar</button>
+       {openConfig && (
+        <CriarPais onClose={() => setOpenConfig(false)} />
+      )}
+      
       </div>
       
 
