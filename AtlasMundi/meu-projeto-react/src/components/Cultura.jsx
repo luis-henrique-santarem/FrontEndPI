@@ -19,7 +19,7 @@ export default function Cultura({pais}) {
   async function funcao() {
     try{
       const paisPego = await pegarPais(pais, false)
-      setCultura(paisPego.culture)    
+      setCultura(paisPego.culture + " " + paisPego.culture2)    
       return paisPego.id      
     }catch(e){
       console.log("erro "+e)

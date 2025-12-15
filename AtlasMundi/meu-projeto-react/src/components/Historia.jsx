@@ -18,7 +18,7 @@ export default function Historia({ pais }) {
   async function funcao() {
     try{
       const paisPego = await pegarPais(pais, false)
-      setHistoria(paisPego.history)   
+      setHistoria(paisPego.history  + " " + paisPego.history2)   
       return paisPego.id
     }catch(e){
       console.log("Erro: "+e)
