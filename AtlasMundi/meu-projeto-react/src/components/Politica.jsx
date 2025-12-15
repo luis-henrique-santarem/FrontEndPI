@@ -18,7 +18,7 @@ export default function Politica({pais}) {
   async function funcao() {
     try{
       const paisPego = await pegarPais(pais, false)
-      setPolitica(paisPego.politics) 
+      setPolitica(paisPego.politics + " " + paisPego.politics2) 
       return paisPego.id
     }catch(e){
       console.log("erro: " + e)
