@@ -1,3 +1,4 @@
+import { mensagemOk } from "./../components/MensagemOK";
 export async function login(email, password) {
   try {
     const resposta = await fetch("http://localhost:3000/auth/login", {
@@ -14,7 +15,7 @@ export async function login(email, password) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Não foi possivel fazer o login.");
+      mensagemOk("Não foi possivel fazer o login.");
       return;
     }
 
@@ -26,7 +27,7 @@ export async function login(email, password) {
     localStorage.setItem("token", data.token);
     console.log("Token salvo:", data.token);
 
-    alert("Bem vindo "+ data.user.name + "!");
+    mensagemOk("Bem vindo "+ data.user.name + "!");
 
     return data;
   } catch (e) {
@@ -51,7 +52,7 @@ export async function register(data,senhas) {
 
     if (!resposta.ok) {
       console.log("Erro:", json.message);
-      alert("Não foi possivel registrar o usuario.");
+      mensagemOk("Não foi possivel registrar o usuario.");
       return null;
     }
     
@@ -62,7 +63,7 @@ export async function register(data,senhas) {
     console.log("Usuário criado:", json.user);
     console.log("Token:", json.token);
 
-    alert("Usuario registrado com sucesso.");
+    mensagemOk("Usuario registrado com sucesso.");
 
     return json;
   } catch (e) {

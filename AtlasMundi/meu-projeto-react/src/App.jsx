@@ -210,7 +210,7 @@ const App = () => {
           }
         />
 
-        <Route path="/historia" element={<Historia pais={nomePais} english={english} />} />
+        <Route path="/historia"  element={<Historia pais={nomePais} english={english} flagUrl={flagUrl} />}/>
         <Route path="/politica" element={<Politica pais={nomePais} english={english} />} />
         <Route path="/cultura" element={<Cultura pais={nomePais} english={english} />} />
         <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} />} />
