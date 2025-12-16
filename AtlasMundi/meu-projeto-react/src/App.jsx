@@ -27,7 +27,7 @@ const App = () => {
   const [nomePais, setNomePais] = useState("");
   const [flagUrl, setFlagUrl] = useState("");
   const [showSplash, setShowSplash] = useState(true);
-  const [isEnglish, setIsEnglish] = useState(false);
+  const [english, setEnglish] = useState(false);
   const mapRef = useRef();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const App = () => {
       .then((res) => res.json())
       .then((data) => setGeoData(data))
       .catch((error) => console.error("Erro ao carregar o GeoJSON:", error));
-  }, []);
+  }, [english]);
 
   const countryStyle = (feature) => {
     const iso = feature.properties.iso_a2 || "XX";
@@ -49,8 +49,8 @@ const App = () => {
 
   function onEachCountry(feature, layer) {
     const countryName =
-      feature.properties[`admin_${isEnglish ? "en" : "pt"}`] ||
-      feature.properties[`name_${isEnglish ? "en" : "pt"}`];
+      feature.properties[`admin_${english ? "en" : "pt"}`] ||
+      feature.properties[`name_${english ? "en" : "pt"}`];
 
     let isoCode = feature.properties.iso_a2;
     const idBotao = `btn-${isoCode}`;
@@ -128,8 +128,8 @@ const App = () => {
 
     const found = geoData.features.find((f) => {
       const name =
-        f.properties[`admin_${isEnglish ? "en" : "pt"}`] ||
-        f.properties[`name_${isEnglish ? "en" : "pt"}`] ||
+        f.properties[`admin_${english ? "en" : "pt"}`] ||
+        f.properties[`name_${english ? "en" : "pt"}`] ||
         "";
       return name.toLowerCase() === query.toLowerCase();
     });
@@ -140,8 +140,8 @@ const App = () => {
     }
 
     const countryName =
-      found.properties[`admin_${isEnglish ? "en" : "pt"}`] ||
-      found.properties[`name_${isEnglish ? "en" : "pt"}`];
+      found.properties[`admin_${english ? "en" : "pt"}`] ||
+      found.properties[`name_${english ? "en" : "pt"}`];
 
     let isoCode = found.properties.iso_a2;
 
@@ -158,15 +158,11 @@ const App = () => {
     }
   };
 
-  const toggleLanguage = () => setIsEnglish(!isEnglish);
+  const toggleLanguage = () => setEnglish(!english);
 
   return (
     <Router>
-      <Header onSearch={handleSearch} />
-
-      <button onClick={toggleLanguage} className="language-toggle">
-        {isEnglish ? "Português" : "English"}
-      </button>
+      <Header onSearch={handleSearch} english={english} toggleLanguage={toggleLanguage} />
 
       <Routes>
         <Route
@@ -176,6 +172,7 @@ const App = () => {
               {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
 
               <MapContainer
+                key={english ? "en" : "pt"}
                 center={[25, 0]}
                 zoom={3}
                 minZoom={2}
@@ -206,19 +203,19 @@ const App = () => {
                   nome={nomePais}
                   flagUrl={flagUrl}
                   onClose={() => setShowInfo(false)}
-                  isEnglish={isEnglish}
+                  isEnglish={english}
                 />
               )}
             </div>
           }
         />
 
-        <Route path="/historia" element={<Historia pais={nomePais} />} />
-        <Route path="/politica" element={<Politica pais={nomePais} />} />
-        <Route path="/cultura" element={<Cultura pais={nomePais} />} />
-        <Route path="/comentarios" element={<Comentarios pais={nomePais} />} />
-        <Route path="/usuario" element={<Usuario/>} />
-        <Route path="/pais" element={<CriarPais pais={nomePais} />} />
+        <Route path="/historia" element={<Historia pais={nomePais} english={english} />} />
+        <Route path="/politica" element={<Politica pais={nomePais} english={english} />} />
+        <Route path="/cultura" element={<Cultura pais={nomePais} english={english} />} />
+        <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} />} />
+        <Route path="/usuario" element={<Usuario english={english}/>} />
+        <Route path="/pais" element={<CriarPais pais={nomePais} english={english}/>} />
 
       </Routes>
 

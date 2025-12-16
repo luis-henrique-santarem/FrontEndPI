@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './MenuInfo.css';
 import Configuracoes from "./Configuracoes";
 
-function MenuInfo({ onClose, onLoginClick, onRegisterClick, onUserClick }) { 
+function MenuInfo({ onClose, onLoginClick, onRegisterClick, onUserClick, english, toggleLanguage}) { 
   const [visible, setVisible] = useState(false);
   const [openConfig, setOpenConfig] = useState(false);
 
@@ -34,8 +34,12 @@ function MenuInfo({ onClose, onLoginClick, onRegisterClick, onUserClick }) {
       user: 'User'
     },
   };
-
-  const currentLang = translations.pt;
+  let currentLang 
+  if(english ===true){
+    currentLang = translations.en
+  }else{
+    currentLang = translations.pt
+  }
 
   return (
     <>
@@ -54,7 +58,7 @@ function MenuInfo({ onClose, onLoginClick, onRegisterClick, onUserClick }) {
         </div>
       </div>
       {openConfig && (
-        <Configuracoes onClose={() => setOpenConfig(false)} />
+        <Configuracoes english={english} toggleLanguage={toggleLanguage} onClose={() => setOpenConfig(false)} />
       )}
     </>
   );

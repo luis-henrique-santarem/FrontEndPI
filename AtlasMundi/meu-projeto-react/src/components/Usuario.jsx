@@ -3,7 +3,7 @@ import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { atualizarUsuario as atualizarUsuarioAPI, deletarUsuario} from "../js/user";
 import "./Usuario.css";
 
-const Usuario = ({ onClose }) => {
+const Usuario = ({ onClose, english }) => {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCPF] = useState("");

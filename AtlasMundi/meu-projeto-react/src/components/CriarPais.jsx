@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { AtualizarPais, DeletarPais, RegistrarPais } from "../js/country";
 
-const CriarPais = ({ pais, onClose }) => {
+const CriarPais = ({ pais, onClose, english }) => {
     const [informacaoRapida, setInformacaoRapida] = useState("");
     const [politica, setPolitica] = useState("");
     const [politica2, setPolitica2] = useState("");
@@ -47,20 +47,20 @@ const CriarPais = ({ pais, onClose }) => {
                         <Typography variant="h6" gutterBottom>Criar País</Typography>
         
                         <form className="usuario-form">
-                            <TextField onChange={(e) => setInformacaoRapida(e.target.value)} label="Informação Rápida"  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setPolitica(e.target.value)} label="politica"  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setPolitica2(e.target.value)} label="politica2"  fullWidth size="small" margin="dense"/>
-                            <TextField onChange={(e) => setHistoria(e.target.value)} label="historia"  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setHistoria2(e.target.value)} label="historia2"  fullWidth size="small" margin="dense"/>
-                            <TextField onChange={(e) => setCultura(e.target.value)} label="cultura"  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setCultura2(e.target.value)} label="cultura2"  fullWidth size="small" margin="dense"/>
-                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label="Fonte confia"  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setInformacaoRapida(e.target.value)} label={english ? "Quick Information" : "Informação Rapida"}  fullWidth size="small" margin="dense" />
+                            <TextField onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Politica"}  fullWidth size="small" margin="dense" />
+                            <TextField onChange={(e) => setPolitica2(e.target.value)} label={english ? "Politics2" : "Politica2"}  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" />
+                            <TextField onChange={(e) => setHistoria2(e.target.value)} label={english ? "History2" : "Historia2"}  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" />
+                            <TextField onChange={(e) => setCultura2(e.target.value)} label={english ? "Culture2" : "Cultura2"}  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense"/>
                             
                             <div className="usuario-buttons">
-                                <Button onClick={() => {handleRegistrarPais()}} variant="contained" color="primary" fullWidth >Registrar</Button>
-                                <Button onClick={() => {handleAtualizarPais()}} variant="contained" color="primary" fullWidth >Atualizar</Button>
-                                <Button onClick={() => {handleDeletarPais()}} variant="contained" color="error" fullWidth >Deletar</Button>
-                                <Button fullWidth onClick={onClose}>Fechar</Button>
+                                <Button onClick={() => {handleRegistrarPais()}} variant="contained" color="primary" fullWidth >{english ? "Register" : "Registrar"}</Button>
+                                <Button onClick={() => {handleAtualizarPais()}} variant="contained" color="primary" fullWidth >{english ? "Update":"Atualizar"}</Button>
+                                <Button onClick={() => {handleDeletarPais()}} variant="contained" color="error" fullWidth >{english ? "Delete" : "Deletar"}</Button>
+                                <Button fullWidth onClick={onClose}>{english ? "Close":"Fechar"}</Button>
                             </div>
                         </form>
                     </Box>

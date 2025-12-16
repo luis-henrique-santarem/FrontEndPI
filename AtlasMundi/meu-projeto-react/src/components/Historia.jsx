@@ -6,7 +6,7 @@ import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
 
 // Declara o componente funcional principal "Historia"
-export default function Historia({ pais }) {
+export default function Historia({ pais, english }) {
   // Estado responsável por controlar se o modal está aberto ou fechado
   const [openComment, setOpenComment] = useState(false);
 
@@ -58,7 +58,7 @@ export default function Historia({ pais }) {
       {/* Seção principal do conteúdo da página */}
       <div className="historia-content">
         <div className="historia-text">
-          <h1>País História</h1>
+          <h1>{english ? "Country History":"País História"}</h1>
           <p>
             {historia}
           </p>
@@ -68,17 +68,17 @@ export default function Historia({ pais }) {
       {/* Seção com botões de navegação */}
       <div className="historia-buttons">
         {/* Link para a página inicial */}
-        <Link to="/" className="btn">← Voltar</Link>
+        <Link to="/" className="btn">{english ? "← Return":"← Voltar"}</Link>
         {/* Link para a página de política */}
-        <Link to="/politica" className="btn">Política</Link>
+        <Link to="/politica" className="btn">{english ? "Politics":"Política"}</Link>
         {/* Link para a página de cultura */}
-        <Link to="/cultura" className="btn">Cultura</Link>
-      <Link to="/comentarios" className="btn">Ver Comentários</Link>
+        <Link to="/cultura" className="btn">{english ? "Culture":"Culture"}</Link>
+      <Link to="/comentarios" className="btn">{english ? "See Comments":"Ver Comentários"}</Link>
 
         {/* Botão que abre o modal para deixar um comentário */}
         <button
           onClick={() => setOpenComment(true)} // Atualiza o estado para abrir o modal
-          className="btn btn-special">Deixar Comentário</button>
+          className="btn btn-special">{english ? "Make a Comment":"Deixar Comentário"}</button>
       </div>
       {/* Modal do Material UI - aparece quando openComment é true */}
       <Modal
@@ -87,15 +87,15 @@ export default function Historia({ pais }) {
       >
         <Box sx={modalStyle}>
           {/* Título do modal */}
-          <Typography variant="h6" gutterBottom> Deixar Comentário</Typography>
+          <Typography variant="h6" gutterBottom>{english ? "Make a Comment":"Deixar Comentário"}</Typography>
           {/* Formulário de comentário */}
           <form className="auth-form">
             {/* Campo de texto multilinha para escrever o comentário */}
-            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            <TextField onChange={(message) => {setComment(message.target.value)}} label={english ? "Comment":"Comentário"} multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão para enviar o comentário */}
-            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth>Enviar </Button>
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
             {/* Botão para fechar o modal manualmente */}
-            <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
+            <Button onClick={() => setOpenComment(false)} fullWidth>{english ? "Exit":"Sair"}</Button>
           </form>
         </Box>
       </Modal>

@@ -4,7 +4,7 @@ import { pegarPais } from "../js/country";
 import { useEffect, useState } from "react";
 import "./Comentarios.css";
 
-export default function Comentarios({pais}) {
+export default function Comentarios({pais, english}) {
   const [comentarios, setCommentarios] = useState([])
 
   useEffect(() => {
