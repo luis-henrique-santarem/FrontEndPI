@@ -4,6 +4,7 @@ import "./Cultura.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
+import { mensagemOk } from "./MensagemOK";
 
 // Declara o componente funcional principal "Cultura"
 export default function Cultura({pais}) {
@@ -19,7 +20,7 @@ export default function Cultura({pais}) {
   async function funcao() {
     try{
       const paisPego = await pegarPais(pais, false)
-      setCultura(paisPego.culture + " " + paisPego.culture2)    
+      setCultura(paisPego.culture + " " + paisPego.culture2) 
       return paisPego.id      
     }catch(e){
       console.log("erro "+e)
@@ -31,13 +32,14 @@ export default function Cultura({pais}) {
     const paisId = await funcao()
     try{
       createComment(paisId, comment, false, token)    
+      setOpenComment(false)
     }catch(e){
       console.log("Erro: "+e)
     }
   }
 
   useEffect(() => {
-    funcao()    
+    funcao()
   },[])
 
 

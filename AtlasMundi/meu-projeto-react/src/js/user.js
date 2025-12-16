@@ -1,3 +1,4 @@
+import { mensagemOk } from "./../components/MensagemOK";
 export async function atualizarUsuario(name, email, password, cpf, token) {
   try {
     // monta o objeto base
@@ -10,7 +11,7 @@ export async function atualizarUsuario(name, email, password, cpf, token) {
 
     // se não tiver nada pra atualizar, nem manda request
     if (Object.keys(body).length === 0) {
-      alert("Nenhum campo para atualizar");
+      mensagemOk("Nenhum campo para atualizar");
       return;
     }
 
@@ -26,12 +27,12 @@ export async function atualizarUsuario(name, email, password, cpf, token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Não foi possivel atualizar o usuario");
+      mensagemOk("Não foi possivel atualizar o usuario");
       return;
     }
 
     const data = await resposta.json();
-    alert("Usuario atualizado com sucesso");
+    mensagemOk("Usuario atualizado com sucesso");
     return data;
 
   } catch (e) {
@@ -53,11 +54,11 @@ export async function deletarUsuario(token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Não foi possivel deletar o usuario");
+      mensagemOk("Não foi possivel deletar o usuario");
       return;
     }
 
-    alert("Usuario deletado com sucesso");
+    mensagemOk("Usuario deletado com sucesso");
 
     return data;
   } catch (e) {

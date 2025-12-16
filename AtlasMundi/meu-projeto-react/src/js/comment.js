@@ -1,3 +1,4 @@
+import { mensagemOk } from "./../components/MensagemOK";
 export async function createComment(countryId, message, isQuestion, token) {
   try {
     const resposta = await fetch("http://localhost:3000/comment/me", {
@@ -15,11 +16,11 @@ export async function createComment(countryId, message, isQuestion, token) {
 
     if (!resposta.ok) {
       const erro = await resposta.json().catch(() => ({}));
-      alert("Erro ao enviar país.")
+      mensagemOk("Erro ao enviar país.")
       return;
     }
 
-    alert("Comentario recebido.");
+    mensagemOk("Comentario recebido.");
 
     return await resposta.json();
   } catch (e) {
