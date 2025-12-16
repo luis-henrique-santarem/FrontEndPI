@@ -2,7 +2,9 @@
   height: 93.5vh;
   display: flex;
   flex-direction: column;
-  background-color: #0d2b61; 
+  background-image: url(../assets//mundomuitofoda.png);
+  background-repeat: no-repeat;
+  background-size: cover; 
   color: white;
 }
 
@@ -34,8 +36,7 @@
   display: flex;
   justify-content: space-around;
   padding: 1.4rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+ 
   flex-wrap: wrap; 
   gap: 0.5rem;
 }

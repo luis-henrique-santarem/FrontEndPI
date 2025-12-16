@@ -213,7 +213,7 @@ const App = () => {
           }
         />
 
-        <Route path="/historia" element={<Historia pais={nomePais} />} />
+        <Route path="/historia"  element={<Historia pais={nomePais} flagUrl={flagUrl} />}/>
         <Route path="/politica" element={<Politica pais={nomePais} />} />
         <Route path="/cultura" element={<Cultura pais={nomePais} />} />
         <Route path="/comentarios" element={<Comentarios pais={nomePais} />} />
