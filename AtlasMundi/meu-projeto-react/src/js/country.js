@@ -1,3 +1,5 @@
+import { mensagemOk } from "./../components/MensagemOK";
+
 export async function pegarPais(name, inEnglish) {
   console.log("nome: "+name+"ininglish: "+inEnglish)
   try {
@@ -15,7 +17,7 @@ export async function pegarPais(name, inEnglish) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Erro ao carregar pais.");
+      mensagemOk("erro")
       return;
     }
 
@@ -55,11 +57,11 @@ export async function RegistrarPais(name, quickInfo, politics, politics2, histor
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Erro ao registrar pais.");
+      mensagemOk("Erro ao registrar pais.");
       return;
     }
 
-    alert("País registrado com sucesso.")
+    mensagemOk("País registrado com sucesso.")
   } catch (e) {
     console.log("Falha geral:", e);
   }
@@ -82,11 +84,11 @@ export async function DeletarPais(name, token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Erro ao deletar pais.");
+      mensagemOk("Erro ao deletar pais.");
       return;
     }
 
-    alert("País deletado com sucesso.")
+    mensagemOk("País deletado com sucesso.")
   } catch (e) {
     console.log("Falha geral:", e);
   }
@@ -117,11 +119,11 @@ export async function AtualizarPais(name, quickInfo, politics, politics2, histor
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      alert("Erro ao atualizar pais.");
+      mensagemOk("Erro ao atualizar pais.");
       return;
     }
 
-    alert("País atualizado com sucesso.")
+    mensagemOk("País atualizado com sucesso.")
   } catch (e) {
     console.log("Falha geral:", e);
   }
