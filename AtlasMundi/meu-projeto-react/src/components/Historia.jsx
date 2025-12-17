@@ -70,7 +70,7 @@ export default function Historia({ pais, flagUrl, english }) {
   return (
     <div className="historia-page">
       <div className="historia-background" style={{ backgroundImage: `url(${bgImage})`}}/>
-      <Link to="/" className="btn-back">← Voltar</Link>
+      <Link to="/" className="btn-back">{english ? "← Return":"← Voltar"}</Link>
       <aside className="country-card">
         <h2 className="country-title">
           <img src={locationIcon} alt="Localização" className="location-icon" />
@@ -88,10 +88,10 @@ export default function Historia({ pais, flagUrl, english }) {
           <p>{historia}</p>
         </div>
         <div className="country-buttons">
-          <Link to="/politica" className="btn-blue"> Política</Link>
-          <Link to="/cultura" className="btn-blue"> Cultura</Link>
-          <Link to="/comentarios" className="btn-link"> {" "} Ver comentários</Link>
-          <button className="btn-blue" onClick={() => setOpenComment(true)}> Deixar comentário</button>
+          <Link to="/politica" className="btn-blue">{english ? "Politics":"Política"}</Link>
+          <Link to="/cultura" className="btn-blue">{english ? "Culture":"Cultura"}</Link>
+          <Link to="/comentarios" className="btn-link"> {" "} {english ? "See Comments":"Ver comentários"}</Link>
+          <button className="btn-blue" onClick={() => setOpenComment(true)}>{english ? "Make Comment":"Deixar comentário"}</button>
         </div>
       </aside>
 
@@ -100,13 +100,13 @@ export default function Historia({ pais, flagUrl, english }) {
       )}
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom> Deixar comentário</Typography>
-          <TextField label="Comentário" multiline rows={4} fullWidth margin="dense" value={comment} onChange={(e) => setComment(e.target.value)} InputProps={{
+          <Typography variant="h6" gutterBottom>{english ? "Make Comment":"Deixar comentário"}</Typography>
+          <TextField label={english ? "Comment":"Comentário"} multiline rows={4} fullWidth margin="dense" value={comment} onChange={(e) => setComment(e.target.value)} InputProps={{
               style: { backgroundColor: "white", borderRadius: 6 },
             }}
           />
-          <Button onClick={comentar} variant="contained" fullWidth sx={{ mt: 2, backgroundColor: "#1452c5" }}> Enviar</Button>
-          <Button onClick={() => setOpenComment(false)} fullWidth sx={{ mt: 1, color: "white" }}> Fechar</Button>
+          <Button onClick={comentar} variant="contained" fullWidth sx={{ mt: 2, backgroundColor: "#1452c5" }}>{english ? "Send":"Enviar"}</Button>
+          <Button onClick={() => setOpenComment(false)} fullWidth sx={{ mt: 1, color: "white" }}>{english ? "Close":"Fechar"}</Button>
         </Box>
       </Modal>
     </div>
