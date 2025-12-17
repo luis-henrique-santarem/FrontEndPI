@@ -3,7 +3,7 @@ import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { atualizarUsuario as atualizarUsuarioAPI, deletarUsuario} from "../js/user";
 import "./Usuario.css";
 
-const Usuario = ({ onClose }) => {
+const Usuario = ({ onClose, english }) => {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCPF] = useState("");
@@ -52,19 +52,19 @@ const Usuario = ({ onClose }) => {
     return (
         <Modal open={true} onClose={onClose}>
             <Box sx={modalStyle}>
-                <Typography variant="h6" gutterBottom>Meu Usuário</Typography>
+                <Typography variant="h6" gutterBottom>{english ? "My User":"Meu Usuário"}</Typography>
 
                 <form className="usuario-form">
-                    <TextField label="Nome" value={nome} onChange={(e) => setNome(e.target.value)} fullWidth size="small" margin="dense" />
+                    <TextField label={english ? "Name":"Nome"} value={nome} onChange={(e) => setNome(e.target.value)} fullWidth size="small" margin="dense" />
                     <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth size="small" margin="dense" />
                     <TextField label="CPF" value={cpf} onChange={(e) => setCPF(e.target.value)} fullWidth size="small" margin="dense" />
-                    <TextField label="Nova Senha" type="password" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} fullWidth size="small" margin="dense" />
-                    <TextField label="Confirmar Nova Senha" type="password" value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} fullWidth size="small" margin="dense" />
+                    <TextField label={english ? "New Password":"Nova Senha"} type="password" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} fullWidth size="small" margin="dense" />
+                    <TextField label={english ? "Confirm Password":"Confirmar Senha"} type="password" value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} fullWidth size="small" margin="dense" />
 
                     <div className="usuario-buttons">
-                        <Button variant="contained" color="primary" fullWidth onClick={handleAtualizar}>Atualizar</Button>
-                        <Button variant="contained" color="error" fullWidth onClick={handleDeletar}>Deletar Conta</Button>
-                        <Button fullWidth onClick={onClose}>Fechar</Button>
+                        <Button variant="contained" color="primary" fullWidth onClick={handleAtualizar}>{english ? "Update":"Atualizar"}</Button>
+                        <Button variant="contained" color="error" fullWidth onClick={handleDeletar}>{english ? "Delete Account":"Deletar Conta"}</Button>
+                        <Button fullWidth onClick={onClose}>{english ? "Close":"Fechar"}</Button>
                     </div>
                 </form>
             </Box>

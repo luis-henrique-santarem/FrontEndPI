@@ -7,7 +7,7 @@ import { createComment } from "../js/comment";
 import { mensagemOk } from "./MensagemOK";
 
 // Declara o componente funcional principal "Cultura"
-export default function Cultura({pais}) {
+export default function Cultura({pais, english}) {
   console.log(pais)
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
@@ -62,7 +62,7 @@ export default function Cultura({pais}) {
       {/* Conteúdo principal da página */}
       <div className="cultura-content">
         <div className="cultura-text">
-          <h1>País Cultura</h1>
+          <h1>{english ? "Country Culture":"País Cultura"}</h1>
           <p>
             {cultura}
           </p>
@@ -72,16 +72,16 @@ export default function Cultura({pais}) {
       {/* Seção de botões de navegação */}
       <div className="cultura-buttons">
         {/* Link para a página inicial */}
-        <Link to="/" className="btn">← Voltar</Link>
+        <Link to="/" className="btn">{english ? "← Return":"← Voltar"}</Link>
         {/* Link para a página de política */}
-        <Link to="/politica" className="btn">Política</Link>
+        <Link to="/politica" className="btn">{english ? "Politics":"Política"}</Link>
         {/* Link para a página de história */}
-        <Link to="/historia" className="btn">História</Link>
+        <Link to="/historia" className="btn">{english ? "History":"História"}</Link>
         {/* Botão que abre o modal de comentários */}
-        <Link to="/comentarios" className="btn">Ver Comentários</Link>
+        <Link to="/comentarios" className="btn">{english ? "See Comments":"Ver Comentários"}</Link>
         <button
           onClick={() => setOpenComment(true)} // Altera o estado para abrir o modal
-          className="btn btn-special" >Deixar Comentário </button>
+          className="btn btn-special" >{english ? "Make a Comment":"Deixar Comentário"}</button>
       </div>
       {/* Modal do Material UI que aparece ao clicar em "Deixar Comentário" */}
       <Modal
@@ -90,15 +90,15 @@ export default function Cultura({pais}) {
       >
         <Box sx={modalStyle}>
           {/* Título do modal */}
-          <Typography variant="h6" gutterBottom> Deixar Comentário </Typography>
+          <Typography variant="h6" gutterBottom>{english ? "Make a Comment":"Deixar Comentário"}</Typography>
           {/* Formulário para inserir o comentário */}
           <form className="auth-form">
             {/* Campo de texto multiline para o comentário */}
-            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            <TextField onChange={(message) => {setComment(message.target.value)}} label={english ? "Comment":"Comentário"} multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão para enviar o comentário (ainda sem funcionalidade) */}
-            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth> Enviar</Button>
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
             {/* Botão para fechar o modal */}
-            <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
+            <Button onClick={() => setOpenComment(false)} fullWidth>{english ? "Exit":"Sair"}</Button>
           </form>
         </Box>
       </Modal>

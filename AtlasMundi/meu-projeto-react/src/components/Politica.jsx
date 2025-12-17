@@ -6,7 +6,7 @@ import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
 
 // Declaração do componente funcional principal "Politica"
-export default function Politica({pais}) {
+export default function Politica({pais, english}) {
   // Estado que controla se o modal de comentários está aberto (true) ou fechado (false)
   const [openComment, setOpenComment] = useState(false);
 
@@ -57,7 +57,7 @@ export default function Politica({pais}) {
       {/* Conteúdo principal da página */}
       <div className="politica-content">
         <div className="politica-text">
-          <h1>País Política</h1>
+          <h1>{english ? "Country Politics":"País Política"}</h1>
           <p>
             {politica}
           </p>
@@ -66,16 +66,16 @@ export default function Politica({pais}) {
       {/* Seção com botões de navegação */}
       <div className="politica-buttons">
         {/* Link para a página inicial */}
-        <Link to="/" className="btn">← Voltar</Link>
+        <Link to="/" className="btn">{english ? "← Return":"← Voltar"}</Link>
         {/* Link para a página de Cultura */}
-        <Link to="/cultura" className="btn">Cultura</Link>
+        <Link to="/cultura" className="btn">{english ? "Culture":"Cultura"}</Link>
         {/* Link para a página de História */}
-        <Link to="/historia" className="btn">História</Link>
+        <Link to="/historia" className="btn">{english ? "History":"História"}</Link>
         {/* Botão que abre o modal de comentários */}
-        <Link to="/comentarios" className="btn">Ver Comentários</Link>
+        <Link to="/comentarios" className="btn">{english ? "See Comments":"Ver Comentários"}</Link>
         <button
           onClick={() => setOpenComment(true)} // Define o estado como true (abre o modal)
-          className="btn btn-special"> Deixar Comentário</button>
+          className="btn btn-special">{english ? "Make a Comment":"Deixar Comentário"}</button>
       </div>
       {/* Modal (janela flutuante) do Material UI */}
       <Modal
@@ -84,15 +84,15 @@ export default function Politica({pais}) {
       >
         <Box sx={modalStyle}>
           {/* Título do modal */}
-          <Typography variant="h6" gutterBottom> Deixar Comentário</Typography>
+          <Typography variant="h6" gutterBottom>{english ? "Make a Comment":"Deixar Comentário"}</Typography>
           {/* Formulário para o usuário digitar o comentário */}
           <form className="auth-form">
             {/* Campo de texto multiline (várias linhas) */}
-            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            <TextField onChange={(message) => {setComment(message.target.value)}} label={english ? "Comment":"Comentário"} multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
             {/* Botão de envio (ainda sem funcionalidade implementada) */}
-            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth> Enviar</Button>
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
             {/* Botão para fechar o modal manualmente */}
-            <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
+            <Button onClick={() => setOpenComment(false)} fullWidth>{english ? "Exit":"Sair"}</Button>
           </form>
         </Box>
       </Modal>

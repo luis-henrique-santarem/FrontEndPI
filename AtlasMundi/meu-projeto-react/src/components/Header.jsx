@@ -8,7 +8,7 @@ import MenuInfo from "./MenuInfo";
 import Usuario from "./Usuario";
 import { login, register } from './../js/auth';
 
-function Header({ onSearch }) {
+function Header({ onSearch, english, toggleLanguage }) {
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const [registerTab, setRegisterTab] = useState(0);
@@ -74,7 +74,7 @@ function Header({ onSearch }) {
             renderInput={params => (
               <TextField
                 {...params}
-                placeholder="Pesquisar..."
+                placeholder={english ? "Search":"Pesquisar..."}
                 size="small"
                 variant="outlined"
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: "20px", fontSize: "0.9rem" } }}
@@ -93,51 +93,53 @@ function Header({ onSearch }) {
           onLoginClick={() => { setMenuOpen(false); setOpenLogin(true); }}
           onRegisterClick={() => { setMenuOpen(false); setOpenRegister(true); }}
           onUserClick={() => { setMenuOpen(false); setOpenUsuario(true); }}
+          english={english}
+          toggleLanguage={toggleLanguage}
         />
       )}
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom>Logar</Typography>
+          <Typography variant="h6" gutterBottom>{english ? "Login":"Logar"}</Typography>
           <form className="auth-form">
             <TextField onChange={(e) => setEmail(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
-            <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" variant="outlined" fullWidth size="small" margin="dense" />
-            <Button onClick={() => { login(email, senha); setOpenLogin(false) }} variant="contained" color="primary" fullWidth>Enviar</Button>
-            <Button onClick={() => setOpenLogin(false)} fullWidth>Fechar</Button>
+            <TextField onChange={(e) => setSenha(e.target.value)} label={english ? "Password":"Senha"} type="password" variant="outlined" fullWidth size="small" margin="dense" />
+            <Button onClick={() => { login(email, senha); setOpenLogin(false) }} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
+            <Button onClick={() => setOpenLogin(false)} fullWidth>{english ? "Close":"Fechar"}</Button>
           </form>
         </Box>
       </Modal>
       <Modal open={openRegister} onClose={() => setOpenRegister(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom>Cadastrar</Typography>
+          <Typography variant="h6" gutterBottom>{english ? "Register":"Cadastrar"}</Typography>
           <Tabs value={registerTab} onChange={(e, val) => setRegisterTab(val)} centered>
-            <Tab label="Aluno" />
-            <Tab label="Professor" />
+            <Tab label={english ? "Student":"Aluno"} />
+            <Tab label={english ? "Teacher":"Professor"} />
           </Tabs>
           {registerTab === 0 && (
             <form className="auth-form">
-              <TextField onChange={(e) => setNome(e.target.value)} label="Nome" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setNome(e.target.value)} label={english ? "Name":"Nome"} fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setEmail(e.target.value)} label="Email" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setCSenha(e.target.value)} label="Confirmar Senha" type="password" fullWidth size="small" margin="dense" />
-              <Button onClick={() => { register({ "name": nome, "email": email, "password": senha }, [senha, CSenha]); setOpenRegister(false) }} variant="contained" color="primary" fullWidth>Enviar</Button>
-              <Button onClick={() => setOpenRegister(false)} fullWidth>Fechar</Button>
+              <TextField onChange={(e) => setSenha(e.target.value)} label={english ? "Password":"Senha"} type="password" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setCSenha(e.target.value)} label={english ? "Confirm Password":"Confirmar Senha"} type="password" fullWidth size="small" margin="dense" />
+              <Button onClick={() => { register({ "name": nome, "email": email, "password": senha }, [senha, CSenha]); setOpenRegister(false) }} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
+              <Button onClick={() => setOpenRegister(false)} fullWidth>{english ? "Close":"Fechar"}</Button>
             </form>
           )}
           {registerTab === 1 && (
             <form className="auth-form">
-              <TextField onChange={(e) => setNome(e.target.value)} label="Nome" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setNome(e.target.value)} label={english ? "Name":"Nome"} fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setEmail(e.target.value)} label="Email" fullWidth size="small" margin="dense" />
               <TextField onChange={(e) => setCPF(e.target.value)} label="CPF" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setSenha(e.target.value)} label="Senha" type="password" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setCSenha(e.target.value)} label="Confirmar Senha" type="password" fullWidth size="small" margin="dense" />
-              <Button onClick={() => { register({ "name": nome, "email": email, "password": senha, "cpf": cpf }, [senha, CSenha]); setOpenRegister(false) }} variant="contained" color="primary" fullWidth>Enviar</Button>
-              <Button onClick={() => setOpenRegister(false)} fullWidth>Fechar</Button>
+              <TextField onChange={(e) => setSenha(e.target.value)} label={english ? "Password":"Senha"} type="password" fullWidth size="small" margin="dense" />
+              <TextField onChange={(e) => setCSenha(e.target.value)} label={english ? "Confirm Password":"Confirmar Senha"} type="password" fullWidth size="small" margin="dense" />
+              <Button onClick={() => { register({ "name": nome, "email": email, "password": senha, "cpf": cpf }, [senha, CSenha]); setOpenRegister(false) }} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
+              <Button onClick={() => setOpenRegister(false)} fullWidth>{english ? "Close":"Fechar"}</Button>
             </form>
           )}
         </Box>
       </Modal>
       {openUsuario && (
-        <Usuario onClose={() => setOpenUsuario(false)} />
+        <Usuario onClose={() => setOpenUsuario(false)} english={english} />
       )}
 
     </header>

@@ -7,7 +7,7 @@ import { createComment } from "../js/comment";
 import bgImage from "../assets/mundomuitofoda.png";
 import locationIcon from "../assets/location.png";
 
-export default function Historia({ pais, flagUrl }) {
+export default function Historia({ pais, flagUrl, english }) {
   const [openComment, setOpenComment] = useState(false);
   const [comment, setComment] = useState("");
   const [historia, setHistoria] = useState("");
@@ -68,45 +68,49 @@ export default function Historia({ pais, flagUrl }) {
   };
 
   return (
-    <div className="historia-page">
-      <div className="historia-background" style={{ backgroundImage: `url(${bgImage})` }}/>
-      <Link to="/" className="btn-back">← Voltar</Link>
-      <aside className="country-card">
-        <h2 className="country-title">
-          <img src={locationIcon} alt="Localização" className="location-icon" />
-          {pais}
-        </h2>
-        <div className="carousel">
-          <button onClick={prevImage} className="carousel-btn"> ‹</button>
-          <img src={images[imgIndex]} alt="Lugar do país" />
-          <button onClick={nextImage} className="carousel-btn">
-            ›
-          </button>
+    <div className="historia-container">
+      {/* Seção principal do conteúdo da página */}
+      <div className="historia-content">
+        <div className="historia-text">
+          <h1>País História</h1>
+          <p>
+            {historia}
+          </p>
         </div>
-        <div className="country-section">
-          <h3>História</h3>
-          <p>{historia}</p>
-        </div>
-        <div className="country-buttons">
-          <Link to="/politica" className="btn-blue"> Política</Link>
-          <Link to="/cultura" className="btn-blue"> Cultura</Link>
-          <Link to="/comentarios" className="btn-link"> {" "} Ver comentários</Link>
-          <button className="btn-blue" onClick={() => setOpenComment(true)}> Deixar comentário</button>
-        </div>
-      </aside>
+      </div>
 
-      {flagUrl && (
-        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
-      )}
-      <Modal open={openComment} onClose={() => setOpenComment(false)}>
+      {/* Seção com botões de navegação */}
+      <div className="historia-buttons">
+        {/* Link para a página inicial */}
+        <Link to="/" className="btn">← Voltar</Link>
+        {/* Link para a página de política */}
+        <Link to="/politica" className="btn">Política</Link>
+        {/* Link para a página de cultura */}
+        <Link to="/cultura" className="btn">Cultura</Link>
+      <Link to="/comentarios" className="btn">Ver Comentários</Link>
+
+        {/* Botão que abre o modal para deixar um comentário */}
+        <button
+          onClick={() => setOpenComment(true)} // Atualiza o estado para abrir o modal
+          className="btn btn-special">Deixar Comentário</button>
+      </div>
+      {/* Modal do Material UI - aparece quando openComment é true */}
+      <Modal
+        open={openComment} // Controla se o modal está aberto
+        onClose={() => setOpenComment(false)} // Fecha o modal ao clicar fora dele
+      >
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom> Deixar comentário</Typography>
-          <TextField label="Comentário" multiline rows={4} fullWidth margin="dense" value={comment} onChange={(e) => setComment(e.target.value)} InputProps={{
-              style: { backgroundColor: "white", borderRadius: 6 },
-            }}
-          />
-          <Button onClick={comentar} variant="contained" fullWidth sx={{ mt: 2, backgroundColor: "#1452c5" }}> Enviar</Button>
-          <Button onClick={() => setOpenComment(false)} fullWidth sx={{ mt: 1, color: "white" }}> Fechar</Button>
+          {/* Título do modal */}
+          <Typography variant="h6" gutterBottom> Deixar Comentário</Typography>
+          {/* Formulário de comentário */}
+          <form className="auth-form">
+            {/* Campo de texto multilinha para escrever o comentário */}
+            <TextField onChange={(message) => {setComment(message.target.value)}} label="Comentário" multiline rows={4} variant="outlined" fullWidth size="small" margin="dense"/>
+            {/* Botão para enviar o comentário */}
+            <Button onClick={() => comentar()} variant="contained" color="primary" fullWidth>Enviar </Button>
+            {/* Botão para fechar o modal manualmente */}
+            <Button onClick={() => setOpenComment(false)} fullWidth> Sair</Button>
+          </form>
         </Box>
       </Modal>
     </div>
