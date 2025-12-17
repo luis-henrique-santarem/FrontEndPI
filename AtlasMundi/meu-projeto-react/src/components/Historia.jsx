@@ -99,7 +99,30 @@ export default function Historia({ pais, flagUrl, english }) {
         <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
       )}
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
+        <div className="country-section">
+          <h3>História</h3>
+          <p>{historia}</p>
+        </div>
+        <div className="country-buttons">
+          <Link to="/politica" className="btn-blue"> Política</Link>
+          <Link to="/cultura" className="btn-blue"> Cultura</Link>
+          <Link to="/comentarios" className="btn-link"> {" "} Ver comentários</Link>
+          <button className="btn-blue" onClick={() => setOpenComment(true)}> Deixar comentário</button>
+        </div>
+      </aside>
+
+      {flagUrl && (
+        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
+      )}
+      <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
+          <Typography variant="h6" gutterBottom> Deixar comentário</Typography>
+          <TextField label="Comentário" multiline rows={4} fullWidth margin="dense" value={comment} onChange={(e) => setComment(e.target.value)} InputProps={{
+              style: { backgroundColor: "white", borderRadius: 6 },
+            }}
+          />
+          <Button onClick={comentar} variant="contained" fullWidth sx={{ mt: 2, backgroundColor: "#1452c5" }}> Enviar</Button>
+          <Button onClick={() => setOpenComment(false)} fullWidth sx={{ mt: 1, color: "white" }}> Fechar</Button>
           <Typography variant="h6" gutterBottom> Deixar comentário</Typography>
           <TextField label="Comentário" multiline rows={4} fullWidth margin="dense" value={comment} onChange={(e) => setComment(e.target.value)} InputProps={{
               style: { backgroundColor: "white", borderRadius: 6 },
