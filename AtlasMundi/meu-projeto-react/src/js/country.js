@@ -96,24 +96,26 @@ export async function DeletarPais(name, token) {
 
 export async function AtualizarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
   try {
+    const body = {};
+
+    if (name !== "") body.name = name;
+    if (quickInfo !== "") body.quickInfo = quickInfo;
+    if (politics !== "") body.politics = politics;
+    if (politics2 !== "") body.politics2 = politics2;
+    if (history !== "") body.history = history;
+    if (history2 !== "") body.history2 = history2;
+    if (culture !== "") body.culture = culture;
+    if (culture2 !== "") body.culture2 = culture2;
+    if (inEnglish !== "") body.inEnglish = inEnglish;
+    if (sources !== "") body.sources = sources;
+
     const resposta = await fetch("http://localhost:3000/country/me", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
-      body: JSON.stringify({
-        name: name,
-        quickInfo: quickInfo,
-        politics: politics,
-        politics2: politics2,
-        history: history,
-        history2: history2,
-        culture: culture,
-        culture2: culture2,
-        inEnglish: inEnglish,
-        sources: sources
-      })
+      body: JSON.stringify(body)
     });
 
     if (!resposta.ok) {
