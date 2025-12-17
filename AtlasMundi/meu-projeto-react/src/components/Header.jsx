@@ -39,7 +39,7 @@ function Header({ onSearch, english, toggleLanguage }) {
       .then(res => res.json())
       .then(data => {
         const list = data.features.map(f => {
-          const name = f.properties.admin_pt || f.properties.name_pt || f.properties.name;
+          const name = f.properties[`admin_${english ? "en" : "pt"}`]|| f.properties[`name_${english ? "en" : "pt"}`] || f.properties.name;
           const iso = f.properties.iso_a2;
           return {
             label: name,
@@ -50,7 +50,7 @@ function Header({ onSearch, english, toggleLanguage }) {
         setOptions(list);
       })
       .catch(err => console.error("Erro ao carregar países:", err));
-  }, []);
+  }, [english]);
 
   return (
     <header className="header">
