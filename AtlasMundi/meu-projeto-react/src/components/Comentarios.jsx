@@ -27,9 +27,9 @@ export default function Comentarios({pais, english}) {
 
   return (
     <div className="comments-page">
-      <Link to="/cultura" className="back-button">← Voltar</Link>
+      <Link to="/cultura" className="back-button">{english ? "← Return":"← Voltar"}</Link>
 
-      <h2 className="comments-title">Comentários</h2>
+      <h2 className="comments-title">{english ? "Comments":"Comentários"}</h2>
 
       <div className="comments-box">
         {comentarios.map((c, index) => (
