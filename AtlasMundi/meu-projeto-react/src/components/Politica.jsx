@@ -57,7 +57,7 @@ export default function Politica({pais, english}) {
       {/* Conteúdo principal da página */}
       <div className="politica-content">
         <div className="politica-text">
-          <h1>País Política</h1>
+          <h1>{english ? "Country Politics":"País Política"}</h1>
           <p>
             {politica}
           </p>
@@ -68,7 +68,7 @@ export default function Politica({pais, english}) {
         {/* Link para a página inicial */}
         <Link to="/" className="btn">{english ? "← Return":"← Voltar"}</Link>
         {/* Link para a página de Cultura */}
-        <Link to="/cultura" className="btn">{english ? "History":"História"}</Link>
+        <Link to="/cultura" className="btn">{english ? "Culture":"Cultura"}</Link>
         {/* Link para a página de História */}
         <Link to="/historia" className="btn">{english ? "History":"História"}</Link>
         {/* Botão que abre o modal de comentários */}

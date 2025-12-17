@@ -72,7 +72,7 @@ export default function Historia({ pais, english }) {
         {/* Link para a página de política */}
         <Link to="/politica" className="btn">{english ? "Politics":"Política"}</Link>
         {/* Link para a página de cultura */}
-        <Link to="/cultura" className="btn">{english ? "Culture":"Culture"}</Link>
+        <Link to="/cultura" className="btn">{english ? "Culture":"Cultura"}</Link>
       <Link to="/comentarios" className="btn">{english ? "See Comments":"Ver Comentários"}</Link>
 
         {/* Botão que abre o modal para deixar um comentário */}

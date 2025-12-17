@@ -62,7 +62,7 @@ export default function Cultura({pais, english}) {
       {/* Conteúdo principal da página */}
       <div className="cultura-content">
         <div className="cultura-text">
-          <h1>País Cultura</h1>
+          <h1>{english ? "Country Culture":"País Cultura"}</h1>
           <p>
             {cultura}
           </p>

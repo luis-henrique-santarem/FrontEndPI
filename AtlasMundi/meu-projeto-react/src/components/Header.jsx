@@ -139,7 +139,7 @@ function Header({ onSearch, english, toggleLanguage }) {
         </Box>
       </Modal>
       {openUsuario && (
-        <Usuario onClose={() => setOpenUsuario(false)} />
+        <Usuario onClose={() => setOpenUsuario(false)} english={english} />
       )}
 
     </header>
