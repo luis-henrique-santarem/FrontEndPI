@@ -99,6 +99,38 @@ export default function Historia({ pais, flagUrl, english }) {
         <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
       )}
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
+        <div className="country-section">
+          <h3>História</h3>
+          <p>{historia}</p>
+        </div>
+        <div className="country-buttons">
+          <Link to="/politica" className="btn-blue">{english ? "Politics":"Política"}</Link>
+          <Link to="/cultura" className="btn-blue">{english ? "Culture":"Cultura"}</Link>
+          <Link to="/comentarios" className="btn-link"> {" "} {english ? "See Comments":"Ver comentários"}</Link>
+          <button className="btn-blue" onClick={() => setOpenComment(true)}>{english ? "Make Comment":"Deixar comentário"}</button>
+        </div>
+      </aside>
+
+      {flagUrl && (
+        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
+      )}
+      <Modal open={openComment} onClose={() => setOpenComment(false)}>
+        <div className="country-section">
+          <h3>História</h3>
+          <p>{historia}</p>
+        </div>
+        <div className="country-buttons">
+          <Link to="/politica" className="btn-blue">{english ? "Politics":"Política"}</Link>
+          <Link to="/cultura" className="btn-blue">{english ? "Culture":"Cultura"}</Link>
+          <Link to="/comentarios" className="btn-link"> {" "} {english ? "See Comments":"Ver comentários"}</Link>
+          <button className="btn-blue" onClick={() => setOpenComment(true)}>{english ? "Make Comment":"Deixar comentário"}</button>
+        </div>
+      </aside>
+
+      {flagUrl && (
+        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
+      )}
+      <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>{english ? "Make Comment":"Deixar comentário"}</Typography>
           <TextField label={english ? "Comment":"Comentário"} multiline rows={4} fullWidth margin="dense" value={comment} onChange={(e) => setComment(e.target.value)} InputProps={{
