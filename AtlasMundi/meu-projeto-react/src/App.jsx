@@ -211,8 +211,8 @@ const App = () => {
         />
 
         <Route path="/historia"  element={<Historia pais={nomePais} flagUrl={flagUrl} english={english}/>}/>
-        <Route path="/politica" element={<Politica pais={nomePais} english={english} />} />
-        <Route path="/cultura" element={<Cultura pais={nomePais} english={english} />} />
+        <Route path="/politica" element={<Politica pais={nomePais} flagUrl={flagUrl} english={english} />} />
+        <Route path="/cultura" element={<Cultura pais={nomePais} flagUrl={flagUrl} english={english} />} />
         <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} />} />
         <Route path="/usuario" element={<Usuario english={english}/>} />
         <Route path="/pais" element={<CriarPais pais={nomePais} english={english}/>} />

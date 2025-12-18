@@ -1,114 +1,200 @@
-.politica-container {
-  height: 93.5vh;
+.politica-page {
+  position: relative;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  background-image: url(../assets//mundomuitofoda.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 40px;
   color: white;
+  z-index: 1;
 }
 
-.politica-content {
-  flex: 1;
+.politica-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.country-card {
+  width: 420px;
+  max-height: 85vh;
+  background: rgba(13, 43, 97, 0.92);
+  border-radius: 18px;
+  padding: 22px;
+  overflow-y: auto;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+  margin-right: 40px;
+  z-index: 2;
+}
+
+.country-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-}
-
-.politica-text {
-  max-width: 700px;
+  gap: 8px;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1452c5;
+  padding-bottom: 10px;
   text-align: center;
 }
 
-.politica-text h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+.location-icon {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
 }
 
-.politica-text p {
-  font-size: 1.1rem;
+.country-section {
+  margin-top: 10px;
+}
+
+.country-section p {
+  font-size: 0.95rem;
   line-height: 1.6;
+  text-align: justify;
 }
 
-.politica-buttons {
+.country-buttons {
   display: flex;
-  justify-content: space-around;
-  padding: 1.4rem;
- 
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
 }
 
-.btn {
-  background: white;
-  color: #0d2b61;
-  padding: 0.6rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
+.btn-blue {
+  background-color: #1452c5;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, background 0.3s ease;
+  text-align: center;
+  transition: 0.3s;
+  font-weight: 500;
 }
 
-.btn:hover {
-  transform: scale(1.05);
-  background: #f0f0f0;
+.btn-blue:hover {
+  background-color: #e0850d;
 }
 
-
-.btn-special {
-  background: white;
-  color: #0d2b61;
+.btn-link {
+  text-align: center;
+  color: #b6ccff;
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
-.btn-special:hover {
-  background: #e0850d;
+.btn-link:hover {
+  text-decoration: underline;
 }
 
+.btn-back {
+  position: fixed;
+  top: 90px;
+  left: 30px;
+  z-index: 5;
+  color: #b6ccff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: rgba(13, 43, 97, 0.85);
+  padding: 8px 14px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
 
+.btn-back:hover {
+  color: white;
+  transform: translateX(-4px);
+  background: rgba(20, 82, 197, 0.95);
+}
+
+.fixed-flag {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 110px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+  z-index: 2;
+}
+
+.country-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.country-card::-webkit-scrollbar-thumb {
+  background: #1452c5;
+  border-radius: 10px;
+}
 
 @media (max-width: 1024px) {
-  .historia-text h1 {
-    font-size: 1.7rem;
+  .politica-page {
+    justify-content: center;
   }
 
-  .historia-text p {
-    font-size: 1rem;
+  .country-card {
+    margin-right: 0;
   }
 }
-
 
 @media (max-width: 768px) {
-  .historia-content {
-    padding: 1.5rem;
+  .politica-page {
+    padding: 20px;
   }
 
-  .historia-text {
-    max-width: 100%;
-    padding: 0 1rem;
+  .country-card {
+    width: 100%;
+    max-height: none;
+    border-radius: 16px;
   }
 
-  .historia-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  .country-title {
+    font-size: 1.5rem;
   }
 
-  .btn {
-    width: 80%;
-    text-align: center;
+  .country-section p {
+    font-size: 0.95rem;
+  }
+
+  .fixed-flag {
+    width: 80px;
+  }
+
+  .btn-back {
+    top: 20px;
+    left: 20px;
   }
 }
 
-
 @media (max-width: 480px) {
-  .historia-text h1 {
-    font-size: 1.4rem;
+  .country-card {
+    padding: 16px;
   }
 
-  .historia-text p {
+  .country-title {
+    font-size: 1.3rem;
+  }
+
+  .country-section p {
     font-size: 0.9rem;
+  }
+
+  .btn-blue {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .btn-link {
+    font-size: 0.85rem;
   }
 }

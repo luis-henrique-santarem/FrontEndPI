@@ -1,16 +1,19 @@
 .info {
   position: fixed;
-  top: 55px;
+  top: 57px;
   right: 0;
   width: 350px;
-  height: 88.3vh;
+  min-height: 88.2vh;
   background-color: rgba(245, 245, 220, 0.35);
   color: black;
   padding: 20px;
-  z-index: 10000;
+
+  z-index: 900;
+
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.6s ease, opacity 0.6s ease;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +35,6 @@
   width: 28px;
   height: 28px;
   cursor: pointer;
-  transition: background-color 0.3s;
   font-weight: bold;
 }
 
@@ -49,10 +51,9 @@
 
 .imgcountry {
   width: 150px;
-  height: auto;
   margin-bottom: 20px;
   border-radius: 6px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
 .quickinformation {
@@ -63,9 +64,7 @@
 }
 
 .btninfo {
-  display: block;
   width: 100%;
-  text-align: center;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #1452c5;
@@ -74,8 +73,8 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
+  text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s;
 }
 
 .btninfo:hover {
@@ -83,34 +82,55 @@
   color: beige;
 }
 
+.container2 {
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* TABLET */
 @media (max-width: 768px) {
   .info {
     width: 80%;
     right: 10%;
-    top: 70px;
-    height: auto;
+    top: 64px;
     border-radius: 12px;
   }
 }
 
+/* MOBILE */
 @media (max-width: 480px) {
   .info {
-    width: 90%;
-    right: 5%;
-    padding: 15px;
+    top: 64px;
+
+    width: 92%;
+    right: 4%;
+
+    min-height: unset;
+    height: auto;
+    max-height: calc(100vh - 96px);
+
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .container2 {
+    margin-top: 14px;
+  }
+
+  .btninfo {
+    padding: 9px;
+    font-size: 0.95rem;
+  }
+
+  .imgcountry {
+    width: 120px;
+    margin-bottom: 14px;
   }
 
   .titlecountry {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+    margin-bottom: 18px;
   }
-}
-
-
-.container2 {
-  position: absolute;
-  top: 83vh;
-  display: flex;
-  gap: 0.5rem;
-  align-self: flex-end;
-  justify-self: end;
 }
