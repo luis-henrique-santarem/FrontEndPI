@@ -71,6 +71,8 @@ const App = () => {
       Noruega: "NO",
       Norway: "NO",
       Taiwan: "TW",
+      Kosovo: "XK",
+      Kosova: "XK",
       "República Turca do Chipre do Norte": "CY-NC",
       "Northern Cyprus": "CY-NC",
     };
@@ -98,17 +100,23 @@ const App = () => {
               "click",
               () => {
                 setNomePais(countryName);
-                if (isoCode && isoCode !== "CY-NC") {
-                  setFlagUrl(
-                    `https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`
-                  );
-                } else if (isoCode === "CY-NC") {
+
+                if (isoCode === "CY-NC") {
                   setFlagUrl(
                     "https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg"
+                  );
+                } else if (isoCode === "XK") {
+                  setFlagUrl(
+                    "https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Kosovo.svg"
+                  );
+                } else if (isoCode) {
+                  setFlagUrl(
+                    `https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`
                   );
                 } else {
                   setFlagUrl("");
                 }
+
                 setShowInfo(true);
               },
               { once: true }
@@ -123,6 +131,9 @@ const App = () => {
     if (isoCode === "CY-NC") {
       flag =
         "https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg";
+    } else if (isoCode === "XK") {
+      flag =
+        "https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Kosovo.svg";
     } else if (isoCode) {
       flag = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
     }
@@ -158,13 +169,9 @@ const App = () => {
 
     let isoCode = found.properties.iso_a2;
 
-    if (
-      countryName === "Noruega" ||
-      countryName === "Norway"
-    ) isoCode = "NO";
-
+    if (countryName === "Noruega" || countryName === "Norway") isoCode = "NO";
     if (countryName === "Taiwan") isoCode = "TW";
-
+    if (countryName === "Kosovo" || countryName === "Kosova") isoCode = "XK";
     if (
       countryName === "República Turca do Chipre do Norte" ||
       countryName === "Northern Cyprus"
@@ -172,30 +179,40 @@ const App = () => {
 
     setNomePais(countryName);
 
-    if (isoCode && isoCode !== "CY-NC") {
-      setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`);
-    } else if (isoCode === "CY-NC") {
+    if (isoCode === "CY-NC") {
       setFlagUrl(
         "https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg"
       );
+    } else if (isoCode === "XK") {
+      setFlagUrl(
+        "https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Kosovo.svg"
+      );
+    } else if (isoCode) {
+      setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`);
     } else {
       setFlagUrl("");
     }
+
     setShowInfo(true);
+
     if (mapRef.current) {
       // eslint-disable-next-line no-undef
       const layer = L.geoJSON(found);
       mapRef.current.fitBounds(layer.getBounds());
     }
   };
+
   const toggleLanguage = () => setEnglish(!english);
+
   return (
     <Router>
-      <Header onSearch={handleSearch} english={english} toggleLanguage={toggleLanguage}/>
+      <Header onSearch={handleSearch} english={english} toggleLanguage={toggleLanguage} />
       <Routes>
-        <Route path="/" element={ <div style={{ position: "relative" }}> {showSplash && (
-             <Splash onFinish={() => setShowSplash(false)} />
-              )}
+        <Route
+          path="/"
+          element={
+            <div style={{ position: "relative" }}>
+              {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
               <MapContainer
                 key={english ? "en" : "pt"}
                 center={[25, 0]}
@@ -214,21 +231,30 @@ const App = () => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {geoData && (
-                  <GeoJSON data={geoData} style={countryStyle} onEachFeature={onEachCountry} />
+                  <GeoJSON
+                    data={geoData}
+                    style={countryStyle}
+                    onEachFeature={onEachCountry}
+                  />
                 )}
               </MapContainer>
               {showInfo && (
-                <Information nome={nomePais} flagUrl={flagUrl} onClose={() => setShowInfo(false)} isEnglish={english} />
+                <Information
+                  nome={nomePais}
+                  flagUrl={flagUrl}
+                  onClose={() => setShowInfo(false)}
+                  isEnglish={english}
+                />
               )}
             </div>
           }
         />
-        <Route path="/historia" element={ <Historia pais={nomePais} flagUrl={flagUrl} english={english} /> } />
-        <Route path="/politica" element={ <Politica pais={nomePais} flagUrl={flagUrl} english={english} /> } />
-        <Route path="/cultura" element={ <Cultura pais={nomePais} flagUrl={flagUrl} english={english} /> } />
-        <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} /> } />
+        <Route path="/historia" element={<Historia pais={nomePais} flagUrl={flagUrl} english={english} />} />
+        <Route path="/politica" element={<Politica pais={nomePais} flagUrl={flagUrl} english={english} />} />
+        <Route path="/cultura" element={<Cultura pais={nomePais} flagUrl={flagUrl} english={english} />} />
+        <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} />} />
         <Route path="/usuario" element={<Usuario english={english} />} />
-        <Route path="/pais" element={<CriarPais pais={nomePais} english={english} /> } />
+        <Route path="/pais" element={<CriarPais pais={nomePais} english={english} />} />
       </Routes>
       <Footer />
     </Router>
