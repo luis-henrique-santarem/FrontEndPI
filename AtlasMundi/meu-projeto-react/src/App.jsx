@@ -68,6 +68,11 @@ const App = () => {
       "South Korea": "KR",
       "Coreia do Norte": "KP",
       "North Korea": "KP",
+      Noruega: "NO",
+      Norway: "NO",
+      Taiwan: "TW",
+      "República Turca do Chipre do Norte": "CY-NC",
+      "Northern Cyprus": "CY-NC",
     };
 
     if (overrides[countryName]) {
@@ -93,9 +98,13 @@ const App = () => {
               "click",
               () => {
                 setNomePais(countryName);
-                if (isoCode) {
+                if (isoCode && isoCode !== "CY-NC") {
                   setFlagUrl(
                     `https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`
+                  );
+                } else if (isoCode === "CY-NC") {
+                  setFlagUrl(
+                    "https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg"
                   );
                 } else {
                   setFlagUrl("");
@@ -109,18 +118,22 @@ const App = () => {
       },
     });
 
-    if (isoCode) {
-      const flag = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
-      layer.bindPopup(`
-        <div style="text-align: center;">
-          <strong>${countryName}</strong><br/>
-          <img src="${flag}" alt="Bandeira de ${countryName}" width="40"/><br/>
-          <button class="popup-button" id="${idBotao}">Click</button>
-        </div>
-      `);
-    } else {
-      layer.bindPopup(`<strong>${countryName}</strong>`);
+    let flag = "";
+
+    if (isoCode === "CY-NC") {
+      flag =
+        "https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg";
+    } else if (isoCode) {
+      flag = `https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`;
     }
+
+    layer.bindPopup(`
+      <div style="text-align: center;">
+        <strong>${countryName}</strong><br/>
+        ${flag ? `<img src="${flag}" alt="Bandeira de ${countryName}" width="40"/><br/>` : ""}
+        <button class="popup-button" id="${idBotao}">Click</button>
+      </div>
+    `);
   }
 
   const handleSearch = (query) => {
@@ -145,32 +158,44 @@ const App = () => {
 
     let isoCode = found.properties.iso_a2;
 
-    setNomePais(countryName);
-    setFlagUrl(
-      isoCode ? `https://flagcdn.com/w80/${isoCode.toLowerCase()}.png` : ""
-    );
-    setShowInfo(true);
+    if (
+      countryName === "Noruega" ||
+      countryName === "Norway"
+    ) isoCode = "NO";
 
+    if (countryName === "Taiwan") isoCode = "TW";
+
+    if (
+      countryName === "República Turca do Chipre do Norte" ||
+      countryName === "Northern Cyprus"
+    ) isoCode = "CY-NC";
+
+    setNomePais(countryName);
+
+    if (isoCode && isoCode !== "CY-NC") {
+      setFlagUrl(`https://flagcdn.com/w80/${isoCode.toLowerCase()}.png`);
+    } else if (isoCode === "CY-NC") {
+      setFlagUrl(
+        "https://upload.wikimedia.org/wikipedia/commons/1/1e/Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg"
+      );
+    } else {
+      setFlagUrl("");
+    }
+    setShowInfo(true);
     if (mapRef.current) {
       // eslint-disable-next-line no-undef
       const layer = L.geoJSON(found);
       mapRef.current.fitBounds(layer.getBounds());
     }
   };
-
   const toggleLanguage = () => setEnglish(!english);
-
   return (
     <Router>
-      <Header onSearch={handleSearch} english={english} toggleLanguage={toggleLanguage} />
-
+      <Header onSearch={handleSearch} english={english} toggleLanguage={toggleLanguage}/>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div style={{ position: "relative" }}>
-              {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
-
+        <Route path="/" element={ <div style={{ position: "relative" }}> {showSplash && (
+             <Splash onFinish={() => setShowSplash(false)} />
+              )}
               <MapContainer
                 key={english ? "en" : "pt"}
                 center={[25, 0]}
@@ -188,37 +213,23 @@ const App = () => {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-
                 {geoData && (
-                  <GeoJSON
-                    data={geoData}
-                    style={countryStyle}
-                    onEachFeature={onEachCountry}
-                  />
+                  <GeoJSON data={geoData} style={countryStyle} onEachFeature={onEachCountry} />
                 )}
               </MapContainer>
-
               {showInfo && (
-                <Information
-                  nome={nomePais}
-                  flagUrl={flagUrl}
-                  onClose={() => setShowInfo(false)}
-                  isEnglish={english}
-                />
+                <Information nome={nomePais} flagUrl={flagUrl} onClose={() => setShowInfo(false)} isEnglish={english} />
               )}
             </div>
           }
         />
-
-        <Route path="/historia"  element={<Historia pais={nomePais} flagUrl={flagUrl} english={english}/>}/>
-        <Route path="/politica" element={<Politica pais={nomePais} flagUrl={flagUrl} english={english} />} />
-        <Route path="/cultura" element={<Cultura pais={nomePais} flagUrl={flagUrl} english={english} />} />
-        <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} />} />
-        <Route path="/usuario" element={<Usuario english={english}/>} />
-        <Route path="/pais" element={<CriarPais pais={nomePais} english={english}/>} />
-
+        <Route path="/historia" element={ <Historia pais={nomePais} flagUrl={flagUrl} english={english} /> } />
+        <Route path="/politica" element={ <Politica pais={nomePais} flagUrl={flagUrl} english={english} /> } />
+        <Route path="/cultura" element={ <Cultura pais={nomePais} flagUrl={flagUrl} english={english} /> } />
+        <Route path="/comentarios" element={<Comentarios pais={nomePais} english={english} /> } />
+        <Route path="/usuario" element={<Usuario english={english} />} />
+        <Route path="/pais" element={<CriarPais pais={nomePais} english={english} /> } />
       </Routes>
-
       <Footer />
     </Router>
   );
