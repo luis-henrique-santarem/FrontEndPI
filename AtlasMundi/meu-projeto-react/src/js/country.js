@@ -1,7 +1,6 @@
 import { mensagemOk } from "./../components/MensagemOK";
 
 export async function pegarPais(name, inEnglish) {
-  console.log("nome: "+name+"ininglish: "+inEnglish)
   try {
     const resposta = await fetch("http://localhost:3000/country/", {
       method: "PUT",
@@ -23,7 +22,6 @@ export async function pegarPais(name, inEnglish) {
 
     
     const pais = await resposta.json();
-    console.log("RECEBIDO:", pais);
     // assessar como um objeto normal ex: pais.name
 
     return pais;
@@ -32,7 +30,7 @@ export async function pegarPais(name, inEnglish) {
   }
 }
 
-export async function RegistrarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
+export async function RegistrarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token, image) {
   try {
     const resposta = await fetch("http://localhost:3000/country/me", {
       method: "POST",
@@ -50,7 +48,8 @@ export async function RegistrarPais(name, quickInfo, politics, politics2, histor
         culture: culture,
         culture2: culture2,
         inEnglish: inEnglish,
-        sources: sources
+        sources: sources,
+        url:url
       })
     });
 
@@ -94,7 +93,7 @@ export async function DeletarPais(name, token) {
   }
 }
 
-export async function AtualizarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
+export async function AtualizarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, url, token) {
   try {
     const body = {};
 
@@ -108,6 +107,7 @@ export async function AtualizarPais(name, quickInfo, politics, politics2, histor
     if (culture2 !== "") body.culture2 = culture2;
     if (inEnglish !== "") body.inEnglish = inEnglish;
     if (sources !== "") body.sources = sources;
+    if (sources !== "") body.url = url;
 
     const resposta = await fetch("http://localhost:3000/country/me", {
       method: "PUT",

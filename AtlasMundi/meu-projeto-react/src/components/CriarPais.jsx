@@ -55,6 +55,7 @@ const CriarPais = ({ pais, onClose, english }) => {
                             <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" />
                             <TextField onChange={(e) => setCultura2(e.target.value)} label={english ? "Culture2" : "Cultura2"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense"/>
                             
                             <div className="usuario-buttons">
                                 <Button onClick={() => {handleRegistrarPais()}} variant="contained" color="primary" fullWidth >{english ? "Register" : "Registrar"}</Button>

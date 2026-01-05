@@ -17,9 +17,8 @@ export default function Cultura({ pais, flagUrl, english }) {
   const token = localStorage.getItem("token");
 
   const images = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3v6aendSPBv-r0wGn5P3MpeAmkc3D7agDLg&s",
-    "https://www.consolataamerica.org/es/wp-content/uploads/2021/02/Bas%C3%ADlia-N.Sra_.-Africa-Arg%C3%A9lia.jpg",
-    "https://www.almadeviajante.com/wp-content/uploads/timgad-argelia-1140x760.jpg",
+    paisPego.url,
+    flagUrl,
   ];
 
   async function funcao() {
