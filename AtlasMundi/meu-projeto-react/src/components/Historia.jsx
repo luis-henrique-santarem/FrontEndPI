@@ -12,30 +12,33 @@ export default function Historia({ pais, flagUrl, english }) {
   const [comment, setComment] = useState("");
   const [historia, setHistoria] = useState("");
   const [imgIndex, setImgIndex] = useState(0);
+  const [images, setImgs] = useState([]); // ✅ declarar aqui
 
   const token = localStorage.getItem("token");
 
-  
-
-  async function carregarPais() {
+  async function funcao() {
     try {
-      const paisPego = await pegarPais(pais, false);
-      setHistoria(`${paisPego.history} ${paisPego.history2}`);
+      const paisPego = await pegarPais(pais, english);
+
+      setHistoria(
+        `${paisPego?.history ?? ""} ${paisPego?.history2 ?? ""}`
+      );
+
+      // ✅ monta array de imagens válido e filtra undefined
+      const imgs = [flagUrl, paisPego?.pictureUrl].filter(Boolean);
+      setImgs(imgs);
+      setImgIndex(0); // reset seguro
+
       return paisPego.id;
     } catch (e) {
-      console.log("Erro:", e);
+      console.log("erro", e);
     }
   }
 
-  const images = [
-    paisPego.url,
-    flagUrl,
-  ];
-
   async function comentar() {
-    const paisId = await carregarPais();
+    const paisId = await funcao();
     try {
-      await createComment(paisId, comment, false, token);
+      await createComment(paisId, comment, english, token);
       setComment("");
       setOpenComment(false);
     } catch (e) {
@@ -44,8 +47,8 @@ export default function Historia({ pais, flagUrl, english }) {
   }
 
   useEffect(() => {
-    carregarPais();
-  }, []);
+    funcao();
+  }, [pais, english]);
 
   const modalStyle = {
     position: "absolute",
@@ -60,42 +63,71 @@ export default function Historia({ pais, flagUrl, english }) {
     p: 4,
   };
 
-  const nextImage = () =>
+  const nextImage = () => {
+    if (images.length <= 1) return;
     setImgIndex((prev) => (prev + 1) % images.length);
+  };
 
-  const prevImage = () =>
+  const prevImage = () => {
+    if (images.length <= 1) return;
     setImgIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <div className="historia-page">
-      <div className="historia-background" style={{ backgroundImage: `url(${bgImage})` }}/>
-      <Link to="/" className="btn-back"> {english ? "← Return" : "← Voltar"}</Link>
+      <div
+        className="historia-background"
+        style={{ backgroundImage: `url(${bgImage})` }}
+      />
+      <Link to="/" className="btn-back">
+        {english ? "← Return" : "← Voltar"}
+      </Link>
+
       <aside className="country-card">
-        <h2 className="country-title"> <img src={locationIcon} alt="Localização" className="location-icon" /> {pais}</h2>
-        <div className="carousel">
-          <button onClick={prevImage} className="carousel-btn">‹</button>
-          <img src={images[imgIndex]} alt="Lugar do país" />
-          <button onClick={nextImage} className="carousel-btn">›</button>
-        </div>
+        <h2 className="country-title">
+          <img src={locationIcon} alt="Localização" className="location-icon" />
+          {pais}
+        </h2>
+
+        {images.length > 0 && (
+          <div className="carousel">
+            <button onClick={prevImage} className="carousel-btn">‹</button>
+            <img src={images[imgIndex]} alt="Lugar do país" />
+            <button onClick={nextImage} className="carousel-btn">›</button>
+          </div>
+        )}
+
         <div className="country-section">
           <h3>{english ? "History" : "História"}</h3>
           <p>{historia}</p>
         </div>
+
         <div className="country-buttons">
-          <Link to="/politica" className="btn-blue"> {english ? "Politics" : "Política"}</Link>
-          <Link to="/cultura" className="btn-blue"> {english ? "Culture" : "Cultura"}</Link>
-          <Link to="/comentarios" className="btn-link"> {english ? "See Comments" : "Ver comentários"}</Link>
-          <button className="btn-blue" onClick={() => setOpenComment(true)}> {english ? "Make Comment" : "Deixar comentário"}</button>
+          <Link to="/politica" className="btn-blue">
+            {english ? "Politics" : "Política"}
+          </Link>
+          <Link to="/cultura" className="btn-blue">
+            {english ? "Culture" : "Cultura"}
+          </Link>
+          <Link to="/comentarios" className="btn-link">
+            {english ? "See Comments" : "Ver comentários"}
+          </Link>
+          <button className="btn-blue" onClick={() => setOpenComment(true)}>
+            {english ? "Make Comment" : "Deixar comentário"}
+          </button>
         </div>
       </aside>
 
       {flagUrl && (
-        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag"/>
+        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
       )}
 
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom> {english ? "Make Comment" : "Deixar comentário"}</Typography>
+          <Typography variant="h6" gutterBottom>
+            {english ? "Make Comment" : "Deixar comentário"}
+          </Typography>
+
           <TextField
             label={english ? "Comment" : "Comentário"}
             multiline
@@ -108,8 +140,23 @@ export default function Historia({ pais, flagUrl, english }) {
               style: { backgroundColor: "white", borderRadius: 6 },
             }}
           />
-          <Button onClick={comentar} variant="contained" fullWidth sx={{ mt: 2, backgroundColor: "#1452c5" }}> {english ? "Send" : "Enviar"}</Button>
-          <Button onClick={() => setOpenComment(false)} fullWidth sx={{ mt: 1, color: "white" }}> {english ? "Close" : "Fechar"}</Button>
+
+          <Button
+            onClick={comentar}
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2, backgroundColor: "#1452c5" }}
+          >
+            {english ? "Send" : "Enviar"}
+          </Button>
+
+          <Button
+            onClick={() => setOpenComment(false)}
+            fullWidth
+            sx={{ mt: 1, color: "white" }}
+          >
+            {english ? "Close" : "Fechar"}
+          </Button>
         </Box>
       </Modal>
     </div>

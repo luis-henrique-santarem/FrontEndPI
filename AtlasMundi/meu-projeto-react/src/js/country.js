@@ -30,7 +30,7 @@ export async function pegarPais(name, inEnglish) {
   }
 }
 
-export async function RegistrarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token, image) {
+export async function RegistrarPais(name, quickInfo, url, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
   try {
     const resposta = await fetch("http://localhost:3000/country/me", {
       method: "POST",
@@ -41,6 +41,7 @@ export async function RegistrarPais(name, quickInfo, politics, politics2, histor
       body: JSON.stringify({
         name: name,
         quickInfo: quickInfo,
+        pictureUrl:url,
         politics: politics,
         politics2: politics2,
         history: history,
@@ -48,8 +49,7 @@ export async function RegistrarPais(name, quickInfo, politics, politics2, histor
         culture: culture,
         culture2: culture2,
         inEnglish: inEnglish,
-        sources: sources,
-        url:url
+        sources: sources
       })
     });
 
@@ -93,12 +93,13 @@ export async function DeletarPais(name, token) {
   }
 }
 
-export async function AtualizarPais(name, quickInfo, politics, politics2, history, history2, culture, culture2, inEnglish, sources, url, token) {
+export async function AtualizarPais(name, quickInfo, url, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
   try {
     const body = {};
 
     if (name !== "") body.name = name;
     if (quickInfo !== "") body.quickInfo = quickInfo;
+    if (url !== "") body.pictureUrl = url;
     if (politics !== "") body.politics = politics;
     if (politics2 !== "") body.politics2 = politics2;
     if (history !== "") body.history = history;
@@ -107,7 +108,6 @@ export async function AtualizarPais(name, quickInfo, politics, politics2, histor
     if (culture2 !== "") body.culture2 = culture2;
     if (inEnglish !== "") body.inEnglish = inEnglish;
     if (sources !== "") body.sources = sources;
-    if (sources !== "") body.url = url;
 
     const resposta = await fetch("http://localhost:3000/country/me", {
       method: "PUT",

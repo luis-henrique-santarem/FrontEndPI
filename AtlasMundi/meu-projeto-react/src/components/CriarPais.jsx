@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, hexToRgb } from "@mui/material";
 import { AtualizarPais, DeletarPais, RegistrarPais } from "../js/country";
 
 const CriarPais = ({ pais, onClose, english }) => {
@@ -12,7 +12,7 @@ const CriarPais = ({ pais, onClose, english }) => {
     const [cultura, setCultura] = useState("");
     const [cultura2, setCultura2] = useState("");
     const [fonteConfia, setFonteConfia] = useState("");
-    const inEnglish = false
+    const [url, setUrl] = useState("")
 
     const modalStyle = {
         position: "absolute",
@@ -28,7 +28,7 @@ const CriarPais = ({ pais, onClose, english }) => {
 
     async function handleRegistrarPais(){
         const token = localStorage.getItem("token");  
-        await RegistrarPais(pais, informacaoRapida, politica, politica2, historia, historia2, cultura, cultura2, inEnglish, fonteConfia, token)
+        await RegistrarPais(pais, informacaoRapida, url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
     }
 
     async function handleDeletarPais(){
@@ -38,13 +38,13 @@ const CriarPais = ({ pais, onClose, english }) => {
 
     async function handleAtualizarPais(){
         const token = localStorage.getItem("token");  
-        await AtualizarPais(pais, informacaoRapida, politica, politica2, historia, historia2, cultura, cultura2, inEnglish, fonteConfia, token)
+        await AtualizarPais(pais, informacaoRapida, url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
     }
 
     return (
-         <Modal open={true}  onClose={onClose}>
+         <Modal style={{height:"85vh", position: "absolute", top:60}} open={true} onClose={onClose}>
                     <Box sx={modalStyle}>
-                        <Typography variant="h6" gutterBottom>Criar País</Typography>
+                        <Typography variant="h6" gutterBottom>{english ? "Create Country":"Criar País"}</Typography>
         
                         <form className="usuario-form">
                             <TextField onChange={(e) => setInformacaoRapida(e.target.value)} label={english ? "Quick Information" : "Informação Rapida"}  fullWidth size="small" margin="dense" />
@@ -55,7 +55,7 @@ const CriarPais = ({ pais, onClose, english }) => {
                             <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" />
                             <TextField onChange={(e) => setCultura2(e.target.value)} label={english ? "Culture2" : "Cultura2"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense"/>
-                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setUrl(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense"/>
                             
                             <div className="usuario-buttons">
                                 <Button onClick={() => {handleRegistrarPais()}} variant="contained" color="primary" fullWidth >{english ? "Register" : "Registrar"}</Button>
