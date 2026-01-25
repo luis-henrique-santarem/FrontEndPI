@@ -30,6 +30,7 @@ export async function pegarPais(name, inEnglish) {
   }
 }
 
+
 export async function RegistrarPais(name, quickInfo, url, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
   try {
     const resposta = await fetch("http://localhost:3000/country/me", {
@@ -93,12 +94,11 @@ export async function DeletarPais(name, token) {
   }
 }
 
-export async function AtualizarPais(name, quickInfo, url, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
+export async function AtualizarPais(name, url, politics, politics2, history, history2, culture, culture2, inEnglish, sources, token) {
   try {
     const body = {};
 
     if (name !== "") body.name = name;
-    if (quickInfo !== "") body.quickInfo = quickInfo;
     if (url !== "") body.pictureUrl = url;
     if (politics !== "") body.politics = politics;
     if (politics2 !== "") body.politics2 = politics2;

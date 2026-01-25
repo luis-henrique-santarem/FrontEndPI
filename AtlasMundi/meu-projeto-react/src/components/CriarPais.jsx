@@ -4,7 +4,6 @@ import { Modal, Box, Typography, TextField, Button, hexToRgb } from "@mui/materi
 import { AtualizarPais, DeletarPais, RegistrarPais } from "../js/country";
 
 const CriarPais = ({ pais, onClose, english }) => {
-    const [informacaoRapida, setInformacaoRapida] = useState("");
     const [politica, setPolitica] = useState("");
     const [politica2, setPolitica2] = useState("");
     const [historia, setHistoria] = useState("");
@@ -28,7 +27,7 @@ const CriarPais = ({ pais, onClose, english }) => {
 
     async function handleRegistrarPais(){
         const token = localStorage.getItem("token");  
-        await RegistrarPais(pais, informacaoRapida, url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
+        await RegistrarPais(pais, "informacaoRapida", url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
     }
 
     async function handleDeletarPais(){
@@ -38,7 +37,7 @@ const CriarPais = ({ pais, onClose, english }) => {
 
     async function handleAtualizarPais(){
         const token = localStorage.getItem("token");  
-        await AtualizarPais(pais, informacaoRapida, url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
+        await AtualizarPais(pais, url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
     }
 
     return (
@@ -47,7 +46,6 @@ const CriarPais = ({ pais, onClose, english }) => {
                         <Typography variant="h6" gutterBottom>{english ? "Create Country":"Criar País"}</Typography>
         
                         <form className="usuario-form">
-                            <TextField onChange={(e) => setInformacaoRapida(e.target.value)} label={english ? "Quick Information" : "Informação Rapida"}  fullWidth size="small" margin="dense" />
                             <TextField onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Politica"}  fullWidth size="small" margin="dense" />
                             <TextField onChange={(e) => setPolitica2(e.target.value)} label={english ? "Politics2" : "Politica2"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" />
