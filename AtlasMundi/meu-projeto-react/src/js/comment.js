@@ -16,7 +16,7 @@ export async function createComment(countryId, message, isQuestion, token) {
 
     if (!resposta.ok) {
       const erro = await resposta.json().catch(() => ({}));
-      mensagemOk("Erro ao enviar país.")
+      mensagemOk("Erro ao enviar comentario.")
       return;
     }
 
