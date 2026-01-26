@@ -85,3 +85,7 @@ export async function getarUsuario(token) {
     console.log("Falha geral:", e);
   }
 }
+
+export async function Deslogar() {
+  localStorage.setItem("token", "");
+}
