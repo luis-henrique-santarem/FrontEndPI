@@ -5,11 +5,8 @@ import { AtualizarPais, DeletarPais, RegistrarPais } from "../js/country";
 
 const CriarPais = ({ pais, onClose, english }) => {
     const [politica, setPolitica] = useState("");
-    const [politica2, setPolitica2] = useState("");
     const [historia, setHistoria] = useState("");
-    const [historia2, setHistoria2] = useState("");
     const [cultura, setCultura] = useState("");
-    const [cultura2, setCultura2] = useState("");
     const [fonteConfia, setFonteConfia] = useState("");
     const [url, setUrl] = useState("")
 
@@ -27,7 +24,7 @@ const CriarPais = ({ pais, onClose, english }) => {
 
     async function handleRegistrarPais(){
         const token = localStorage.getItem("token");  
-        await RegistrarPais(pais, "informacaoRapida", url, politica, politica2, historia, historia2, cultura, cultura2, english, fonteConfia, token)
+        await RegistrarPais(pais, "informacaoRapida", url, politica, historia, cultura, english, fonteConfia, token)
     }
 
     async function handleDeletarPais(){
@@ -47,11 +44,8 @@ const CriarPais = ({ pais, onClose, english }) => {
         
                         <form className="usuario-form">
                             <TextField onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Politica"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setPolitica2(e.target.value)} label={english ? "Politics2" : "Politica2"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setHistoria2(e.target.value)} label={english ? "History2" : "Historia2"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setCultura2(e.target.value)} label={english ? "Culture2" : "Cultura2"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense"/>
                             <TextField onChange={(e) => setUrl(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense"/>
                             
