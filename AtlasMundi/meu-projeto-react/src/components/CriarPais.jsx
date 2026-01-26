@@ -43,11 +43,11 @@ const CriarPais = ({ pais, onClose, english }) => {
                         <Typography variant="h6" gutterBottom>{english ? "Create Country":"Editar País"}</Typography>
         
                         <form className="usuario-form">
-                            <TextField onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Politica"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense"/>
-                            <TextField onChange={(e) => setUrl(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense"/>
+                            <TextField onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Política"} fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}  />
+                            <TextField onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}/>
+                            <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}/>
+                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense" />
+                            <TextField onChange={(e) => setUrl(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense" />
                             
                             <div className="usuario-buttons">
                                 <Button onClick={() => {handleRegistrarPais()}} variant="contained" color="primary" fullWidth >{english ? "Register" : "Registrar"}</Button>
