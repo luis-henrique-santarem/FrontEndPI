@@ -53,8 +53,7 @@ export async function deletarUsuario(token) {
 
     if (!resposta.ok) {
       const erro = await resposta.json();
-      console.log("Erro:", erro.message);
-      mensagemOk("Não foi possivel deletar o usuario");
+      mensagemOk("Não foi possivel deletar o usuario: ");
       return;
     }
 
