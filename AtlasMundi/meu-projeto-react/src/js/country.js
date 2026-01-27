@@ -16,7 +16,7 @@ export async function pegarPais(name, inEnglish) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      mensagemOk("erro")
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
 
@@ -54,7 +54,7 @@ export async function RegistrarPais(name, quickInfo, url, politics, history, cul
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      mensagemOk("Erro ao registrar pais.");
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
 
@@ -81,7 +81,7 @@ export async function DeletarPais(name, token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      mensagemOk("Erro ao deletar pais.");
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
 
@@ -115,7 +115,7 @@ export async function AtualizarPais(name, url, politics, history, culture, inEng
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      mensagemOk("Erro ao atualizar pais.");
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
 

@@ -27,7 +27,7 @@ export async function atualizarUsuario(name, email, password, cpf, token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      mensagemOk("Não foi possivel atualizar o usuario");
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
 
@@ -53,7 +53,7 @@ export async function deletarUsuario(token) {
 
     if (!resposta.ok) {
       const erro = await resposta.json();
-      mensagemOk("Não foi possivel deletar o usuario: ");
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
 
@@ -78,6 +78,7 @@ export async function getarUsuario(token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
+      mensagemOk(`Erro: ${erro.message}`)
       return;
     }
     return data;
