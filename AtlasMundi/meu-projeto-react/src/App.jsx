@@ -217,7 +217,7 @@ const App = () => {
               key={english ? "en" : "pt"}
               center={[25, 0]}
               zoom={3}
-              minZoom={2}
+              minZoom={3}
               maxBounds={[
                 [-90, -180],
                 [90, 180],
