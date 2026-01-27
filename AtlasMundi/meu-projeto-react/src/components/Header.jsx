@@ -3,10 +3,20 @@ import "./Header.css";
 import logo from "../assets/logo.png";
 import icon from "../assets/search.png";
 import menuIcon from "../assets/menu.png";
-import { Modal, Box, Typography, TextField, Button, Tabs, Tab, Autocomplete } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Tabs,
+  Tab,
+  Autocomplete
+} from "@mui/material";
+
 import MenuInfo from "./MenuInfo";
 import Usuario from "./Usuario";
-import { login, register } from './../js/auth';
+import { login, register } from "./../js/auth";
 
 function Header({ onSearch, english, toggleLanguage }) {
   const [openLogin, setOpenLogin] = useState(false);
@@ -15,11 +25,13 @@ function Header({ onSearch, english, toggleLanguage }) {
   const [options, setOptions] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openUsuario, setOpenUsuario] = useState(false);
-  const [nome, setNome] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [senha, setSenha] = useState(null)
-  const [CSenha, setCSenha] = useState(null)
-  const [cpf, setCPF] = useState(null)
+
+  // campos
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [CSenha, setCSenha] = useState("");
+  const [cpf, setCPF] = useState("");
 
   const modalStyle = {
     position: "absolute",
@@ -33,18 +45,38 @@ function Header({ onSearch, english, toggleLanguage }) {
     p: 4
   };
 
-  // Carregar lista de países
+  /* =========================
+     🔥 FUNÇÃO CHAVE
+     Cadastro → Login
+  ========================= */
+  async function handleRegisterSubmit(data, senhas) {
+    const result = await register(data, senhas);
+
+    if (result) {
+      setOpenRegister(false); // fecha cadastro
+      setOpenLogin(true);    // abre login
+    }
+  }
+
+  // carregar países
   useEffect(() => {
     fetch("/custom.geo.json")
       .then(res => res.json())
       .then(data => {
         const list = data.features.map(f => {
-          const name = f.properties[`admin_${english ? "en" : "pt"}`]|| f.properties[`name_${english ? "en" : "pt"}`] || f.properties.name;
+          const name =
+            f.properties[`admin_${english ? "en" : "pt"}`] ||
+            f.properties[`name_${english ? "en" : "pt"}`] ||
+            f.properties.name;
+
           const iso = f.properties.iso_a2;
+
           return {
             label: name,
             iso,
-            flag: iso ? `https://flagcdn.com/w20/${iso.toLowerCase()}.png` : null
+            flag: iso
+              ? `https://flagcdn.com/w20/${iso.toLowerCase()}.png`
+              : null
           };
         });
         setOptions(list);
@@ -58,91 +90,176 @@ function Header({ onSearch, english, toggleLanguage }) {
         <div className="logo-header">
           <img src={logo} alt="Logo" />
         </div>
-        
+
         <div className="search-container">
           <img src={icon} className="icony" alt="Search Icon" />
           <Autocomplete
             options={options}
-            sx={{ width: 280, backgroundColor: "white", borderRadius: "20px", "& .MuiOutlinedInput-root": { padding: "2px 8px" } }}
+            sx={{
+              width: 280,
+              backgroundColor: "white",
+              borderRadius: "20px"
+            }}
             getOptionLabel={option => option.label}
             renderOption={(props, option) => (
               <li {...props}>
-                {option.flag && <img loading="lazy" width="20" src={option.flag} alt="" style={{ marginRight: 8, borderRadius: "3px" }} />}
+                {option.flag && (
+                  <img
+                    width="20"
+                    src={option.flag}
+                    alt=""
+                    style={{ marginRight: 8, borderRadius: "3px" }}
+                  />
+                )}
                 {option.label}
               </li>
             )}
             renderInput={params => (
               <TextField
                 {...params}
-                placeholder={english ? "Search":"Pesquisar..."}
+                placeholder={english ? "Search" : "Pesquisar..."}
                 size="small"
-                variant="outlined"
-                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "20px", fontSize: "0.9rem" } }}
               />
             )}
-            onChange={(e, value) => value && onSearch && onSearch(value.label)}
+            onChange={(e, value) =>
+              value && onSearch && onSearch(value.label)
+            }
           />
         </div>
-        <button className="menu-toggle" onClick={() => setMenuOpen(true)} aria-label="Abrir menu">
+
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen(true)}
+        >
           <img src={menuIcon} alt="menu" />
         </button>
       </div>
+
       {menuOpen && (
         <MenuInfo
           onClose={() => setMenuOpen(false)}
-          onLoginClick={() => { setMenuOpen(false); setOpenLogin(true); }}
-          onRegisterClick={() => { setMenuOpen(false); setOpenRegister(true); }}
-          onUserClick={() => { setMenuOpen(false); setOpenUsuario(true); }}
+          onLoginClick={() => {
+            setMenuOpen(false);
+            setOpenLogin(true);
+          }}
+          onRegisterClick={() => {
+            setMenuOpen(false);
+            setOpenRegister(true);
+          }}
+          onUserClick={() => {
+            setMenuOpen(false);
+            setOpenUsuario(true);
+          }}
           english={english}
           toggleLanguage={toggleLanguage}
         />
       )}
+
+      {/* LOGIN */}
       <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom>{english ? "Login":"Logar"}</Typography>
-          <form className="auth-form">
-            <TextField onChange={(e) => setEmail(e.target.value)} label="Email" variant="outlined" fullWidth size="small" margin="dense" />
-            <TextField onChange={(e) => setSenha(e.target.value)} label={english ? "Password":"Senha"} type="password" variant="outlined" fullWidth size="small" margin="dense" />
-            <Button onClick={() => { login(email, senha); setOpenLogin(false) }} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
-            <Button onClick={() => setOpenLogin(false)} fullWidth>{english ? "Close":"Fechar"}</Button>
-          </form>
+          <Typography variant="h6">
+            {english ? "Login" : "Logar"}
+          </Typography>
+
+          <TextField
+            label="Email"
+            fullWidth
+            size="small"
+            margin="dense"
+            onChange={e => setEmail(e.target.value)}
+          />
+
+          <TextField
+            label={english ? "Password" : "Senha"}
+            type="password"
+            fullWidth
+            size="small"
+            margin="dense"
+            onChange={e => setSenha(e.target.value)}
+          />
+
+          <Button
+            onClick={() => {
+              login(email, senha);
+              setOpenLogin(false);
+            }}
+            variant="contained"
+            fullWidth
+          >
+            {english ? "Send" : "Enviar"}
+          </Button>
         </Box>
       </Modal>
+
+      {/* REGISTER */}
       <Modal open={openRegister} onClose={() => setOpenRegister(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom>{english ? "Register":"Cadastrar"}</Typography>
-          <Tabs value={registerTab} onChange={(e, val) => setRegisterTab(val)} centered>
-            <Tab label={english ? "Student":"Aluno"} />
-            <Tab label={english ? "Teacher":"Professor"} />
+          <Typography variant="h6">
+            {english ? "Register" : "Cadastrar"}
+          </Typography>
+
+          <Tabs
+            value={registerTab}
+            onChange={(e, v) => setRegisterTab(v)}
+            centered
+          >
+            <Tab label={english ? "Student" : "Aluno"} />
+            <Tab label={english ? "Teacher" : "Professor"} />
           </Tabs>
+
           {registerTab === 0 && (
-            <form className="auth-form">
-              <TextField onChange={(e) => setNome(e.target.value)} label={english ? "Name":"Nome"} fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setEmail(e.target.value)} label="Email" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setSenha(e.target.value)} label={english ? "Password":"Senha"} type="password" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setCSenha(e.target.value)} label={english ? "Confirm Password":"Confirmar Senha"} type="password" fullWidth size="small" margin="dense" />
-              <Button onClick={() => { register({ "name": nome, "email": email, "password": senha }, [senha, CSenha]); setOpenRegister(false) }} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
-              <Button onClick={() => setOpenRegister(false)} fullWidth>{english ? "Close":"Fechar"}</Button>
-            </form>
+            <>
+              <TextField label="Nome" fullWidth size="small" margin="dense" onChange={e => setNome(e.target.value)} />
+              <TextField label="Email" fullWidth size="small" margin="dense" onChange={e => setEmail(e.target.value)} />
+              <TextField label="Senha" type="password" fullWidth size="small" margin="dense" onChange={e => setSenha(e.target.value)} />
+              <TextField label="Confirmar Senha" type="password" fullWidth size="small" margin="dense" onChange={e => setCSenha(e.target.value)} />
+
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() =>
+                  handleRegisterSubmit(
+                    { name: nome, email, password: senha },
+                    [senha, CSenha]
+                  )
+                }
+              >
+                {english ? "Send" : "Enviar"}
+              </Button>
+            </>
           )}
+
           {registerTab === 1 && (
-            <form className="auth-form">
-              <TextField onChange={(e) => setNome(e.target.value)} label={english ? "Name":"Nome"} fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setEmail(e.target.value)} label="Email" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setCPF(e.target.value)} label="CPF" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setSenha(e.target.value)} label={english ? "Password":"Senha"} type="password" fullWidth size="small" margin="dense" />
-              <TextField onChange={(e) => setCSenha(e.target.value)} label={english ? "Confirm Password":"Confirmar Senha"} type="password" fullWidth size="small" margin="dense" />
-              <Button onClick={() => { register({ "name": nome, "email": email, "password": senha, "cpf": cpf }, [senha, CSenha]); setOpenRegister(false) }} variant="contained" color="primary" fullWidth>{english ? "Send":"Enviar"}</Button>
-              <Button onClick={() => setOpenRegister(false)} fullWidth>{english ? "Close":"Fechar"}</Button>
-            </form>
+            <>
+              <TextField label="Nome" fullWidth size="small" margin="dense" onChange={e => setNome(e.target.value)} />
+              <TextField label="Email" fullWidth size="small" margin="dense" onChange={e => setEmail(e.target.value)} />
+              <TextField label="CPF" fullWidth size="small" margin="dense" onChange={e => setCPF(e.target.value)} />
+              <TextField label="Senha" type="password" fullWidth size="small" margin="dense" onChange={e => setSenha(e.target.value)} />
+              <TextField label="Confirmar Senha" type="password" fullWidth size="small" margin="dense" onChange={e => setCSenha(e.target.value)} />
+
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() =>
+                  handleRegisterSubmit(
+                    { name: nome, email, password: senha, cpf },
+                    [senha, CSenha]
+                  )
+                }
+              >
+                {english ? "Send" : "Enviar"}
+              </Button>
+            </>
           )}
         </Box>
       </Modal>
+
       {openUsuario && (
         <Usuario onClose={() => setOpenUsuario(false)} english={english} />
       )}
-
     </header>
   );
 }
+
 export default Header;

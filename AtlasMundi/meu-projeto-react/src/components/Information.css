@@ -4,7 +4,7 @@
   right: 0;
   width: 350px;
   min-height: 88.2vh;
-  background-color: rgba(245, 245, 220, 0.35);
+  background-color: rgb(245, 245, 220);
   color: black;
   padding: 20px;
 
@@ -99,7 +99,6 @@
   }
 }
 
-/* MOBILE */
 @media (max-width: 480px) {
   .info {
     top: 64px;

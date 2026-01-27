@@ -4,74 +4,67 @@ export async function login(email, password) {
     const resposta = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: email,
-        password: password
-      })
-    });
-
-    if (!resposta.ok) {
-      const erro = await resposta.json();
-      console.log("Erro:", erro.message);
-      mensagemOk("Não foi possivel fazer o login.");
-      return;
-    }
-
-    const data = await resposta.json();
-    console.log("Usuário:", data.user);
-    console.log("Token:", data.token);
-
-    // salvando o token
-    localStorage.setItem("token", data.token);
-    console.log("Token salvo:", data.token);
-
-    mensagemOk("Bem vindo "+ data.user.name + "!");
-
-    return data;
-  } catch (e) {
-    console.log("Falha geral:", e);
-  }
-}
-
-
-
-export async function register(data,senhas) {
-  if(senhas[0]!=senhas[1]){return null}
-  try {
-    const resposta = await fetch("http://localhost:3000/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+        password: password,
+      }),
     });
 
     const json = await resposta.json();
 
     if (!resposta.ok) {
       console.log("Erro:", json.message);
-      mensagemOk("Não foi possivel registrar o usuario.");
+      mensagemOk("Não foi possível fazer o login.");
       return null;
     }
-    
-    // salvando o token
-    localStorage.setItem("token", data.token);
-    console.log("Token salvo:", data.token);
+    localStorage.setItem("token", json.token);
+    console.log("Token salvo:", json.token);
 
-    console.log("Usuário criado:", json.user);
-    console.log("Token:", json.token);
-
-    mensagemOk("Usuario registrado com sucesso.");
+    mensagemOk("Bem-vindo " + json.user.name + "!");
 
     return json;
   } catch (e) {
     console.log("Falha geral:", e);
+    mensagemOk("Erro ao tentar fazer login.");
     return null;
   }
 }
 
 
+export async function register(data, senhas) {
 
+  if (senhas[0] !== senhas[1]) {
+    mensagemOk("As senhas não coincidem.");
+    return null;
+  }
 
+  try {
+    const resposta = await fetch("http://localhost:3000/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const json = await resposta.json();
+
+    if (!resposta.ok) {
+      console.log("Erro:", json.message);
+      mensagemOk("Não foi possível registrar o usuário.");
+      return null;
+    }
+
+    console.log("Usuário criado:", json.user);
+
+    mensagemOk("Usuário registrado com sucesso!");
+
+    return json;
+  } catch (e) {
+    console.log("Falha geral:", e);
+    mensagemOk("Erro ao tentar registrar.");
+    return null;
+  }
+}

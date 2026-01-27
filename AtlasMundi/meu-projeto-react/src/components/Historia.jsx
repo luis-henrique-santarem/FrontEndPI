@@ -6,13 +6,14 @@ import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
 import bgImage from "../assets/mundomuitofoda.png";
 import locationIcon from "../assets/location.png";
+import mapaBrasil from "../assets/mapabrasil.png";
 
 export default function Historia({ pais, flagUrl, english }) {
   const [openComment, setOpenComment] = useState(false);
   const [comment, setComment] = useState("");
   const [historia, setHistoria] = useState("");
   const [imgIndex, setImgIndex] = useState(0);
-  const [images, setImgs] = useState([]); // ✅ declarar aqui
+  const [images, setImgs] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -24,14 +25,13 @@ export default function Historia({ pais, flagUrl, english }) {
         `${paisPego?.history ?? ""} ${paisPego?.history2 ?? ""}`
       );
 
-      // ✅ monta array de imagens válido e filtra undefined
       const imgs = [flagUrl, paisPego?.pictureUrl].filter(Boolean);
       setImgs(imgs);
-      setImgIndex(0); // reset seguro
+      setImgIndex(0);
 
       return paisPego.id;
     } catch (e) {
-      console.log("erro", e);
+      console.log("Erro:", e);
     }
   }
 
@@ -75,24 +75,39 @@ export default function Historia({ pais, flagUrl, english }) {
 
   return (
     <div className="historia-page">
+      {/* Fundo do globo */}
       <div
         className="historia-background"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
+
+      {/* Mapa do Brasil decorativo */}
+      <img
+        src={mapaBrasil}
+        alt="Mapa do Brasil"
+        className="mapa-brasil"
+      />
+
+      {/* Botão voltar */}
       <Link to="/" className="btn-back">
         {english ? "← Return" : "← Voltar"}
       </Link>
 
+      {/* Card lateral */}
       <aside className="country-card">
         <h2 className="country-title">
-          <img src={locationIcon} alt="Localização" className="location-icon" />
+          <img
+            src={locationIcon}
+            alt="Localização"
+            className="location-icon"
+          />
           {pais}
         </h2>
 
         {images.length > 0 && (
           <div className="carousel">
             <button onClick={prevImage} className="carousel-btn">‹</button>
-            <img src={images[imgIndex]} alt="Lugar do país" />
+            <img src={images[imgIndex]} alt="Imagem do país" />
             <button onClick={nextImage} className="carousel-btn">›</button>
           </div>
         )}
@@ -106,22 +121,34 @@ export default function Historia({ pais, flagUrl, english }) {
           <Link to="/politica" className="btn-blue">
             {english ? "Politics" : "Política"}
           </Link>
+
           <Link to="/cultura" className="btn-blue">
             {english ? "Culture" : "Cultura"}
           </Link>
+
           <Link to="/comentarios" className="btn-link">
             {english ? "See Comments" : "Ver comentários"}
           </Link>
-          <button className="btn-blue" onClick={() => setOpenComment(true)}>
+
+          <button
+            className="btn-blue"
+            onClick={() => setOpenComment(true)}
+          >
             {english ? "Make Comment" : "Deixar comentário"}
           </button>
         </div>
       </aside>
 
+      {/* Bandeira fixa */}
       {flagUrl && (
-        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
+        <img
+          src={flagUrl}
+          alt={`Bandeira de ${pais}`}
+          className="fixed-flag"
+        />
       )}
 
+      {/* Modal de comentário */}
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>

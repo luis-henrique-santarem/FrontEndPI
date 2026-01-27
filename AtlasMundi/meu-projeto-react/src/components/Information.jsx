@@ -12,7 +12,6 @@ function Information({ nome, flagUrl, onClose, isEnglish }) {
     return () => clearTimeout(timer);
   }, []);
 
-  // Bloqueia scroll quando o modal está aberto
   useEffect(() => {
     document.body.style.overflow = openConfig ? "hidden" : "auto";
     return () => (document.body.style.overflow = "auto");
@@ -20,7 +19,6 @@ function Information({ nome, flagUrl, onClose, isEnglish }) {
 
   return (
     <>
-      {/* SIDEBAR / CARD */}
       {!openConfig && (
         <div className={`info ${visible ? "show" : ""}`}>
           <button onClick={onClose} className="close-btn">X</button>
@@ -63,8 +61,6 @@ function Information({ nome, flagUrl, onClose, isEnglish }) {
           </div>
         </div>
       )}
-
-      {/* MODAL */}
       {openConfig && (
         <CriarPais
           pais={nome}

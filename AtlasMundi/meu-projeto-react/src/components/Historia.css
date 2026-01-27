@@ -173,6 +173,19 @@ html, body {
   background: rgba(20, 82, 197, 0.95);
 }
 
+.mapa-brasil {
+  position: fixed;
+  left: 12%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 570px;
+  opacity: 0.65;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 25px rgba(20, 82, 197, 0.6));
+}
+
+
 @media (max-width: 768px) {
   .historia-page {
     justify-content: center;
@@ -190,5 +203,16 @@ html, body {
     width: 80px;
   }
 }
+
+@media (max-width: 768px) {
+  .mapa-brasil {
+    width: 300px;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+  }
+}
+
 
 
