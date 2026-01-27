@@ -214,30 +214,34 @@ const App = () => {
             <div style={{ position: "relative" }}>
               {showSplash && <Splash onFinish={() => setShowSplash(false)} />}
               <MapContainer
-                key={english ? "en" : "pt"}
-                center={[25, 0]}
-                zoom={3}
-                minZoom={2}
-                maxBounds={[
-                  [-100, -180],
-                  [100, 180],
-                ]}
-                style={{ height: "94vh", width: "100%" }}
-                whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
-                zoomControl={false}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              key={english ? "en" : "pt"}
+              center={[25, 0]}
+              zoom={3}
+              minZoom={2}
+              maxBounds={[
+                [-90, -180],
+                [90, 180],
+              ]}
+              style={{ height: "94vh", width: "100%" }}
+              whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
+              zoomControl={false}
+              worldCopyJump={false}
+              maxBoundsViscosity={1}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                noWrap={true}
+              />
+              {geoData && (
+                <GeoJSON
+                  data={geoData}
+                  style={countryStyle}
+                  onEachFeature={onEachCountry}
                 />
-                {geoData && (
-                  <GeoJSON
-                    data={geoData}
-                    style={countryStyle}
-                    onEachFeature={onEachCountry}
-                  />
-                )}
-              </MapContainer>
+              )}
+            </MapContainer>
+
               {showInfo && (
                 <Information
                   nome={nomePais}
