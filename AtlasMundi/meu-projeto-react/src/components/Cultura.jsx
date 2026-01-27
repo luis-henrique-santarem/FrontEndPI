@@ -4,10 +4,9 @@ import "./Cultura.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
-
-import bgImage from "../assets/mundomuitofoda.png";
-import locationIcon from "../assets/location.png";
-
+import bgImage from "../assets/mundomuitofoda.png"; 
+import locationIcon from "../assets/location.png"; 
+import mapaBrasil from "../assets/mapabrasil.png"; 
 export default function Cultura({ pais, flagUrl, english }) {
   const [openComment, setOpenComment] = useState(false);
   const [comment, setComment] = useState("");
@@ -17,17 +16,19 @@ export default function Cultura({ pais, flagUrl, english }) {
 
   const token = localStorage.getItem("token");
 
+  
   async function funcao() {
     try {
       const paisPego = await pegarPais(pais, english);
 
+     
       setCultura(
         `${paisPego?.culture ?? ""} ${paisPego?.culture2 ?? ""}`
       );
 
       const imgs = [flagUrl, paisPego?.pictureUrl].filter(Boolean);
       setImgs(imgs);
-      setImgIndex(0); 
+      setImgIndex(0);
 
       return paisPego.id;
     } catch (e) {
@@ -49,6 +50,7 @@ export default function Cultura({ pais, flagUrl, english }) {
   useEffect(() => {
     funcao();
   }, [pais, english]);
+
 
   const modalStyle = {
     position: "absolute",
@@ -75,11 +77,17 @@ export default function Cultura({ pais, flagUrl, english }) {
 
   return (
     <div className="cultura-page">
+    
       <div
         className="cultura-background"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
 
+      <img
+        src={mapaBrasil}
+        alt="Mapa do Brasil"
+        className="mapa-brasil"
+      />
       <Link to="/" className="btn-back">
         {english ? "← Return" : "← Voltar"}
       </Link>
@@ -87,9 +95,8 @@ export default function Cultura({ pais, flagUrl, english }) {
       <aside className="country-card">
         <h2 className="country-title">
           <img src={locationIcon} alt="Localização" className="location-icon" />
-          {english ? "Culture" : "Cultura"}
+          {pais}
         </h2>
-
         {images.length > 0 && (
           <div className="carousel">
             <button onClick={prevImage} className="carousel-btn">‹</button>
@@ -119,10 +126,16 @@ export default function Cultura({ pais, flagUrl, english }) {
         </div>
       </aside>
 
+      {/* Bandeira fixa */}
       {flagUrl && (
-        <img src={flagUrl} alt={`Bandeira de ${pais}`} className="fixed-flag" />
+        <img
+          src={flagUrl}
+          alt={`Bandeira de ${pais}`}
+          className="fixed-flag"
+        />
       )}
 
+      {/* Modal de comentário */}
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>
