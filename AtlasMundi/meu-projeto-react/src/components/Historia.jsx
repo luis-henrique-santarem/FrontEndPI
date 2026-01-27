@@ -75,25 +75,18 @@ export default function Historia({ pais, flagUrl, english }) {
 
   return (
     <div className="historia-page">
-      {/* Fundo do globo */}
       <div
         className="historia-background"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
-
-      {/* Mapa do Brasil decorativo */}
       <img
         src={mapaBrasil}
         alt="Mapa do Brasil"
         className="mapa-brasil"
       />
-
-      {/* Botão voltar */}
       <Link to="/" className="btn-back">
         {english ? "← Return" : "← Voltar"}
       </Link>
-
-      {/* Card lateral */}
       <aside className="country-card">
         <h2 className="country-title">
           <img
@@ -138,8 +131,6 @@ export default function Historia({ pais, flagUrl, english }) {
           </button>
         </div>
       </aside>
-
-      {/* Bandeira fixa */}
       {flagUrl && (
         <img
           src={flagUrl}
@@ -147,8 +138,6 @@ export default function Historia({ pais, flagUrl, english }) {
           className="fixed-flag"
         />
       )}
-
-      {/* Modal de comentário */}
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>
@@ -167,7 +156,6 @@ export default function Historia({ pais, flagUrl, english }) {
               style: { backgroundColor: "white", borderRadius: 6 },
             }}
           />
-
           <Button
             onClick={comentar}
             variant="contained"
