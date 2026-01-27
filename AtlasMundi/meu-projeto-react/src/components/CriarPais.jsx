@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Modal, Box, Typography, TextField, Button, hexToRgb } from "@mui/material";
 import { AtualizarPais, DeletarPais, RegistrarPais } from "../js/country";
+import { pegarPais } from "../js/country";
 
 const CriarPais = ({ pais, onClose, english }) => {
     const [politica, setPolitica] = useState("");
@@ -9,6 +10,26 @@ const CriarPais = ({ pais, onClose, english }) => {
     const [cultura, setCultura] = useState("");
     const [fonteConfia, setFonteConfia] = useState("");
     const [url, setUrl] = useState("")
+
+
+    async function funcaoInicio() {
+        try {
+      const paisPego = await pegarPais(pais, english);
+      if(paisPego){
+        setPolitica(paisPego.politics)
+        setCultura(paisPego.culture)
+        setHistoria(paisPego.history)
+        setFonteConfia(paisPego.sources)
+        setUrl(paisPego.pictureUrl)
+      }
+    }catch(e){
+        console.log("pais não cadastrado")
+    }
+    }
+
+    useEffect(() => {
+    funcaoInicio()
+    }, [])
 
     const modalStyle = {
         position: "absolute",
@@ -43,11 +64,11 @@ const CriarPais = ({ pais, onClose, english }) => {
                         <Typography variant="h6" gutterBottom>{english ? "Create Country":"Editar País"}</Typography>
         
                         <form className="usuario-form">
-                            <TextField onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Política"} fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}  />
-                            <TextField onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}/>
-                            <TextField onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}/>
-                            <TextField onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense" />
-                            <TextField onChange={(e) => setUrl(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense" />
+                            <TextField value={politica} onChange={(e) => setPolitica(e.target.value)} label={english ? "Politics" : "Política"} fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}  />
+                            <TextField value={historia} onChange={(e) => setHistoria(e.target.value)} label={english ? "History" : "Historia"}  fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}/>
+                            <TextField value={cultura} onChange={(e) => setCultura(e.target.value)} label={english ? "Culture" : "Cultura"}  fullWidth size="small" margin="dense" multiline minRows={1} maxRows={3}/>
+                            <TextField value={fonteConfia} onChange={(e) => setFonteConfia(e.target.value)} label={english ? "Source" : "Fonte"}  fullWidth size="small" margin="dense" />
+                            <TextField value={url} onChange={(e) => setUrl(e.target.value)} label={english ? "ImageURl" : "ImagemURl"}  fullWidth size="small" margin="dense" />
                             
                             <div className="usuario-buttons">
                                 <Button onClick={() => {handleRegistrarPais()}} variant="contained" color="primary" fullWidth >{english ? "Register" : "Registrar"}</Button>
