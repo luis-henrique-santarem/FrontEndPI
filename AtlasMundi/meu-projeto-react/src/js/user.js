@@ -78,15 +78,19 @@ export async function getarUsuario(token) {
     if (!resposta.ok) {
       const erro = await resposta.json();
       console.log("Erro:", erro.message);
-      mensagemOk(`Erro: ${erro.message}`)
-      return;
+      return null;
     }
+
+    const data = await resposta.json(); 
     return data;
+
   } catch (e) {
     console.log("Falha geral:", e);
+    return null;
   }
 }
 
-export async function Deslogar() {
+
+export async function deslogar() {
   localStorage.setItem("token", "");
 }

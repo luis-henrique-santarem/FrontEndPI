@@ -3,6 +3,7 @@ import "./Header.css";
 import logo from "../assets/logo.png";
 import icon from "../assets/search.png";
 import menuIcon from "../assets/menu.png";
+import PerfilIcon from "../assets/perfil.png";
 import {
   Modal,
   Box,
@@ -15,6 +16,7 @@ import {
 } from "@mui/material";
 
 import MenuInfo from "./MenuInfo";
+import UsuarioInfo from "./UsuarioInfo"
 import Usuario from "./Usuario";
 import { login, register } from "./../js/auth";
 
@@ -25,6 +27,7 @@ function Header({ onSearch, english, toggleLanguage }) {
   const [options, setOptions] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openUsuario, setOpenUsuario] = useState(false);
+  const [openUsuarioInfo, setOpenUsuarioInfo] = useState(false);
 
   // campos
   const [nome, setNome] = useState("");
@@ -127,12 +130,20 @@ function Header({ onSearch, english, toggleLanguage }) {
           />
         </div>
 
-        <button
-          className="menu-toggle"
-          onClick={() => setMenuOpen(true)}
-        >
-          <img src={menuIcon} alt="menu" />
-        </button>
+
+        <div className="perfil-toggle">
+          
+          <button className="menu-toggle" onClick={() => setOpenUsuarioInfo(true)} >
+
+            <img src={PerfilIcon} alt="perfil" />
+          </button>
+
+          <button className="menu-toggle" onClick={() => setMenuOpen(true)} >
+
+            <img src={menuIcon} alt="menu" />
+          </button>
+
+        </div>
       </div>
 
       {menuOpen && (
@@ -257,6 +268,10 @@ function Header({ onSearch, english, toggleLanguage }) {
 
       {openUsuario && (
         <Usuario onClose={() => setOpenUsuario(false)} english={english} />
+      )}
+
+      {openUsuarioInfo && (
+        <UsuarioInfo onClose={() => setOpenUsuarioInfo(false)} english={english} />
       )}
     </header>
   );

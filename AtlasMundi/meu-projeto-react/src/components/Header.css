@@ -40,6 +40,12 @@
   cursor: pointer;
 }
 
+.perfil-toggle {
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+}
+
 .menu-toggle img {
   width: 30px;
   height: 30px;
