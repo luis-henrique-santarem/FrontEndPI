@@ -4,17 +4,67 @@ import "./Politica.css";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
+import bgImage from "../assets/mundomuitofoda.png";
+import locationIcon from "../assets/location.png";
+import mapaAlemanha from "../assets/mapas/alemanha.png";
+import mapaEua from "../assets/mapas/eua.png";
+import mapaBrasil from "../assets/mapas/brasil.png";
+import mapaEspanha from "../assets/mapas/espanha.png";
+import mapaKosovo from "../assets/mapas/kosovo.png";
+import mapaTurquia from "../assets/mapas/turquia.png";
+import mapaChina from "../assets/mapas/china.png";
+import mapaMongolia from "../assets/mapas/mongolia.png";
+import mapaEgito from "../assets/mapas/egito.png";
+import mapaAustralia from "../assets/mapas/australia.png";
 
-import bgImage from "../assets/mundomuitofoda.png"; 
-import locationIcon from "../assets/location.png"; 
-import mapaBrasil from "../assets/mapabrasil.png"; 
+function escolherMapa(pais) {
+  const nome = pais
+    ?.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  if (nome.includes("germany") || nome.includes("alemanha")) return mapaAlemanha;
+
+  if (
+    nome.includes("united states") ||
+    nome.includes("estados unidos") ||
+    nome.includes("america")
+  )
+    return mapaEua;
+
+  if (nome.includes("brazil") || nome.includes("brasil"))
+    return mapaBrasil;
+
+  if (nome.includes("spain") || nome.includes("espanha"))
+    return mapaEspanha;
+
+  if (nome.includes("kosovo"))
+    return mapaKosovo;
+
+  if (nome.includes("turkey") || nome.includes("turquia"))
+    return mapaTurquia;
+
+  if (nome.includes("china"))
+    return mapaChina;
+
+  if (nome.includes("mongolia") || nome.includes("mongolia"))
+    return mapaMongolia;
+
+  if (nome.includes("egypt") || nome.includes("egito"))
+    return mapaEgito;
+
+  if (nome.includes("australia"))
+    return mapaAustralia;
+
+  return null;
+}
 
 export default function Politica({ pais, flagUrl, english }) {
   const [openComment, setOpenComment] = useState(false);
   const [comment, setComment] = useState("");
   const [politica, setPolitica] = useState("");
   const [imgIndex, setImgIndex] = useState(0);
-  const [images, setImgs] = useState([]); 
+  const [images, setImgs] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -27,7 +77,7 @@ export default function Politica({ pais, flagUrl, english }) {
       );
       const imgs = [flagUrl, paisPego?.pictureUrl].filter(Boolean);
       setImgs(imgs);
-      setImgIndex(0); 
+      setImgIndex(0);
 
       return paisPego.id;
     } catch (e) {
@@ -62,10 +112,12 @@ export default function Politica({ pais, flagUrl, english }) {
     boxShadow: 24,
     p: 4,
   };
+
   const nextImage = () => {
     if (images.length <= 1) return;
     setImgIndex((prev) => (prev + 1) % images.length);
   };
+
   const prevImage = () => {
     if (images.length <= 1) return;
     setImgIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -77,19 +129,25 @@ export default function Politica({ pais, flagUrl, english }) {
         className="politica-background"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
-      <img
-        src={mapaBrasil}
-        alt="Mapa do Brasil"
-        className="mapa-brasil"
-      />
+
+      {escolherMapa(pais) && (
+        <img
+          src={escolherMapa(pais)}
+          alt={`Mapa de ${pais}`}
+          className="mapa-brasil"
+        />
+      )}
+
       <Link to="/" className="btn-back">
         {english ? "← Return" : "← Voltar"}
       </Link>
+
       <aside className="country-card">
         <h2 className="country-title">
           <img src={locationIcon} alt="Localização" className="location-icon" />
           {pais}
         </h2>
+
         {images.length > 0 && (
           <div className="carousel">
             <button onClick={prevImage} className="carousel-btn">‹</button>
@@ -118,6 +176,7 @@ export default function Politica({ pais, flagUrl, english }) {
           </button>
         </div>
       </aside>
+
       {flagUrl && (
         <img
           src={flagUrl}
@@ -125,6 +184,7 @@ export default function Politica({ pais, flagUrl, english }) {
           className="fixed-flag"
         />
       )}
+
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>

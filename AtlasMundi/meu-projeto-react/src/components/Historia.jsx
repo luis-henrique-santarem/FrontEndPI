@@ -6,7 +6,58 @@ import { pegarPais } from "../js/country";
 import { createComment } from "../js/comment";
 import bgImage from "../assets/mundomuitofoda.png";
 import locationIcon from "../assets/location.png";
-import mapaBrasil from "../assets/mapabrasil.png";
+import mapaAlemanha from "../assets/mapas/alemanha.png";
+import mapaEua from "../assets/mapas/eua.png";
+import mapaBrasil from "../assets/mapas/brasil.png";
+import mapaEspanha from "../assets/mapas/espanha.png";
+import mapaKosovo from "../assets/mapas/kosovo.png";
+import mapaTurquia from "../assets/mapas/turquia.png";
+import mapaChina from "../assets/mapas/china.png";
+import mapaMongolia from "../assets/mapas/mongolia.png";
+import mapaEgito from "../assets/mapas/egito.png";
+import mapaAustralia from "../assets/mapas/australia.png";
+
+function escolherMapa(pais) {
+  const nome = pais
+    ?.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  if (nome.includes("germany") || nome.includes("alemanha")) return mapaAlemanha;
+
+  if (
+    nome.includes("united states") ||
+    nome.includes("estados unidos") ||
+    nome.includes("america")
+  )
+    return mapaEua;
+
+  if (nome.includes("brazil") || nome.includes("brasil"))
+    return mapaBrasil;
+
+  if (nome.includes("spain") || nome.includes("espanha"))
+    return mapaEspanha;
+
+  if (nome.includes("kosovo"))
+    return mapaKosovo;
+
+  if (nome.includes("turkey") || nome.includes("turquia"))
+    return mapaTurquia;
+
+  if (nome.includes("china"))
+    return mapaChina;
+
+  if (nome.includes("mongolia"))
+    return mapaMongolia;
+
+  if (nome.includes("egypt") || nome.includes("egito"))
+    return mapaEgito;
+
+  if (nome.includes("australia"))
+    return mapaAustralia;
+
+  return null;
+}
 
 export default function Historia({ pais, flagUrl, english }) {
   const [openComment, setOpenComment] = useState(false);
@@ -79,14 +130,19 @@ export default function Historia({ pais, flagUrl, english }) {
         className="historia-background"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
-      <img
-        src={mapaBrasil}
-        alt="Mapa do Brasil"
-        className="mapa-brasil"
-      />
+
+      {escolherMapa(pais) && (
+        <img
+          src={escolherMapa(pais)}
+          alt={`Mapa de ${pais}`}
+          className="mapa-brasil"
+        />
+      )}
+
       <Link to="/" className="btn-back">
         {english ? "← Return" : "← Voltar"}
       </Link>
+
       <aside className="country-card">
         <h2 className="country-title">
           <img
@@ -131,6 +187,7 @@ export default function Historia({ pais, flagUrl, english }) {
           </button>
         </div>
       </aside>
+
       {flagUrl && (
         <img
           src={flagUrl}
@@ -138,6 +195,7 @@ export default function Historia({ pais, flagUrl, english }) {
           className="fixed-flag"
         />
       )}
+
       <Modal open={openComment} onClose={() => setOpenComment(false)}>
         <Box sx={modalStyle}>
           <Typography variant="h6" gutterBottom>
