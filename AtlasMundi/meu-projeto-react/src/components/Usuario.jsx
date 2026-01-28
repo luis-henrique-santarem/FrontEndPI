@@ -64,7 +64,6 @@ const Usuario = ({ onClose, english }) => {
                     <div className="usuario-buttons">
                         <Button variant="contained" color="primary" fullWidth onClick={handleAtualizar}>{english ? "Update":"Atualizar"}</Button>
                         <Button variant="contained" color="error" fullWidth onClick={handleDeletar}>{english ? "Delete Account":"Deletar Conta"}</Button>
-                        <Button variant="contained" style={{ backgroundColor: "#ddbf13ff" }} fullWidth onClick={handleDeletar}>{english ? "log out":"Deslogar"}</Button>
                         <Button fullWidth onClick={onClose}>{english ? "Close":"Fechar"}</Button>
                     </div>
                 </form>

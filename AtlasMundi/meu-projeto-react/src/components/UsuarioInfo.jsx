@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Box, Typography, Button } from "@mui/material";
+import { Modal, Box, Typography, Button, Divider, Stack, Avatar, } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
 import { deslogar, getarUsuario } from "../js/user";
 
 const CriarPais = ({ onClose, english }) => {
@@ -13,14 +16,13 @@ const CriarPais = ({ onClose, english }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 350,
+    width: 380,
     bgcolor: "background.paper",
-    borderRadius: 2,
+    borderRadius: 3,
     boxShadow: 24,
     p: 4,
   };
 
-  // Função para atualizar as informações do usuário
   async function atualizarInformacoes() {
     try {
       const token = localStorage.getItem("token");
@@ -28,62 +30,85 @@ const CriarPais = ({ onClose, english }) => {
 
       if (!userInformations) {
         setLogado(false);
-        return; // Sai da função se não encontrar informações
+        return;
       }
 
       setLogado(true);
       setNome(userInformations.name);
       setEmail(userInformations.email);
-      setEstado(userInformations.teacher ? "professor" : "Aluno"); // Atualiza estado de forma condicional
+      setEstado(userInformations.teacher ? "Professor" : "Aluno");
     } catch (err) {
       console.log(err);
     }
   }
 
-  // Função para deslogar
   function handleDeslogar() {
     deslogar();
     setLogado(false);
   }
 
-  // Atualiza as informações do usuário quando o componente for montado
   useEffect(() => {
     atualizarInformacoes();
   }, []);
 
   return (
-    <Modal style={{ height: "85vh", position: "absolute", top: 60 }} open={true} onClose={onClose}>
+    <Modal open onClose={onClose}>
       <Box sx={modalStyle}>
-        {/* Renderiza as informações do usuário, caso esteja logado */}
-        {logado ? (
-          <>
-            <div>
-              <label>Nome de usuário: {nome}</label>
-              <br />
-            </div>
-            <div>
-              <label>Email: {email}</label>
-              <br />
-            </div>
-            <div>
-              <label>Você é um {estado}</label>
-              <br />
-            </div>
-          </>
-        ) : (
-          <div>
-            <label>Você não está logado</label>
-            <br />
-          </div>
-        )}
+        <Stack spacing={2} alignItems="center">
+          <Avatar sx={{ width: 64, height: 64 }}>
+            <PersonIcon fontSize="large" />
+          </Avatar>
 
-        {/* Botões */}
-        <Button fullWidth onClick={handleDeslogar}>
-          {english ? "Log out" : "Deslogar"}
-        </Button>
-        <Button fullWidth onClick={onClose}>
-          {english ? "Close" : "Fechar"}
-        </Button>
+          <Typography variant="h6" fontWeight="bold">
+            {english ? "User Profile" : "Perfil do Usuário"}
+          </Typography>
+
+          <Divider sx={{ width: "100%" }} />
+
+          {logado ? (
+            <Stack spacing={1} width="100%">
+              <Typography>
+                <strong>{english ? "Name:" : "Nome:"}</strong> {nome}
+              </Typography>
+              <Typography>
+                <strong>Email:</strong> {email}
+              </Typography>
+              <Typography>
+                <strong>{english ? "Role:" : "Tipo:"}</strong> {estado}
+              </Typography>
+            </Stack>
+          ) : (
+            <Typography color="error">
+              {english
+                ? "You are not logged in"
+                : "Você não está logado"}
+            </Typography>
+          )}
+
+          <Divider sx={{ width: "100%", mt: 1 }} />
+
+          <Stack spacing={1} width="100%">
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<LogoutIcon />}
+              fullWidth
+              onClick={handleDeslogar}
+              disabled={!logado}
+            >
+              {english ? "Log out" : "Deslogar"}
+            </Button>
+
+            <Button
+              variant="outlined"
+              startIcon={<CloseIcon />}
+              fullWidth
+              onClick={onClose}
+            >
+              {english ? "Close" : "Fechar"}
+            </Button>
+          </Stack>
+        </Stack>
       </Box>
     </Modal>
   );
