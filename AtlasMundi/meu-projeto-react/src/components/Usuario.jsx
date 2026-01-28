@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
-import { atualizarUsuario as atualizarUsuarioAPI, deletarUsuario} from "../js/user";
+import { atualizarUsuario as atualizarUsuarioAPI, deletarUsuario, getarUsuario} from "../js/user";
 import "./Usuario.css";
 
 const Usuario = ({ onClose, english }) => {
@@ -21,6 +21,23 @@ const Usuario = ({ onClose, english }) => {
         boxShadow: 24,
         p: 4
     };
+
+     async function funcaoInicio(){
+        try{
+            const token = localStorage.getItem("token");
+            const user = await getarUsuario(token);
+            if(user){
+            setNome(user.name)
+            setEmail(user.email)
+            }
+        }catch(e){
+            console.log("no user found")
+        }
+     }
+
+    useEffect(() =>{
+    funcaoInicio()
+    },[])
 
     async function handleAtualizar() {
         if (novaSenha !== confirmaSenha) {
