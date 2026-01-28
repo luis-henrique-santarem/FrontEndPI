@@ -32,6 +32,9 @@ export async function login(email, password) {
   }
 }
 
+export async function deslogar() {
+    localStorage.removeItem("token")
+}
 
 export async function register(data, senhas) {
 
