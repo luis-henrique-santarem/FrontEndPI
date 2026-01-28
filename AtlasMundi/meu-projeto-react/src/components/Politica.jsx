@@ -134,7 +134,7 @@ export default function Politica({ pais, flagUrl, english }) {
         <img
           src={escolherMapa(pais)}
           alt={`Mapa de ${pais}`}
-          className="mapa-brasil"
+          className="mapa-pais"
         />
       )}
 
