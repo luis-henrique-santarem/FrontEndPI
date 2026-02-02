@@ -135,7 +135,7 @@ export default function Historia({ pais, flagUrl, english }) {
         <img
           src={escolherMapa(pais)}
           alt={`Mapa de ${pais}`}
-          className="mapa-brasil"
+          className="mapa-pais"
         />
       )}
 
