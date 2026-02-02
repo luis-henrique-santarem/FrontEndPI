@@ -9,7 +9,7 @@ export default function Comentarios({pais, english}) {
 
   useEffect(() => {
     async function carregarComentarios() {
-      const paisPego = await pegarPais(pais, false);
+      const paisPego = await pegarPais(pais, english);
       const paisId = paisPego.id;
 
       const comentariosAPI = await getComment(paisId);
